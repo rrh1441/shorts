@@ -1,0 +1,33 @@
+{
+  "name": "shorts",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Standalone animated video shorts generator using Remotion",
+  "scripts": {
+    "generate": "tsx animated-video/index.ts",
+    "render": "tsx renderSegment.ts",
+    "dev": "npm run generate",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@remotion/bundler": "^4.0.340",
+    "@remotion/cli": "^4.0.340",
+    "@remotion/renderer": "^4.0.340",
+    "@tabler/icons-react": "^2.45.0",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.9",
+    "dotenv": "^16.5.0",
+    "framer-motion": "^12.23.9",
+    "openai": "^4.75.1",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "remotion": "^4.0.340",
+    "ts-loader": "^9.5.4",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.8.4"
+  }
+}

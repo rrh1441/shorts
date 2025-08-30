@@ -1,0 +1,28 @@
+{
+  "componentName": "CalloutBox",
+  "props": {
+    "width": 600,
+    "height": 200,
+    "backgroundColor": "#ffffff",
+    "borderColor": "#007bff",
+    "borderWidth": 2,
+    "borderRadius": 10,
+    "padding": 20,
+    "animationType": "fade",
+    "direction": "up",
+    "startAt": 0,
+    "durationInFrames": 45,
+    "icon": {
+      "type": "info",
+      "color": "#007bff",
+      "size": 40
+    },
+    "titleColor": "#1f2937",
+    "titleSize": 18,
+    "shadow": true,
+    "shadowColor": "rgba(0, 0, 0, 0.1)",
+    "variant": "default"
+  },
+  "validated": true,
+  "reasoning": "The CalloutBox is the best choice as it effectively highlights content with bullet points and is suitable for the action-oriented insights provided. It allows for a professional layout and can animate the text entries sequentially, which enhances engagement in a vertical video format."
+}

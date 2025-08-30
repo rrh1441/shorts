@@ -1,0 +1,461 @@
+{
+  "narrative": {
+    "title": "The Productivity Myth of Asynchronous Communication",
+    "totalDuration": 60,
+    "narrative": "Asynchronous communication may seem like the key to productivity, but alone it falls short without effective strategies.",
+    "scenes": [
+      {
+        "sceneNumber": 1,
+        "duration": 10,
+        "purpose": "Hook viewer with statistic",
+        "visualType": "statistic",
+        "content": "70% of remote teams report confusion and delay due to poor communication."
+      },
+      {
+        "sceneNumber": 2,
+        "duration": 10,
+        "purpose": "Introduce the misconception",
+        "visualType": "animation of team members communicating asynchronously",
+        "content": "Many believe asynchronous communication is the ultimate solution for productivity."
+      },
+      {
+        "sceneNumber": 3,
+        "duration": 10,
+        "purpose": "Highlight the limitation",
+        "visualType": "visual metaphor - a clock ticking slowly",
+        "content": "But just because it's flexible doesn't mean it's effective."
+      },
+      {
+        "sceneNumber": 4,
+        "duration": 10,
+        "purpose": "Introduce the solution",
+        "visualType": "brainstorming session animation",
+        "content": "To truly boost productivity, teams must adopt clear guidelines and best practices."
+      },
+      {
+        "sceneNumber": 5,
+        "duration": 10,
+        "purpose": "Provide actionable insights",
+        "visualType": "bullet points appearing on screen",
+        "content": "1. Set clear deadlines 2. Encourage regular check-ins 3. Use collaborative tools effectively."
+      },
+      {
+        "sceneNumber": 6,
+        "duration": 10,
+        "purpose": "Call to action",
+        "visualType": "engaging animation urging viewers to take action",
+        "content": "Transform your remote communication strategy and see the productivity soar!"
+      },
+      {
+        "sceneNumber": 7,
+        "duration": 10,
+        "purpose": "Wrap up with a reminder",
+        "visualType": "summary visual with key points",
+        "content": "Remember, asynchronous communication is just a tool—use it wisely for maximum impact."
+      }
+    ]
+  },
+  "segments": [
+    {
+      "segmentNumber": 1,
+      "duration": 10,
+      "ttsScript": "\"Did you know that 70% of remote teams experience confusion and delays? That’s right, poor communication is a major hurdle in today’s work environment!\"",
+      "componentPath": "output/animated-video/Segment1Component.tsx",
+      "scriptPath": "output/animated-video/segment-1-script.txt",
+      "componentCode": "import React from 'react';\nimport { StatBlock } from '../.././remotion/ui-components/components/StatBlock.tsx';\nimport { useVideoConfig } from 'remotion';\n\nexport const Scene1Component: React.FC = () => {\n  const { fps } = useVideoConfig();\n  \n  const props = {\n  \"stats\": [\n    {\n      \"label\": \"Sample Metric\",\n      \"value\": 42,\n      \"format\": \"number\"\n    }\n  ],\n  \"columns\": 2,\n  \"width\": 800,\n  \"height\": 400,\n  \"backgroundColor\": \"#ffffff\",\n  \"borderColor\": \"#0084ff\",\n  \"showBorder\": true,\n  \"animationType\": \"fadeIn\",\n  \"staggerDelay\": 5,\n  \"startAt\": 0,\n  \"titleColor\": \"#1f2937\",\n  \"statistic\": \"70%\",\n  \"description\": \"of remote teams report confusion and delay due to poor communication.\",\n  \"animationDuration\": 2,\n  \"counterAnimation\": true,\n  \"fontSizeStatistic\": 72,\n  \"fontSizeDescription\": 36,\n  \"textColor\": \"#333333\",\n  \"borderWidth\": 3,\n  \"padding\": 20,\n  \"showIcon\": false,\n  \"displayDuration\": 8\n};\n  \n  return (\n    <div style={{\n      width: 1080,\n      height: 1920,\n      backgroundColor: '#ffffff',\n      display: 'flex',\n      alignItems: 'center',\n      justifyContent: 'center',\n    }}>\n      <StatBlock {...props} />\n    </div>\n  );\n};\n\nexport default Scene1Component;",
+      "componentSpec": {
+        "componentName": "StatBlock",
+        "props": {
+          "stats": [
+            {
+              "label": "Sample Metric",
+              "value": 42,
+              "format": "number"
+            }
+          ],
+          "columns": 2,
+          "width": 800,
+          "height": 400,
+          "backgroundColor": "#ffffff",
+          "borderColor": "#0084ff",
+          "showBorder": true,
+          "animationType": "fadeIn",
+          "staggerDelay": 5,
+          "startAt": 0,
+          "titleColor": "#1f2937",
+          "statistic": "70%",
+          "description": "of remote teams report confusion and delay due to poor communication.",
+          "animationDuration": 2,
+          "counterAnimation": true,
+          "fontSizeStatistic": 72,
+          "fontSizeDescription": 36,
+          "textColor": "#333333",
+          "borderWidth": 3,
+          "padding": 20,
+          "showIcon": false,
+          "displayDuration": 8
+        },
+        "validated": false,
+        "reasoning": "Fallback used due to validation error: [\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"array\",\n    \"received\": \"undefined\",\n    \"path\": [\n      \"stats\"\n    ],\n    \"message\": \"Required\"\n  },\n  {\n    \"received\": \"fadeIn\",\n    \"code\": \"invalid_enum_value\",\n    \"options\": [\n      \"fade\",\n      \"slide\",\n      \"scale\",\n      \"counter\"\n    ],\n    \"path\": [\n      \"animationType\"\n    ],\n    \"message\": \"Invalid enum value. Expected 'fade' | 'slide' | 'scale' | 'counter', received 'fadeIn'\"\n  }\n]"
+      },
+      "timing": {
+        "start": 0,
+        "end": 10
+      },
+      "purpose": "Hook viewer with statistic",
+      "content": "70% of remote teams report confusion and delay due to poor communication.",
+      "videoSpecs": {
+        "format": "vertical",
+        "dimensions": {
+          "width": 1080,
+          "height": 1920
+        },
+        "fps": 30
+      },
+      "audioPath": "output/animated-video/segment-1-audio.mp3"
+    },
+    {
+      "segmentNumber": 2,
+      "duration": 10,
+      "ttsScript": "\"Many people think that asynchronous communication is the *ultimate* solution for productivity. But is it really all it's cracked up to be?\"",
+      "componentPath": "output/animated-video/Segment2Component.tsx",
+      "scriptPath": "output/animated-video/segment-2-script.txt",
+      "componentCode": "import React from 'react';\nimport { CalloutBox } from '../.././remotion/ui-components/components/CalloutBox.tsx';\nimport { useVideoConfig } from 'remotion';\n\nexport const Scene2Component: React.FC = () => {\n  const { fps } = useVideoConfig();\n  \n  const props = {\n  \"children\": \"Sample callout content\",\n  \"width\": 600,\n  \"height\": 200,\n  \"borderWidth\": 2,\n  \"borderRadius\": 12,\n  \"padding\": 20,\n  \"animationType\": \"fadeIn\",\n  \"direction\": \"up\",\n  \"startAt\": 0,\n  \"durationInFrames\": 45,\n  \"titleColor\": \"#1f2937\",\n  \"titleSize\": 18,\n  \"shadow\": true,\n  \"shadowColor\": \"rgba(0, 0, 0, 0.1)\",\n  \"variant\": \"default\",\n  \"backgroundColor\": \"#f9f9f9\",\n  \"borderColor\": \"#ffcc00\",\n  \"icon\": \"🔍\",\n  \"content\": {\n    \"title\": \"Misconception Alert!\",\n    \"text\": \"Many believe asynchronous communication is the ultimate solution for productivity.\",\n    \"textAnimation\": \"slideUp\"\n  },\n  \"duration\": 10,\n  \"margin\": 10,\n  \"textColor\": \"#333333\",\n  \"titleFontSize\": 24,\n  \"textFontSize\": 18,\n  \"titleFontWeight\": \"bold\",\n  \"textAlign\": \"center\"\n};\n  \n  return (\n    <div style={{\n      width: 1080,\n      height: 1920,\n      backgroundColor: '#ffffff',\n      display: 'flex',\n      alignItems: 'center',\n      justifyContent: 'center',\n    }}>\n      <CalloutBox {...props} />\n    </div>\n  );\n};\n\nexport default Scene2Component;",
+      "componentSpec": {
+        "componentName": "CalloutBox",
+        "props": {
+          "children": "Sample callout content",
+          "width": 600,
+          "height": 200,
+          "borderWidth": 2,
+          "borderRadius": 12,
+          "padding": 20,
+          "animationType": "fadeIn",
+          "direction": "up",
+          "startAt": 0,
+          "durationInFrames": 45,
+          "titleColor": "#1f2937",
+          "titleSize": 18,
+          "shadow": true,
+          "shadowColor": "rgba(0, 0, 0, 0.1)",
+          "variant": "default",
+          "backgroundColor": "#f9f9f9",
+          "borderColor": "#ffcc00",
+          "icon": "🔍",
+          "content": {
+            "title": "Misconception Alert!",
+            "text": "Many believe asynchronous communication is the ultimate solution for productivity.",
+            "textAnimation": "slideUp"
+          },
+          "duration": 10,
+          "margin": 10,
+          "textColor": "#333333",
+          "titleFontSize": 24,
+          "textFontSize": 18,
+          "titleFontWeight": "bold",
+          "textAlign": "center"
+        },
+        "validated": false,
+        "reasoning": "Fallback used due to validation error: [\n  {\n    \"received\": \"fadeIn\",\n    \"code\": \"invalid_enum_value\",\n    \"options\": [\n      \"fade\",\n      \"slide\",\n      \"scale\",\n      \"bounce\"\n    ],\n    \"path\": [\n      \"animationType\"\n    ],\n    \"message\": \"Invalid enum value. Expected 'fade' | 'slide' | 'scale' | 'bounce', received 'fadeIn'\"\n  }\n]"
+      },
+      "timing": {
+        "start": 0,
+        "end": 10
+      },
+      "purpose": "Introduce the misconception",
+      "content": "Many believe asynchronous communication is the ultimate solution for productivity.",
+      "videoSpecs": {
+        "format": "vertical",
+        "dimensions": {
+          "width": 1080,
+          "height": 1920
+        },
+        "fps": 30
+      },
+      "audioPath": "output/animated-video/segment-2-audio.mp3"
+    },
+    {
+      "segmentNumber": 3,
+      "duration": 10,
+      "ttsScript": "Just because it's *flexible* doesn't mean it's *effective*. Remember, flexibility alone won't solve our problems. We need real solutions that actually work.",
+      "componentPath": "output/animated-video/Segment3Component.tsx",
+      "scriptPath": "output/animated-video/segment-3-script.txt",
+      "componentCode": "import React from 'react';\nimport { CalloutBox } from '../.././remotion/ui-components/components/CalloutBox.tsx';\nimport { useVideoConfig } from 'remotion';\n\nexport const Scene3Component: React.FC = () => {\n  const { fps } = useVideoConfig();\n  \n  const props = {\n  \"children\": \"Sample callout content\",\n  \"width\": 600,\n  \"height\": 200,\n  \"borderWidth\": 2,\n  \"borderRadius\": \"15px\",\n  \"padding\": \"20px\",\n  \"animationType\": \"fade\",\n  \"direction\": \"up\",\n  \"startAt\": 0,\n  \"durationInFrames\": 45,\n  \"titleColor\": \"#1f2937\",\n  \"titleSize\": 18,\n  \"shadow\": true,\n  \"shadowColor\": \"rgba(0, 0, 0, 0.1)\",\n  \"variant\": \"default\",\n  \"title\": \"Limitations of Flexibility\",\n  \"icon\": \"⏳\",\n  \" // hourglass icon representing time and limitations\": \"But just because it's flexible doesn't mean it's effective.\",\n  \"backgroundColor\": \"#ffcccc\",\n  \"textColor\": \"#333333\",\n  \"duration\": 10,\n  \"animation\": \"fade-in\",\n  \"size\": \"medium\",\n  \"position\": {\n    \"top\": \"40%\",\n    \"left\": \"10%\",\n    \"right\": \"10%\"\n  }\n};\n  \n  return (\n    <div style={{\n      width: 1080,\n      height: 1920,\n      backgroundColor: '#ffffff',\n      display: 'flex',\n      alignItems: 'center',\n      justifyContent: 'center',\n    }}>\n      <CalloutBox {...props} />\n    </div>\n  );\n};\n\nexport default Scene3Component;",
+      "componentSpec": {
+        "componentName": "CalloutBox",
+        "props": {
+          "children": "Sample callout content",
+          "width": 600,
+          "height": 200,
+          "borderWidth": 2,
+          "borderRadius": "15px",
+          "padding": "20px",
+          "animationType": "fade",
+          "direction": "up",
+          "startAt": 0,
+          "durationInFrames": 45,
+          "titleColor": "#1f2937",
+          "titleSize": 18,
+          "shadow": true,
+          "shadowColor": "rgba(0, 0, 0, 0.1)",
+          "variant": "default",
+          "title": "Limitations of Flexibility",
+          "icon": "⏳",
+          " // hourglass icon representing time and limitations": "But just because it's flexible doesn't mean it's effective.",
+          "backgroundColor": "#ffcccc",
+          "textColor": "#333333",
+          "duration": 10,
+          "animation": "fade-in",
+          "size": "medium",
+          "position": {
+            "top": "40%",
+            "left": "10%",
+            "right": "10%"
+          }
+        },
+        "validated": false,
+        "reasoning": "Fallback used due to validation error: [\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"number\",\n    \"received\": \"string\",\n    \"path\": [\n      \"borderRadius\"\n    ],\n    \"message\": \"Expected number, received string\"\n  },\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"number\",\n    \"received\": \"string\",\n    \"path\": [\n      \"padding\"\n    ],\n    \"message\": \"Expected number, received string\"\n  }\n]"
+      },
+      "timing": {
+        "start": 0,
+        "end": 10
+      },
+      "purpose": "Highlight the limitation",
+      "content": "But just because it's flexible doesn't mean it's effective.",
+      "videoSpecs": {
+        "format": "vertical",
+        "dimensions": {
+          "width": 1080,
+          "height": 1920
+        },
+        "fps": 30
+      },
+      "audioPath": "output/animated-video/segment-3-audio.mp3"
+    },
+    {
+      "segmentNumber": 4,
+      "duration": 10,
+      "ttsScript": "\"To really boost productivity, teams need to adopt clear **guidelines** and **best practices**. These tools are essential for achieving success together.\"",
+      "componentPath": "output/animated-video/Segment4Component.tsx",
+      "scriptPath": "output/animated-video/segment-4-script.txt",
+      "componentCode": "import React from 'react';\nimport { CalloutBox } from '../.././remotion/ui-components/components/CalloutBox.tsx';\nimport { useVideoConfig } from 'remotion';\n\nexport const Scene4Component: React.FC = () => {\n  const { fps } = useVideoConfig();\n  \n  const props = {\n  \"width\": 600,\n  \"height\": 200,\n  \"borderWidth\": 2,\n  \"borderRadius\": 12,\n  \"padding\": 24,\n  \"animationType\": \"fade\",\n  \"direction\": \"up\",\n  \"startAt\": 0,\n  \"durationInFrames\": 45,\n  \"style\": {\n    \"backgroundColor\": \"#f0f0f0\",\n    \"borderColor\": \"#4CAF50\",\n    \"textColor\": \"#333\",\n    \"fontSize\": \"24px\",\n    \"padding\": \"20px\",\n    \"borderRadius\": \"8px\"\n  },\n  \"icon\": \"lightbulb\",\n  \"title\": \"Boosting Productivity\",\n  \"titleColor\": \"#1f2937\",\n  \"titleSize\": 18,\n  \"shadow\": true,\n  \"shadowColor\": \"rgba(0, 0, 0, 0.1)\",\n  \"variant\": \"default\"\n};\n  \n  return (\n    <div style={{\n      width: 1080,\n      height: 1920,\n      backgroundColor: '#ffffff',\n      display: 'flex',\n      alignItems: 'center',\n      justifyContent: 'center',\n    }}>\n      <CalloutBox {...props} />\n    </div>\n  );\n};\n\nexport default Scene4Component;",
+      "componentSpec": {
+        "componentName": "CalloutBox",
+        "props": {
+          "width": 600,
+          "height": 200,
+          "borderWidth": 2,
+          "borderRadius": 12,
+          "padding": 24,
+          "animationType": "fade",
+          "direction": "up",
+          "startAt": 0,
+          "durationInFrames": 45,
+          "style": {
+            "backgroundColor": "#f0f0f0",
+            "borderColor": "#4CAF50",
+            "textColor": "#333",
+            "fontSize": "24px",
+            "padding": "20px",
+            "borderRadius": "8px"
+          },
+          "icon": "lightbulb",
+          "title": "Boosting Productivity",
+          "titleColor": "#1f2937",
+          "titleSize": 18,
+          "shadow": true,
+          "shadowColor": "rgba(0, 0, 0, 0.1)",
+          "variant": "default"
+        },
+        "validated": true,
+        "reasoning": "The brainstorming session animation requires a highlighted content approach, making CalloutBox the most suitable choice for effectively presenting guidelines and best practices."
+      },
+      "timing": {
+        "start": 0,
+        "end": 10
+      },
+      "purpose": "Introduce the solution",
+      "content": "To truly boost productivity, teams must adopt clear guidelines and best practices.",
+      "videoSpecs": {
+        "format": "vertical",
+        "dimensions": {
+          "width": 1080,
+          "height": 1920
+        },
+        "fps": 30
+      },
+      "audioPath": "output/animated-video/segment-4-audio.mp3"
+    },
+    {
+      "segmentNumber": 5,
+      "duration": 10,
+      "ttsScript": "\"To boost productivity, set clear **deadlines.** Encourage regular **check-ins,** and make the most of your **collaborative tools.** Let's get started!\"",
+      "componentPath": "output/animated-video/Segment5Component.tsx",
+      "scriptPath": "output/animated-video/segment-5-script.txt",
+      "componentCode": "import React from 'react';\nimport { CalloutBox } from '../.././remotion/ui-components/components/CalloutBox.tsx';\nimport { useVideoConfig } from 'remotion';\n\nexport const Scene5Component: React.FC = () => {\n  const { fps } = useVideoConfig();\n  \n  const props = {\n  \"width\": 600,\n  \"height\": 200,\n  \"backgroundColor\": \"#ffffff\",\n  \"borderColor\": \"#007bff\",\n  \"borderWidth\": 2,\n  \"borderRadius\": 10,\n  \"padding\": 20,\n  \"animationType\": \"fade\",\n  \"direction\": \"up\",\n  \"startAt\": 0,\n  \"durationInFrames\": 45,\n  \"icon\": {\n    \"type\": \"info\",\n    \"color\": \"#007bff\",\n    \"size\": 40\n  },\n  \"titleColor\": \"#1f2937\",\n  \"titleSize\": 18,\n  \"shadow\": true,\n  \"shadowColor\": \"rgba(0, 0, 0, 0.1)\",\n  \"variant\": \"default\"\n};\n  \n  return (\n    <div style={{\n      width: 1080,\n      height: 1920,\n      backgroundColor: '#ffffff',\n      display: 'flex',\n      alignItems: 'center',\n      justifyContent: 'center',\n    }}>\n      <CalloutBox {...props} />\n    </div>\n  );\n};\n\nexport default Scene5Component;",
+      "componentSpec": {
+        "componentName": "CalloutBox",
+        "props": {
+          "width": 600,
+          "height": 200,
+          "backgroundColor": "#ffffff",
+          "borderColor": "#007bff",
+          "borderWidth": 2,
+          "borderRadius": 10,
+          "padding": 20,
+          "animationType": "fade",
+          "direction": "up",
+          "startAt": 0,
+          "durationInFrames": 45,
+          "icon": {
+            "type": "info",
+            "color": "#007bff",
+            "size": 40
+          },
+          "titleColor": "#1f2937",
+          "titleSize": 18,
+          "shadow": true,
+          "shadowColor": "rgba(0, 0, 0, 0.1)",
+          "variant": "default"
+        },
+        "validated": true,
+        "reasoning": "The CalloutBox is the best choice as it effectively highlights content with bullet points and is suitable for the action-oriented insights provided. It allows for a professional layout and can animate the text entries sequentially, which enhances engagement in a vertical video format."
+      },
+      "timing": {
+        "start": 0,
+        "end": 10
+      },
+      "purpose": "Provide actionable insights",
+      "content": "1. Set clear deadlines 2. Encourage regular check-ins 3. Use collaborative tools effectively.",
+      "videoSpecs": {
+        "format": "vertical",
+        "dimensions": {
+          "width": 1080,
+          "height": 1920
+        },
+        "fps": 30
+      },
+      "audioPath": "output/animated-video/segment-5-audio.mp3"
+    },
+    {
+      "segmentNumber": 6,
+      "duration": 10,
+      "ttsScript": "\"Ready to transform your remote communication strategy? It's time to boost your productivity! Let’s make your team’s collaboration soar and achieve amazing results together!\"",
+      "componentPath": "output/animated-video/Segment6Component.tsx",
+      "scriptPath": "output/animated-video/segment-6-script.txt",
+      "componentCode": "import React from 'react';\nimport { CalloutBox } from '../.././remotion/ui-components/components/CalloutBox.tsx';\nimport { useVideoConfig } from 'remotion';\n\nexport const Scene6Component: React.FC = () => {\n  const { fps } = useVideoConfig();\n  \n  const props = {\n  \"children\": \"Sample callout content\",\n  \"width\": 600,\n  \"height\": 200,\n  \"borderWidth\": 2,\n  \"borderRadius\": \"12px\",\n  \"padding\": \"20px\",\n  \"animationType\": \"fadeIn\",\n  \"direction\": \"up\",\n  \"startAt\": 0,\n  \"durationInFrames\": 45,\n  \"titleColor\": \"#1f2937\",\n  \"titleSize\": 18,\n  \"shadow\": true,\n  \"shadowColor\": \"rgba(0, 0, 0, 0.1)\",\n  \"variant\": \"default\",\n  \"content\": \"Transform your remote communication strategy and see the productivity soar!\",\n  \"backgroundColor\": \"#007BFF\",\n  \"textColor\": \"#FFFFFF\",\n  \"icon\": \"📈\",\n  \"fontSize\": \"24px\",\n  \"duration\": 10,\n  \"position\": {\n    \"x\": 50,\n    \"y\": 50\n  }\n};\n  \n  return (\n    <div style={{\n      width: 1080,\n      height: 1920,\n      backgroundColor: '#ffffff',\n      display: 'flex',\n      alignItems: 'center',\n      justifyContent: 'center',\n    }}>\n      <CalloutBox {...props} />\n    </div>\n  );\n};\n\nexport default Scene6Component;",
+      "componentSpec": {
+        "componentName": "CalloutBox",
+        "props": {
+          "children": "Sample callout content",
+          "width": 600,
+          "height": 200,
+          "borderWidth": 2,
+          "borderRadius": "12px",
+          "padding": "20px",
+          "animationType": "fadeIn",
+          "direction": "up",
+          "startAt": 0,
+          "durationInFrames": 45,
+          "titleColor": "#1f2937",
+          "titleSize": 18,
+          "shadow": true,
+          "shadowColor": "rgba(0, 0, 0, 0.1)",
+          "variant": "default",
+          "content": "Transform your remote communication strategy and see the productivity soar!",
+          "backgroundColor": "#007BFF",
+          "textColor": "#FFFFFF",
+          "icon": "📈",
+          "fontSize": "24px",
+          "duration": 10,
+          "position": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        "validated": false,
+        "reasoning": "Fallback used due to validation error: [\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"number\",\n    \"received\": \"string\",\n    \"path\": [\n      \"borderRadius\"\n    ],\n    \"message\": \"Expected number, received string\"\n  },\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"number\",\n    \"received\": \"string\",\n    \"path\": [\n      \"padding\"\n    ],\n    \"message\": \"Expected number, received string\"\n  },\n  {\n    \"received\": \"fadeIn\",\n    \"code\": \"invalid_enum_value\",\n    \"options\": [\n      \"fade\",\n      \"slide\",\n      \"scale\",\n      \"bounce\"\n    ],\n    \"path\": [\n      \"animationType\"\n    ],\n    \"message\": \"Invalid enum value. Expected 'fade' | 'slide' | 'scale' | 'bounce', received 'fadeIn'\"\n  }\n]"
+      },
+      "timing": {
+        "start": 0,
+        "end": 10
+      },
+      "purpose": "Call to action",
+      "content": "Transform your remote communication strategy and see the productivity soar!",
+      "videoSpecs": {
+        "format": "vertical",
+        "dimensions": {
+          "width": 1080,
+          "height": 1920
+        },
+        "fps": 30
+      },
+      "audioPath": "output/animated-video/segment-6-audio.mp3"
+    },
+    {
+      "segmentNumber": 7,
+      "duration": 10,
+      "ttsScript": "\"And remember, asynchronous communication is just a tool. Use it wisely for maximum impact. Your choices can make a real difference!\"",
+      "componentPath": "output/animated-video/Segment7Component.tsx",
+      "scriptPath": "output/animated-video/segment-7-script.txt",
+      "componentCode": "import React from 'react';\nimport { CalloutBox } from '../.././remotion/ui-components/components/CalloutBox.tsx';\nimport { useVideoConfig } from 'remotion';\n\nexport const Scene7Component: React.FC = () => {\n  const { fps } = useVideoConfig();\n  \n  const props = {\n  \"children\": \"Sample callout content\",\n  \"width\": 600,\n  \"height\": 200,\n  \"borderWidth\": 2,\n  \"borderRadius\": 12,\n  \"padding\": {\n    \"top\": 20,\n    \"right\": 20,\n    \"bottom\": 20,\n    \"left\": 20\n  },\n  \"animationType\": \"fade\",\n  \"direction\": \"up\",\n  \"startAt\": 0,\n  \"durationInFrames\": 45,\n  \"titleColor\": \"#1f2937\",\n  \"titleSize\": 18,\n  \"shadow\": true,\n  \"shadowColor\": \"rgba(0, 0, 0, 0.1)\",\n  \"variant\": \"default\",\n  \"title\": \"Final Reminder\",\n  \"content\": \"Remember, asynchronous communication is just a tool—use it wisely for maximum impact.\",\n  \"backgroundColor\": \"#F0F8FF\",\n  \"textColor\": \"#333333\",\n  \"borderColor\": \"#007BFF\",\n  \"icon\": \"info\",\n  \"animation\": {\n    \"type\": \"fadeIn\",\n    \"duration\": 1,\n    \"delay\": 0\n  },\n  \"duration\": 10,\n  \"fontSize\": \"24px\",\n  \"textAlign\": \"center\",\n  \"maxWidth\": \"80%\"\n};\n  \n  return (\n    <div style={{\n      width: 1080,\n      height: 1920,\n      backgroundColor: '#ffffff',\n      display: 'flex',\n      alignItems: 'center',\n      justifyContent: 'center',\n    }}>\n      <CalloutBox {...props} />\n    </div>\n  );\n};\n\nexport default Scene7Component;",
+      "componentSpec": {
+        "componentName": "CalloutBox",
+        "props": {
+          "children": "Sample callout content",
+          "width": 600,
+          "height": 200,
+          "borderWidth": 2,
+          "borderRadius": 12,
+          "padding": {
+            "top": 20,
+            "right": 20,
+            "bottom": 20,
+            "left": 20
+          },
+          "animationType": "fade",
+          "direction": "up",
+          "startAt": 0,
+          "durationInFrames": 45,
+          "titleColor": "#1f2937",
+          "titleSize": 18,
+          "shadow": true,
+          "shadowColor": "rgba(0, 0, 0, 0.1)",
+          "variant": "default",
+          "title": "Final Reminder",
+          "content": "Remember, asynchronous communication is just a tool—use it wisely for maximum impact.",
+          "backgroundColor": "#F0F8FF",
+          "textColor": "#333333",
+          "borderColor": "#007BFF",
+          "icon": "info",
+          "animation": {
+            "type": "fadeIn",
+            "duration": 1,
+            "delay": 0
+          },
+          "duration": 10,
+          "fontSize": "24px",
+          "textAlign": "center",
+          "maxWidth": "80%"
+        },
+        "validated": false,
+        "reasoning": "Fallback used due to validation error: [\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"number\",\n    \"received\": \"object\",\n    \"path\": [\n      \"padding\"\n    ],\n    \"message\": \"Expected number, received object\"\n  }\n]"
+      },
+      "timing": {
+        "start": 0,
+        "end": 10
+      },
+      "purpose": "Wrap up with a reminder",
+      "content": "Remember, asynchronous communication is just a tool—use it wisely for maximum impact.",
+      "videoSpecs": {
+        "format": "vertical",
+        "dimensions": {
+          "width": 1080,
+          "height": 1920
+        },
+        "fps": 30
+      },
+      "audioPath": "output/animated-video/segment-7-audio.mp3"
+    }
+  ]
+}

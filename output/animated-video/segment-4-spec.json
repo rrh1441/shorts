@@ -1,0 +1,31 @@
+{
+  "componentName": "CalloutBox",
+  "props": {
+    "width": 600,
+    "height": 200,
+    "borderWidth": 2,
+    "borderRadius": 12,
+    "padding": 24,
+    "animationType": "fade",
+    "direction": "up",
+    "startAt": 0,
+    "durationInFrames": 45,
+    "style": {
+      "backgroundColor": "#f0f0f0",
+      "borderColor": "#4CAF50",
+      "textColor": "#333",
+      "fontSize": "24px",
+      "padding": "20px",
+      "borderRadius": "8px"
+    },
+    "icon": "lightbulb",
+    "title": "Boosting Productivity",
+    "titleColor": "#1f2937",
+    "titleSize": 18,
+    "shadow": true,
+    "shadowColor": "rgba(0, 0, 0, 0.1)",
+    "variant": "default"
+  },
+  "validated": true,
+  "reasoning": "The brainstorming session animation requires a highlighted content approach, making CalloutBox the most suitable choice for effectively presenting guidelines and best practices."
+}

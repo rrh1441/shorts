@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2025-08-30T22:53:23.447Z",
+  "pipeline": "animated-video-segments",
+  "title": "The Productivity Myth of Asynchronous Communication",
+  "totalDuration": 60,
+  "segments": 7,
+  "audioFiles": [
+    "segment-1-audio.mp3",
+    "segment-2-audio.mp3",
+    "segment-3-audio.mp3",
+    "segment-4-audio.mp3",
+    "segment-5-audio.mp3",
+    "segment-6-audio.mp3",
+    "segment-7-audio.mp3"
+  ],
+  "componentFiles": [
+    "Segment1Component.tsx",
+    "Segment2Component.tsx",
+    "Segment3Component.tsx",
+    "Segment4Component.tsx",
+    "Segment5Component.tsx",
+    "Segment6Component.tsx",
+    "Segment7Component.tsx"
+  ],
+  "compilationWorkflow": "loom",
+  "segmentDurations": [
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10
+  ]
+}

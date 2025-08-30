@@ -1,0 +1,35 @@
+{
+  "componentName": "StatBlock",
+  "props": {
+    "stats": [
+      {
+        "label": "Sample Metric",
+        "value": 42,
+        "format": "number"
+      }
+    ],
+    "columns": 2,
+    "width": 800,
+    "height": 400,
+    "backgroundColor": "#ffffff",
+    "borderColor": "#0084ff",
+    "showBorder": true,
+    "animationType": "fadeIn",
+    "staggerDelay": 5,
+    "startAt": 0,
+    "titleColor": "#1f2937",
+    "statistic": "70%",
+    "description": "of remote teams report confusion and delay due to poor communication.",
+    "animationDuration": 2,
+    "counterAnimation": true,
+    "fontSizeStatistic": 72,
+    "fontSizeDescription": 36,
+    "textColor": "#333333",
+    "borderWidth": 3,
+    "padding": 20,
+    "showIcon": false,
+    "displayDuration": 8
+  },
+  "validated": false,
+  "reasoning": "Fallback used due to validation error: [\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"array\",\n    \"received\": \"undefined\",\n    \"path\": [\n      \"stats\"\n    ],\n    \"message\": \"Required\"\n  },\n  {\n    \"received\": \"fadeIn\",\n    \"code\": \"invalid_enum_value\",\n    \"options\": [\n      \"fade\",\n      \"slide\",\n      \"scale\",\n      \"counter\"\n    ],\n    \"path\": [\n      \"animationType\"\n    ],\n    \"message\": \"Invalid enum value. Expected 'fade' | 'slide' | 'scale' | 'counter', received 'fadeIn'\"\n  }\n]"
+}

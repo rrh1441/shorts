@@ -1,0 +1,35 @@
+{
+  "componentName": "CalloutBox",
+  "props": {
+    "children": "Sample callout content",
+    "width": 600,
+    "height": 200,
+    "borderWidth": 2,
+    "borderRadius": "15px",
+    "padding": "20px",
+    "animationType": "fade",
+    "direction": "up",
+    "startAt": 0,
+    "durationInFrames": 45,
+    "titleColor": "#1f2937",
+    "titleSize": 18,
+    "shadow": true,
+    "shadowColor": "rgba(0, 0, 0, 0.1)",
+    "variant": "default",
+    "title": "Limitations of Flexibility",
+    "icon": "⏳",
+    " // hourglass icon representing time and limitations": "But just because it's flexible doesn't mean it's effective.",
+    "backgroundColor": "#ffcccc",
+    "textColor": "#333333",
+    "duration": 10,
+    "animation": "fade-in",
+    "size": "medium",
+    "position": {
+      "top": "40%",
+      "left": "10%",
+      "right": "10%"
+    }
+  },
+  "validated": false,
+  "reasoning": "Fallback used due to validation error: [\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"number\",\n    \"received\": \"string\",\n    \"path\": [\n      \"borderRadius\"\n    ],\n    \"message\": \"Expected number, received string\"\n  },\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"number\",\n    \"received\": \"string\",\n    \"path\": [\n      \"padding\"\n    ],\n    \"message\": \"Expected number, received string\"\n  }\n]"
+}
