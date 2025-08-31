@@ -1,32 +1,11 @@
 {
-  "componentName": "CalloutBox",
+  "componentName": "CalloutPattern",
   "props": {
-    "children": "Integrate regular sync-up meetings and clear guidelines for effective communicat",
-    "width": 980,
-    "height": 300,
-    "borderWidth": 2,
-    "borderRadius": "10px",
-    "padding": "20px",
-    "animationType": "slide",
-    "direction": "up",
-    "startAt": 0,
-    "durationInFrames": 45,
-    "titleColor": "#111827",
-    "titleSize": 24,
-    "shadow": true,
-    "shadowColor": "rgba(0, 0, 0, 0.1)",
-    "variant": "default",
-    "title": "Share solution",
-    "backgroundColor": "#f0f8ff",
-    "borderColor": "#e5e7eb",
-    "showBorder": true,
-    "text": "Integrate regular sync-up meetings\nand clear guidelines for effective communication.",
-    "icon": "check-circle",
-    "iconVariant": "success",
-    "duration": 10,
-    "textColor": "#333333",
-    "fontSize": "24px"
+    "format": "vertical",
+    "headline": "Key Point",
+    "title": "Callout",
+    "body": "Over-reliance on messages can lead to ambiguity and miscommunication.",
+    "variant": "info"
   },
-  "validated": false,
-  "reasoning": "Fallback used due to validation error: [\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"number\",\n    \"received\": \"string\",\n    \"path\": [\n      \"borderRadius\"\n    ],\n    \"message\": \"Expected number, received string\"\n  },\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"number\",\n    \"received\": \"string\",\n    \"path\": [\n      \"padding\"\n    ],\n    \"message\": \"Expected number, received string\"\n  },\n  {\n    \"received\": \"fadeIn\",\n    \"code\": \"invalid_enum_value\",\n    \"options\": [\n      \"fade\",\n      \"slide\",\n      \"scale\",\n      \"bounce\"\n    ],\n    \"path\": [\n      \"animationType\"\n    ],\n    \"message\": \"Invalid enum value. Expected 'fade' | 'slide' | 'scale' | 'bounce', received 'fadeIn'\"\n  }\n]"
+  "validated": true
 }

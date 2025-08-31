@@ -42,6 +42,9 @@ export const StatBlock: React.FC<StatBlockProps> = ({
   className,
   title,
   titleColor = '#1f2937',
+  titleSize = 42,
+  valueFontSize = 64,
+  labelFontSize = 24,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -83,7 +86,7 @@ export const StatBlock: React.FC<StatBlockProps> = ({
         >
           <h2
             style={{
-              fontSize: '24px',
+              fontSize: `${titleSize}px`,
               fontWeight: 'bold',
               color: titleColor,
               margin: 0,
@@ -176,7 +179,7 @@ export const StatBlock: React.FC<StatBlockProps> = ({
               {/* Value */}
               <div
                 style={{
-                  fontSize: '32px',
+                  fontSize: `${valueFontSize}px`,
                   fontWeight: 'bold',
                   color: stat.color || '#1f2937',
                   marginBottom: '4px',
@@ -190,7 +193,7 @@ export const StatBlock: React.FC<StatBlockProps> = ({
               {/* Label */}
               <div
                 style={{
-                  fontSize: '14px',
+                  fontSize: `${labelFontSize}px`,
                   color: '#6b7280',
                   textAlign: 'center',
                   fontWeight: '500',

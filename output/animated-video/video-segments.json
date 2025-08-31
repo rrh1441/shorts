@@ -1,57 +1,57 @@
 {
   "narrative": {
-    "title": "When Asynchronous Isn't Enough: Boosting Remote Team Productivity",
+    "title": "The Asynchronous Productivity Myth",
     "totalDuration": 60,
-    "narrative": "Exploring the common misconception that asynchronous communication alone is the key to productivity, and revealing strategies that truly enhance team effectiveness.",
+    "narrative": "Exploring how asynchronous communication, while valuable, is not a panacea for productivity challenges faced by remote teams.",
     "scenes": [
       {
         "sceneNumber": 1,
         "duration": 10,
         "purpose": "Hook viewer with statistic",
         "visualType": "statistic",
-        "content": "80% of remote managers believe asynchronous communication boosts productivity."
+        "content": "Did you know that 70% of remote teams say communication is their biggest challenge?"
       },
       {
         "sceneNumber": 2,
         "duration": 10,
-        "purpose": "Present key insight",
-        "visualType": "text and animation",
-        "content": "But studies show that asynchronous communication alone doesn't actually improve productivity."
+        "purpose": "Introduce the concept of asynchronous communication",
+        "visualType": "animated infographic",
+        "content": "Asynchronous communication allows team members to work at their own pace, but is it enough?"
       },
       {
         "sceneNumber": 3,
         "duration": 10,
-        "purpose": "Introduce the problem",
-        "visualType": "explainer animation",
-        "content": "Challenges arise: misunderstandings, delays, and team disconnection."
+        "purpose": "Present the key insight",
+        "visualType": "split screen comparison",
+        "content": "Studies show that asynchronous communication alone doesn't guarantee higher productivity."
       },
       {
         "sceneNumber": 4,
         "duration": 10,
-        "purpose": "Share solution",
-        "visualType": "animated checklist",
-        "content": "Integrate regular sync-up meetings and clear guidelines for effective communication."
+        "purpose": "Highlight potential pitfalls",
+        "visualType": "animated icons",
+        "content": "Over-reliance on messages can lead to ambiguity and miscommunication."
       },
       {
         "sceneNumber": 5,
         "duration": 10,
-        "purpose": "Illustrate success story",
-        "visualType": "case study animation",
-        "content": "Meet Team Zen: They embraced a blended approach and saw a 25% increase in productivity!"
+        "purpose": "Offer a solution",
+        "visualType": "problem-solution animation",
+        "content": "Effective teams combine sync and async methods to enhance clarity and collaboration."
       },
       {
         "sceneNumber": 6,
         "duration": 10,
-        "purpose": "Call to action",
-        "visualType": "direct address with graphics",
-        "content": "Are you ready to elevate your team's productivity? Start blending your communication methods today!"
+        "purpose": "Encourage viewers to rethink their communication strategies",
+        "visualType": "call to action",
+        "content": "Are your communication strategies helping or hindering your remote team's productivity?"
       },
       {
         "sceneNumber": 7,
         "duration": 10,
-        "purpose": "Wrap-up with branding",
-        "visualType": "logo animation",
-        "content": "Subscribe for more insights on mastering remote team dynamics!"
+        "purpose": "Conclude and reinforce message",
+        "visualType": "text overlay with logo",
+        "content": "Embrace a balanced approach to empower your remote team!"
       }
     ]
   },
@@ -59,56 +59,27 @@
     {
       "segmentNumber": 1,
       "duration": 10,
-      "ttsScript": "Did you know that 80% of remote managers believe asynchronous communication boosts productivity? That's a game changer for how we work together!",
+      "ttsScript": "\"Hey there! Did you know that a staggering 70% of remote teams say communication is their *biggest* challenge? That's a huge number! Let's dive in!\"",
       "componentPath": "output/animated-video/Segment1Component.tsx",
       "scriptPath": "output/animated-video/segment-1-script.txt",
-      "componentCode": "import React from 'react';\nimport { StatBlock } from '../.././remotion/ui-components/components/StatBlock.tsx';\nimport { AnimatedText } from '../.././remotion/ui-components/components/AnimatedText.tsx';\nimport { useVideoConfig } from 'remotion';\n\nexport const Scene1Component: React.FC = () => {\n  const { fps } = useVideoConfig();\n  \n  const props = {\n  \"stats\": [\n    {\n      \"label\": \"Productivity Change\",\n      \"value\": \"80\",\n      \"format\": \"percentage\"\n    }\n  ],\n  \"columns\": 1,\n  \"width\": 980,\n  \"height\": 600,\n  \"backgroundColor\": \"#FFFFFF\",\n  \"borderColor\": \"#e5e7eb\",\n  \"showBorder\": true,\n  \"animationType\": \"counter\",\n  \"staggerDelay\": 5,\n  \"startAt\": 0,\n  \"titleColor\": \"#111827\",\n  \"title\": \"80% of remote managers believe asynchronous communication boosts productivity.\",\n  \"statistic\": \"80%\",\n  \"description\": \"of remote managers believe asynchronous communication boosts productivity.\",\n  \"animationDuration\": 10,\n  \"counterAnimation\": true,\n  \"layout\": \"centered\",\n  \"textColor\": \"#333333\",\n  \"fontSize\": \"48px\",\n  \"subTextFontSize\": \"24px\",\n  \"textAlignment\": \"center\",\n  \"padding\": {\n    \"top\": \"20px\",\n    \"bottom\": \"20px\",\n    \"left\": \"15px\",\n    \"right\": \"15px\"\n  }\n};\n  const headline = \"80% of remote managers believe asynchronous communication boosts productivity.\";\n  const isVertical = true;\n  const headlineSize = isVertical ? 72 : 56;\n  \n  return (\n    <div style={{\n      width: 1080,\n      height: 1920,\n      backgroundColor: '#ffffff',\n      display: 'flex',\n      flexDirection: 'column',\n      alignItems: 'center',\n      justifyContent: 'flex-start',\n      padding: 40,\n      boxSizing: 'border-box',\n      gap: 24,\n    }}>\n      {headline && (\n        <AnimatedText\n          text={headline}\n          animationType=\"fade\"\n          fontSize={headlineSize}\n          fontWeight=\"bold\"\n          textAlign=\"center\"\n          color=\"#111827\"\n          durationInFrames={90}\n        />\n      )}\n      <div style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%' }}>\n        <StatBlock {...props} />\n      </div>\n    </div>\n  );\n};\n\nexport default Scene1Component;",
+      "componentCode": "import React from 'react';\nimport { StatHero } from '../.././remotion/patterns/StatHero.tsx';\nimport { useVideoConfig } from 'remotion';\n\nexport const Scene1Component: React.FC = () => {\n  const { fps } = useVideoConfig();\n  \n  const props = {\n  \"format\": \"vertical\",\n  \"headline\": \"Communication Challenges in Remote Teams\",\n  \"statLabel\": \"Percentage of Teams\",\n  \"statValue\": 70,\n  \"valueFormat\": \"percentage\"\n};\n  return (\n    <div style={{\n      width: 1080,\n      height: 1920,\n      backgroundColor: '#ffffff',\n      display: 'flex',\n      alignItems: 'center',\n      justifyContent: 'center',\n    }}>\n      <StatHero {...props} />\n    </div>\n  );\n};\n\nexport default Scene1Component;",
       "componentSpec": {
-        "componentName": "StatBlock",
+        "componentName": "StatHero",
         "props": {
-          "stats": [
-            {
-              "label": "Productivity Change",
-              "value": "80",
-              "format": "percentage"
-            }
-          ],
-          "columns": 1,
-          "width": 980,
-          "height": 600,
-          "backgroundColor": "#FFFFFF",
-          "borderColor": "#e5e7eb",
-          "showBorder": true,
-          "animationType": "counter",
-          "staggerDelay": 5,
-          "startAt": 0,
-          "titleColor": "#111827",
-          "title": "80% of remote managers believe asynchronous communication boosts productivity.",
-          "statistic": "80%",
-          "description": "of remote managers believe asynchronous communication boosts productivity.",
-          "animationDuration": 10,
-          "counterAnimation": true,
-          "layout": "centered",
-          "textColor": "#333333",
-          "fontSize": "48px",
-          "subTextFontSize": "24px",
-          "textAlignment": "center",
-          "padding": {
-            "top": "20px",
-            "bottom": "20px",
-            "left": "15px",
-            "right": "15px"
-          }
+          "format": "vertical",
+          "headline": "Communication Challenges in Remote Teams",
+          "statLabel": "Percentage of Teams",
+          "statValue": 70,
+          "valueFormat": "percentage"
         },
-        "validated": false,
-        "reasoning": "Fallback used due to validation error: [\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"array\",\n    \"received\": \"undefined\",\n    \"path\": [\n      \"stats\"\n    ],\n    \"message\": \"Required\"\n  }\n]"
+        "validated": true
       },
       "timing": {
         "start": 0,
         "end": 10
       },
       "purpose": "Hook viewer with statistic",
-      "content": "80% of remote managers believe asynchronous communication boosts productivity.",
+      "content": "Did you know that 70% of remote teams say communication is their biggest challenge?",
       "videoSpecs": {
         "format": "vertical",
         "dimensions": {
@@ -122,35 +93,27 @@
     {
       "segmentNumber": 2,
       "duration": 10,
-      "ttsScript": "\"Research reveals that using asynchronous communication alone doesn’t boost productivity as we might think. It's important to consider other factors to truly enhance our efficiency.\"",
+      "ttsScript": "\"Let’s talk about asynchronous communication. It lets team members work at their own pace. But is it really enough for effective collaboration?\"",
       "componentPath": "output/animated-video/Segment2Component.tsx",
       "scriptPath": "output/animated-video/segment-2-script.txt",
-      "componentCode": "import React from 'react';\nimport { AnimatedText } from '../.././remotion/ui-components/components/AnimatedText.tsx';\nimport { AnimatedText } from '../.././remotion/ui-components/components/AnimatedText.tsx';\nimport { useVideoConfig } from 'remotion';\n\nexport const Scene2Component: React.FC = () => {\n  const { fps } = useVideoConfig();\n  \n  const props = {\n  \"text\": \"But studies show that asynchronous communication alone doesn't actually improve productivity.\",\n  \"fontSize\": 48,\n  \"fontWeight\": \"normal\",\n  \"color\": \"#000000\",\n  \"fontFamily\": \"Helvetica, Arial, sans-serif\",\n  \"animationType\": \"fade\",\n  \"direction\": \"left\",\n  \"startAt\": 0,\n  \"durationInFrames\": 60,\n  \"characterDelay\": 2,\n  \"textAlign\": \"left\",\n  \"lineHeight\": 1.2\n};\n  const headline = \"But studies show that asynchronous communication alone doesn't actually improve \";\n  const isVertical = true;\n  const headlineSize = isVertical ? 72 : 56;\n  \n  return (\n    <div style={{\n      width: 1080,\n      height: 1920,\n      backgroundColor: '#ffffff',\n      display: 'flex',\n      flexDirection: 'column',\n      alignItems: 'center',\n      justifyContent: 'flex-start',\n      padding: 40,\n      boxSizing: 'border-box',\n      gap: 24,\n    }}>\n      {headline && (\n        <AnimatedText\n          text={headline}\n          animationType=\"fade\"\n          fontSize={headlineSize}\n          fontWeight=\"bold\"\n          textAlign=\"center\"\n          color=\"#111827\"\n          durationInFrames={90}\n        />\n      )}\n      <div style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%' }}>\n        <AnimatedText {...props} />\n      </div>\n    </div>\n  );\n};\n\nexport default Scene2Component;",
+      "componentCode": "import React from 'react';\nimport { CalloutPattern } from '../.././remotion/patterns/CalloutPattern.tsx';\nimport { useVideoConfig } from 'remotion';\n\nexport const Scene2Component: React.FC = () => {\n  const { fps } = useVideoConfig();\n  \n  const props = {\n  \"format\": \"vertical\",\n  \"headline\": \"Key Point\",\n  \"title\": \"Asynchronous Comm.\",\n  \"body\": \"Asynchronous communication allows team members to work at their own pace, but is it enough?\",\n  \"variant\": \"info\"\n};\n  return (\n    <div style={{\n      width: 1080,\n      height: 1920,\n      backgroundColor: '#ffffff',\n      display: 'flex',\n      alignItems: 'center',\n      justifyContent: 'center',\n    }}>\n      <CalloutPattern {...props} />\n    </div>\n  );\n};\n\nexport default Scene2Component;",
       "componentSpec": {
-        "componentName": "AnimatedText",
+        "componentName": "CalloutPattern",
         "props": {
-          "text": "But studies show that asynchronous communication alone doesn't actually improve productivity.",
-          "fontSize": 48,
-          "fontWeight": "normal",
-          "color": "#000000",
-          "fontFamily": "Helvetica, Arial, sans-serif",
-          "animationType": "fade",
-          "direction": "left",
-          "startAt": 0,
-          "durationInFrames": 60,
-          "characterDelay": 2,
-          "textAlign": "left",
-          "lineHeight": 1.2
+          "format": "vertical",
+          "headline": "Key Point",
+          "title": "Asynchronous Comm.",
+          "body": "Asynchronous communication allows team members to work at their own pace, but is it enough?",
+          "variant": "info"
         },
-        "validated": true,
-        "reasoning": "The visual type is 'text and animation', making AnimatedText the best choice for displaying the key insight engagingly with a fade effect, which is visually appealing and maintains focus on the content."
+        "validated": true
       },
       "timing": {
         "start": 0,
         "end": 10
       },
-      "purpose": "Present key insight",
-      "content": "But studies show that asynchronous communication alone doesn't actually improve productivity.",
+      "purpose": "Introduce the concept of asynchronous communication",
+      "content": "Asynchronous communication allows team members to work at their own pace, but is it enough?",
       "videoSpecs": {
         "format": "vertical",
         "dimensions": {
@@ -164,38 +127,27 @@
     {
       "segmentNumber": 3,
       "duration": 10,
-      "ttsScript": "\"Every project faces challenges: misunderstandings pop up, delays creep in, and teams start to feel disconnected. Let’s dive into why this happens and how we can fix it!\"",
+      "ttsScript": "\"Here’s a key insight: simply using asynchronous communication doesn’t automatically boost productivity. It’s about how and when we communicate that truly matters.\"",
       "componentPath": "output/animated-video/Segment3Component.tsx",
       "scriptPath": "output/animated-video/segment-3-script.txt",
-      "componentCode": "import React from 'react';\nimport { CalloutBox } from '../.././remotion/ui-components/components/CalloutBox.tsx';\nimport { AnimatedText } from '../.././remotion/ui-components/components/AnimatedText.tsx';\nimport { useVideoConfig } from 'remotion';\n\nexport const Scene3Component: React.FC = () => {\n  const { fps } = useVideoConfig();\n  \n  const props = {\n  \"width\": 600,\n  \"height\": 200,\n  \"backgroundColor\": \"#ffcc00\",\n  \"borderWidth\": 2,\n  \"borderRadius\": 15,\n  \"padding\": 20,\n  \"animationType\": \"fade\",\n  \"direction\": \"up\",\n  \"startAt\": 0,\n  \"durationInFrames\": 45,\n  \"titleColor\": \"#1f2937\",\n  \"titleSize\": 18,\n  \"shadow\": true,\n  \"shadowColor\": \"rgba(0, 0, 0, 0.1)\",\n  \"variant\": \"default\"\n};\n  const headline = \"Challenges arise: misunderstandings, delays, and team disconnection.\";\n  const isVertical = true;\n  const headlineSize = isVertical ? 72 : 56;\n  \n  return (\n    <div style={{\n      width: 1080,\n      height: 1920,\n      backgroundColor: '#ffffff',\n      display: 'flex',\n      flexDirection: 'column',\n      alignItems: 'center',\n      justifyContent: 'flex-start',\n      padding: 40,\n      boxSizing: 'border-box',\n      gap: 24,\n    }}>\n      {headline && (\n        <AnimatedText\n          text={headline}\n          animationType=\"fade\"\n          fontSize={headlineSize}\n          fontWeight=\"bold\"\n          textAlign=\"center\"\n          color=\"#111827\"\n          durationInFrames={90}\n        />\n      )}\n      <div style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%' }}>\n        <CalloutBox {...props} />\n      </div>\n    </div>\n  );\n};\n\nexport default Scene3Component;",
+      "componentCode": "import React from 'react';\nimport { CalloutPattern } from '../.././remotion/patterns/CalloutPattern.tsx';\nimport { useVideoConfig } from 'remotion';\n\nexport const Scene3Component: React.FC = () => {\n  const { fps } = useVideoConfig();\n  \n  const props = {\n  \"format\": \"vertical\",\n  \"headline\": \"Key Point\",\n  \"title\": \"Callout\",\n  \"body\": \"Studies show that asynchronous communication alone doesn't guarantee higher productivity.\",\n  \"variant\": \"info\"\n};\n  return (\n    <div style={{\n      width: 1080,\n      height: 1920,\n      backgroundColor: '#ffffff',\n      display: 'flex',\n      alignItems: 'center',\n      justifyContent: 'center',\n    }}>\n      <CalloutPattern {...props} />\n    </div>\n  );\n};\n\nexport default Scene3Component;",
       "componentSpec": {
-        "componentName": "CalloutBox",
+        "componentName": "CalloutPattern",
         "props": {
-          "width": 600,
-          "height": 200,
-          "backgroundColor": "#ffcc00",
-          "borderWidth": 2,
-          "borderRadius": 15,
-          "padding": 20,
-          "animationType": "fade",
-          "direction": "up",
-          "startAt": 0,
-          "durationInFrames": 45,
-          "titleColor": "#1f2937",
-          "titleSize": 18,
-          "shadow": true,
-          "shadowColor": "rgba(0, 0, 0, 0.1)",
-          "variant": "default"
+          "format": "vertical",
+          "headline": "Key Point",
+          "title": "Callout",
+          "body": "Studies show that asynchronous communication alone doesn't guarantee higher productivity.",
+          "variant": "info"
         },
-        "validated": true,
-        "reasoning": "The content emphasizes highlighted challenges, making CalloutBox the best choice for presenting them effectively with visual impact and clarity. It allows for the animated presentation of multiple points, making it engaging while fitting beautifully into the vertical format."
+        "validated": true
       },
       "timing": {
         "start": 0,
         "end": 10
       },
-      "purpose": "Introduce the problem",
-      "content": "Challenges arise: misunderstandings, delays, and team disconnection.",
+      "purpose": "Present the key insight",
+      "content": "Studies show that asynchronous communication alone doesn't guarantee higher productivity.",
       "videoSpecs": {
         "format": "vertical",
         "dimensions": {
@@ -209,48 +161,27 @@
     {
       "segmentNumber": 4,
       "duration": 10,
-      "ttsScript": "\"To boost our teamwork, let's integrate regular sync-up meetings. And remember, clear guidelines are essential for effective communication. Together, we can achieve great results!\"",
+      "ttsScript": "\"Be careful! Over-reliance on messages can really lead to confusion. Ambiguity creeps in, and before you know it, miscommunication happens. Stay clear and concise!\"",
       "componentPath": "output/animated-video/Segment4Component.tsx",
       "scriptPath": "output/animated-video/segment-4-script.txt",
-      "componentCode": "import React from 'react';\nimport { CalloutBox } from '../.././remotion/ui-components/components/CalloutBox.tsx';\nimport { AnimatedText } from '../.././remotion/ui-components/components/AnimatedText.tsx';\nimport { useVideoConfig } from 'remotion';\n\nexport const Scene4Component: React.FC = () => {\n  const { fps } = useVideoConfig();\n  \n  const props = {\n  \"children\": \"Integrate regular sync-up meetings and clear guidelines for effective communicat\",\n  \"width\": 980,\n  \"height\": 300,\n  \"borderWidth\": 2,\n  \"borderRadius\": \"10px\",\n  \"padding\": \"20px\",\n  \"animationType\": \"slide\",\n  \"direction\": \"up\",\n  \"startAt\": 0,\n  \"durationInFrames\": 45,\n  \"titleColor\": \"#111827\",\n  \"titleSize\": 24,\n  \"shadow\": true,\n  \"shadowColor\": \"rgba(0, 0, 0, 0.1)\",\n  \"variant\": \"default\",\n  \"title\": \"Share solution\",\n  \"backgroundColor\": \"#f0f8ff\",\n  \"borderColor\": \"#e5e7eb\",\n  \"showBorder\": true,\n  \"text\": \"Integrate regular sync-up meetings\\nand clear guidelines for effective communication.\",\n  \"icon\": \"check-circle\",\n  \"iconVariant\": \"success\",\n  \"duration\": 10,\n  \"textColor\": \"#333333\",\n  \"fontSize\": \"24px\"\n};\n  const headline = \"Integrate regular sync-up meetings and clear guidelines for effective communicat\";\n  const isVertical = true;\n  const headlineSize = isVertical ? 72 : 56;\n  \n  return (\n    <div style={{\n      width: 1080,\n      height: 1920,\n      backgroundColor: '#ffffff',\n      display: 'flex',\n      flexDirection: 'column',\n      alignItems: 'center',\n      justifyContent: 'flex-start',\n      padding: 40,\n      boxSizing: 'border-box',\n      gap: 24,\n    }}>\n      {headline && (\n        <AnimatedText\n          text={headline}\n          animationType=\"fade\"\n          fontSize={headlineSize}\n          fontWeight=\"bold\"\n          textAlign=\"center\"\n          color=\"#111827\"\n          durationInFrames={90}\n        />\n      )}\n      <div style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%' }}>\n        <CalloutBox {...props} />\n      </div>\n    </div>\n  );\n};\n\nexport default Scene4Component;",
+      "componentCode": "import React from 'react';\nimport { CalloutPattern } from '../.././remotion/patterns/CalloutPattern.tsx';\nimport { useVideoConfig } from 'remotion';\n\nexport const Scene4Component: React.FC = () => {\n  const { fps } = useVideoConfig();\n  \n  const props = {\n  \"format\": \"vertical\",\n  \"headline\": \"Key Point\",\n  \"title\": \"Callout\",\n  \"body\": \"Over-reliance on messages can lead to ambiguity and miscommunication.\",\n  \"variant\": \"info\"\n};\n  return (\n    <div style={{\n      width: 1080,\n      height: 1920,\n      backgroundColor: '#ffffff',\n      display: 'flex',\n      alignItems: 'center',\n      justifyContent: 'center',\n    }}>\n      <CalloutPattern {...props} />\n    </div>\n  );\n};\n\nexport default Scene4Component;",
       "componentSpec": {
-        "componentName": "CalloutBox",
+        "componentName": "CalloutPattern",
         "props": {
-          "children": "Integrate regular sync-up meetings and clear guidelines for effective communicat",
-          "width": 980,
-          "height": 300,
-          "borderWidth": 2,
-          "borderRadius": "10px",
-          "padding": "20px",
-          "animationType": "slide",
-          "direction": "up",
-          "startAt": 0,
-          "durationInFrames": 45,
-          "titleColor": "#111827",
-          "titleSize": 24,
-          "shadow": true,
-          "shadowColor": "rgba(0, 0, 0, 0.1)",
-          "variant": "default",
-          "title": "Share solution",
-          "backgroundColor": "#f0f8ff",
-          "borderColor": "#e5e7eb",
-          "showBorder": true,
-          "text": "Integrate regular sync-up meetings\nand clear guidelines for effective communication.",
-          "icon": "check-circle",
-          "iconVariant": "success",
-          "duration": 10,
-          "textColor": "#333333",
-          "fontSize": "24px"
+          "format": "vertical",
+          "headline": "Key Point",
+          "title": "Callout",
+          "body": "Over-reliance on messages can lead to ambiguity and miscommunication.",
+          "variant": "info"
         },
-        "validated": false,
-        "reasoning": "Fallback used due to validation error: [\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"number\",\n    \"received\": \"string\",\n    \"path\": [\n      \"borderRadius\"\n    ],\n    \"message\": \"Expected number, received string\"\n  },\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"number\",\n    \"received\": \"string\",\n    \"path\": [\n      \"padding\"\n    ],\n    \"message\": \"Expected number, received string\"\n  },\n  {\n    \"received\": \"fadeIn\",\n    \"code\": \"invalid_enum_value\",\n    \"options\": [\n      \"fade\",\n      \"slide\",\n      \"scale\",\n      \"bounce\"\n    ],\n    \"path\": [\n      \"animationType\"\n    ],\n    \"message\": \"Invalid enum value. Expected 'fade' | 'slide' | 'scale' | 'bounce', received 'fadeIn'\"\n  }\n]"
+        "validated": true
       },
       "timing": {
         "start": 0,
         "end": 10
       },
-      "purpose": "Share solution",
-      "content": "Integrate regular sync-up meetings and clear guidelines for effective communication.",
+      "purpose": "Highlight potential pitfalls",
+      "content": "Over-reliance on messages can lead to ambiguity and miscommunication.",
       "videoSpecs": {
         "format": "vertical",
         "dimensions": {
@@ -264,59 +195,27 @@
     {
       "segmentNumber": 5,
       "duration": 10,
-      "ttsScript": "\"Meet Team Zen! They embraced a blended approach and achieved an amazing 25% increase in productivity! This is how innovation leads to success!\"",
+      "ttsScript": "To boost clarity and collaboration, effective teams blend synchronous and asynchronous methods. This approach ensures everyone stays connected while allowing flexibility. Try it out!",
       "componentPath": "output/animated-video/Segment5Component.tsx",
       "scriptPath": "output/animated-video/segment-5-script.txt",
-      "componentCode": "import React from 'react';\nimport { CalloutBox } from '../.././remotion/ui-components/components/CalloutBox.tsx';\nimport { AnimatedText } from '../.././remotion/ui-components/components/AnimatedText.tsx';\nimport { useVideoConfig } from 'remotion';\n\nexport const Scene5Component: React.FC = () => {\n  const { fps } = useVideoConfig();\n  \n  const props = {\n  \"children\": \"Meet Team Zen: They embraced a blended approach and saw a 25% increase in produc\",\n  \"width\": 980,\n  \"height\": 300,\n  \"borderWidth\": 2,\n  \"borderRadius\": 15,\n  \"padding\": 20,\n  \"animationType\": \"slide\",\n  \"direction\": \"up\",\n  \"startAt\": 0,\n  \"durationInFrames\": 45,\n  \"titleColor\": \"#111827\",\n  \"titleSize\": 24,\n  \"shadow\": true,\n  \"shadowColor\": \"rgba(0, 0, 0, 0.1)\",\n  \"variant\": \"default\",\n  \"title\": \"Illustrate success story\",\n  \"backgroundColor\": \"#F0F8FF\",\n  \"borderColor\": \"#e5e7eb\",\n  \"showBorder\": true,\n  \"textColor\": \"#333333\",\n  \"icon\": \"success\",\n  \"content\": [\n    {\n      \"type\": \"header\",\n      \"text\": \"Meet Team Zen\",\n      \"fontSize\": 30,\n      \"fontWeight\": \"bold\"\n    },\n    {\n      \"type\": \"body\",\n      \"text\": \"They embraced a blended approach and saw a 25% increase in productivity!\",\n      \"fontSize\": 24\n    }\n  ],\n  \"duration\": 10,\n  \"position\": \"center\"\n};\n  const headline = \"Meet Team Zen: They embraced a blended approach and saw a 25% increase in produc\";\n  const isVertical = true;\n  const headlineSize = isVertical ? 72 : 56;\n  \n  return (\n    <div style={{\n      width: 1080,\n      height: 1920,\n      backgroundColor: '#ffffff',\n      display: 'flex',\n      flexDirection: 'column',\n      alignItems: 'center',\n      justifyContent: 'flex-start',\n      padding: 40,\n      boxSizing: 'border-box',\n      gap: 24,\n    }}>\n      {headline && (\n        <AnimatedText\n          text={headline}\n          animationType=\"fade\"\n          fontSize={headlineSize}\n          fontWeight=\"bold\"\n          textAlign=\"center\"\n          color=\"#111827\"\n          durationInFrames={90}\n        />\n      )}\n      <div style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%' }}>\n        <CalloutBox {...props} />\n      </div>\n    </div>\n  );\n};\n\nexport default Scene5Component;",
+      "componentCode": "import React from 'react';\nimport { CalloutPattern } from '../.././remotion/patterns/CalloutPattern.tsx';\nimport { useVideoConfig } from 'remotion';\n\nexport const Scene5Component: React.FC = () => {\n  const { fps } = useVideoConfig();\n  \n  const props = {\n  \"format\": \"vertical\",\n  \"headline\": \"Key Point\",\n  \"title\": \"Callout\",\n  \"body\": \"Effective teams combine sync and async methods to enhance clarity and collaboration.\",\n  \"variant\": \"info\"\n};\n  return (\n    <div style={{\n      width: 1080,\n      height: 1920,\n      backgroundColor: '#ffffff',\n      display: 'flex',\n      alignItems: 'center',\n      justifyContent: 'center',\n    }}>\n      <CalloutPattern {...props} />\n    </div>\n  );\n};\n\nexport default Scene5Component;",
       "componentSpec": {
-        "componentName": "CalloutBox",
+        "componentName": "CalloutPattern",
         "props": {
-          "children": "Meet Team Zen: They embraced a blended approach and saw a 25% increase in produc",
-          "width": 980,
-          "height": 300,
-          "borderWidth": 2,
-          "borderRadius": 15,
-          "padding": 20,
-          "animationType": "slide",
-          "direction": "up",
-          "startAt": 0,
-          "durationInFrames": 45,
-          "titleColor": "#111827",
-          "titleSize": 24,
-          "shadow": true,
-          "shadowColor": "rgba(0, 0, 0, 0.1)",
-          "variant": "default",
-          "title": "Illustrate success story",
-          "backgroundColor": "#F0F8FF",
-          "borderColor": "#e5e7eb",
-          "showBorder": true,
-          "textColor": "#333333",
-          "icon": "success",
-          "content": [
-            {
-              "type": "header",
-              "text": "Meet Team Zen",
-              "fontSize": 30,
-              "fontWeight": "bold"
-            },
-            {
-              "type": "body",
-              "text": "They embraced a blended approach and saw a 25% increase in productivity!",
-              "fontSize": 24
-            }
-          ],
-          "duration": 10,
-          "position": "center"
+          "format": "vertical",
+          "headline": "Key Point",
+          "title": "Callout",
+          "body": "Effective teams combine sync and async methods to enhance clarity and collaboration.",
+          "variant": "info"
         },
-        "validated": false,
-        "reasoning": "Fallback used due to validation error: [\n  {\n    \"received\": \"fadeIn\",\n    \"code\": \"invalid_enum_value\",\n    \"options\": [\n      \"fade\",\n      \"slide\",\n      \"scale\",\n      \"bounce\"\n    ],\n    \"path\": [\n      \"animationType\"\n    ],\n    \"message\": \"Invalid enum value. Expected 'fade' | 'slide' | 'scale' | 'bounce', received 'fadeIn'\"\n  }\n]"
+        "validated": true
       },
       "timing": {
         "start": 0,
         "end": 10
       },
-      "purpose": "Illustrate success story",
-      "content": "Meet Team Zen: They embraced a blended approach and saw a 25% increase in productivity!",
+      "purpose": "Offer a solution",
+      "content": "Effective teams combine sync and async methods to enhance clarity and collaboration.",
       "videoSpecs": {
         "format": "vertical",
         "dimensions": {
@@ -330,60 +229,27 @@
     {
       "segmentNumber": 6,
       "duration": 10,
-      "ttsScript": "\"Are you ready to elevate your team’s productivity? Let’s blend your communication methods today! Unlock potential and watch your team soar!\"",
+      "ttsScript": "\"Are your communication strategies *helping* or *hindering* your remote team's productivity? It’s time to rethink how you connect and collaborate. Let’s elevate your team’s effectiveness!\"",
       "componentPath": "output/animated-video/Segment6Component.tsx",
       "scriptPath": "output/animated-video/segment-6-script.txt",
-      "componentCode": "import React from 'react';\nimport { CalloutBox } from '../.././remotion/ui-components/components/CalloutBox.tsx';\nimport { AnimatedText } from '../.././remotion/ui-components/components/AnimatedText.tsx';\nimport { useVideoConfig } from 'remotion';\n\nexport const Scene6Component: React.FC = () => {\n  const { fps } = useVideoConfig();\n  \n  const props = {\n  \"children\": \"Are you ready to elevate your team's productivity? Start blending your communica\",\n  \"width\": 980,\n  \"height\": 300,\n  \"borderWidth\": 2,\n  \"borderRadius\": 10,\n  \"padding\": {\n    \"top\": 20,\n    \"bottom\": 20,\n    \"left\": 15,\n    \"right\": 15\n  },\n  \"animationType\": \"slide\",\n  \"direction\": \"up\",\n  \"startAt\": 0,\n  \"durationInFrames\": 45,\n  \"titleColor\": \"#111827\",\n  \"titleSize\": 24,\n  \"shadow\": true,\n  \"shadowColor\": \"rgba(0, 0, 0, 0.1)\",\n  \"variant\": \"success\",\n  \"title\": \"Call to action\",\n  \"backgroundColor\": \"#00bcd4\",\n  \"borderColor\": \"#e5e7eb\",\n  \"showBorder\": true,\n  \"text\": \"Are you ready to elevate your team's productivity? Start blending your communication methods today!\",\n  \"icon\": \"check_circle\",\n  \"animation\": {\n    \"type\": \"fadeInUp\",\n    \"duration\": 1,\n    \"delay\": 0\n  },\n  \"textColor\": \"#ffffff\",\n  \"duration\": 10,\n  \"position\": {\n    \"vertical\": \"center\",\n    \"horizontal\": \"center\"\n  }\n};\n  const headline = \"Are you ready to elevate your team's productivity? Start blending your communica\";\n  const isVertical = true;\n  const headlineSize = isVertical ? 72 : 56;\n  \n  return (\n    <div style={{\n      width: 1080,\n      height: 1920,\n      backgroundColor: '#ffffff',\n      display: 'flex',\n      flexDirection: 'column',\n      alignItems: 'center',\n      justifyContent: 'flex-start',\n      padding: 40,\n      boxSizing: 'border-box',\n      gap: 24,\n    }}>\n      {headline && (\n        <AnimatedText\n          text={headline}\n          animationType=\"fade\"\n          fontSize={headlineSize}\n          fontWeight=\"bold\"\n          textAlign=\"center\"\n          color=\"#111827\"\n          durationInFrames={90}\n        />\n      )}\n      <div style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%' }}>\n        <CalloutBox {...props} />\n      </div>\n    </div>\n  );\n};\n\nexport default Scene6Component;",
+      "componentCode": "import React from 'react';\nimport { CalloutPattern } from '../.././remotion/patterns/CalloutPattern.tsx';\nimport { useVideoConfig } from 'remotion';\n\nexport const Scene6Component: React.FC = () => {\n  const { fps } = useVideoConfig();\n  \n  const props = {\n  \"format\": \"vertical\",\n  \"headline\": \"Key Point\",\n  \"title\": \"Rethink Communication\",\n  \"body\": \"Are your communication strategies helping or hindering your remote team's productivity?\",\n  \"variant\": \"info\"\n};\n  return (\n    <div style={{\n      width: 1080,\n      height: 1920,\n      backgroundColor: '#ffffff',\n      display: 'flex',\n      alignItems: 'center',\n      justifyContent: 'center',\n    }}>\n      <CalloutPattern {...props} />\n    </div>\n  );\n};\n\nexport default Scene6Component;",
       "componentSpec": {
-        "componentName": "CalloutBox",
+        "componentName": "CalloutPattern",
         "props": {
-          "children": "Are you ready to elevate your team's productivity? Start blending your communica",
-          "width": 980,
-          "height": 300,
-          "borderWidth": 2,
-          "borderRadius": 10,
-          "padding": {
-            "top": 20,
-            "bottom": 20,
-            "left": 15,
-            "right": 15
-          },
-          "animationType": "slide",
-          "direction": "up",
-          "startAt": 0,
-          "durationInFrames": 45,
-          "titleColor": "#111827",
-          "titleSize": 24,
-          "shadow": true,
-          "shadowColor": "rgba(0, 0, 0, 0.1)",
-          "variant": "success",
-          "title": "Call to action",
-          "backgroundColor": "#00bcd4",
-          "borderColor": "#e5e7eb",
-          "showBorder": true,
-          "text": "Are you ready to elevate your team's productivity? Start blending your communication methods today!",
-          "icon": "check_circle",
-          "animation": {
-            "type": "fadeInUp",
-            "duration": 1,
-            "delay": 0
-          },
-          "textColor": "#ffffff",
-          "duration": 10,
-          "position": {
-            "vertical": "center",
-            "horizontal": "center"
-          }
+          "format": "vertical",
+          "headline": "Key Point",
+          "title": "Rethink Communication",
+          "body": "Are your communication strategies helping or hindering your remote team's productivity?",
+          "variant": "info"
         },
-        "validated": false,
-        "reasoning": "Fallback used due to validation error: [\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"number\",\n    \"received\": \"object\",\n    \"path\": [\n      \"padding\"\n    ],\n    \"message\": \"Expected number, received object\"\n  }\n]"
+        "validated": true
       },
       "timing": {
         "start": 0,
         "end": 10
       },
-      "purpose": "Call to action",
-      "content": "Are you ready to elevate your team's productivity? Start blending your communication methods today!",
+      "purpose": "Encourage viewers to rethink their communication strategies",
+      "content": "Are your communication strategies helping or hindering your remote team's productivity?",
       "videoSpecs": {
         "format": "vertical",
         "dimensions": {
@@ -397,35 +263,25 @@
     {
       "segmentNumber": 7,
       "duration": 10,
-      "ttsScript": "\"Thanks for tuning in! Don’t forget to *subscribe* for more insights on *mastering* remote team dynamics. Let’s keep building those connections together!\"",
+      "ttsScript": "\"Remember, embracing a balanced approach is key! It’s how we empower our remote team to thrive. Let’s make collaboration and well-being a priority together!\"",
       "componentPath": "output/animated-video/Segment7Component.tsx",
       "scriptPath": "output/animated-video/segment-7-script.txt",
-      "componentCode": "import React from 'react';\nimport { AnimatedText } from '../.././remotion/ui-components/components/AnimatedText.tsx';\nimport { AnimatedText } from '../.././remotion/ui-components/components/AnimatedText.tsx';\nimport { useVideoConfig } from 'remotion';\n\nexport const Scene7Component: React.FC = () => {\n  const { fps } = useVideoConfig();\n  \n  const props = {\n  \"text\": \"Subscribe for more insights on mastering remote team dynamics!\",\n  \"fontSize\": 40,\n  \"fontWeight\": \"normal\",\n  \"color\": \"#000000\",\n  \"fontFamily\": \"Inter, sans-serif\",\n  \"animationType\": \"fade\",\n  \"direction\": \"left\",\n  \"startAt\": 0,\n  \"durationInFrames\": 60,\n  \"characterDelay\": 2,\n  \"textAlign\": \"left\",\n  \"lineHeight\": 1.2\n};\n  const headline = \"Subscribe for more insights on mastering remote team dynamics!\";\n  const isVertical = true;\n  const headlineSize = isVertical ? 72 : 56;\n  \n  return (\n    <div style={{\n      width: 1080,\n      height: 1920,\n      backgroundColor: '#ffffff',\n      display: 'flex',\n      flexDirection: 'column',\n      alignItems: 'center',\n      justifyContent: 'flex-start',\n      padding: 40,\n      boxSizing: 'border-box',\n      gap: 24,\n    }}>\n      {headline && (\n        <AnimatedText\n          text={headline}\n          animationType=\"fade\"\n          fontSize={headlineSize}\n          fontWeight=\"bold\"\n          textAlign=\"center\"\n          color=\"#111827\"\n          durationInFrames={90}\n        />\n      )}\n      <div style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%' }}>\n        <AnimatedText {...props} />\n      </div>\n    </div>\n  );\n};\n\nexport default Scene7Component;",
+      "componentCode": "import React from 'react';\nimport { TitleSubhead } from '../.././remotion/patterns/TitleSubhead.tsx';\nimport { useVideoConfig } from 'remotion';\n\nexport const Scene7Component: React.FC = () => {\n  const { fps } = useVideoConfig();\n  \n  const props = {\n  \"format\": \"vertical\",\n  \"title\": \"Empower Your Remote Team\",\n  \"subhead\": \"Embrace a balanced approach to foster collaboration and productivity\"\n};\n  return (\n    <div style={{\n      width: 1080,\n      height: 1920,\n      backgroundColor: '#ffffff',\n      display: 'flex',\n      alignItems: 'center',\n      justifyContent: 'center',\n    }}>\n      <TitleSubhead {...props} />\n    </div>\n  );\n};\n\nexport default Scene7Component;",
       "componentSpec": {
-        "componentName": "AnimatedText",
+        "componentName": "TitleSubhead",
         "props": {
-          "text": "Subscribe for more insights on mastering remote team dynamics!",
-          "fontSize": 40,
-          "fontWeight": "normal",
-          "color": "#000000",
-          "fontFamily": "Inter, sans-serif",
-          "animationType": "fade",
-          "direction": "left",
-          "startAt": 0,
-          "durationInFrames": 60,
-          "characterDelay": 2,
-          "textAlign": "left",
-          "lineHeight": 1.2
+          "format": "vertical",
+          "title": "Empower Your Remote Team",
+          "subhead": "Embrace a balanced approach to foster collaboration and productivity"
         },
-        "validated": true,
-        "reasoning": "The animated text component is ideal for highlighting the call to action in a visually engaging way, ensuring it draws viewers' attention in a vertical format over the duration specified."
+        "validated": true
       },
       "timing": {
         "start": 0,
         "end": 10
       },
-      "purpose": "Wrap-up with branding",
-      "content": "Subscribe for more insights on mastering remote team dynamics!",
+      "purpose": "Conclude and reinforce message",
+      "content": "Embrace a balanced approach to empower your remote team!",
       "videoSpecs": {
         "format": "vertical",
         "dimensions": {

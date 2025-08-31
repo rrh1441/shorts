@@ -1,19 +1,11 @@
 {
-  "componentName": "AnimatedText",
+  "componentName": "CalloutPattern",
   "props": {
-    "text": "But studies show that asynchronous communication alone doesn't actually improve productivity.",
-    "fontSize": 48,
-    "fontWeight": "normal",
-    "color": "#000000",
-    "fontFamily": "Helvetica, Arial, sans-serif",
-    "animationType": "fade",
-    "direction": "left",
-    "startAt": 0,
-    "durationInFrames": 60,
-    "characterDelay": 2,
-    "textAlign": "left",
-    "lineHeight": 1.2
+    "format": "vertical",
+    "headline": "Key Point",
+    "title": "Asynchronous Comm.",
+    "body": "Asynchronous communication allows team members to work at their own pace, but is it enough?",
+    "variant": "info"
   },
-  "validated": true,
-  "reasoning": "The visual type is 'text and animation', making AnimatedText the best choice for displaying the key insight engagingly with a fade effect, which is visually appealing and maintains focus on the content."
+  "validated": true
 }

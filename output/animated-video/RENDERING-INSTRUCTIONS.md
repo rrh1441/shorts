@@ -30,12 +30,12 @@ output/
 
 ## Generated Segments
 - **Segment 1**: Hook viewer with statistic (10s)
-- **Segment 2**: Present key insight (10s)
-- **Segment 3**: Introduce the problem (10s)
-- **Segment 4**: Share solution (10s)
-- **Segment 5**: Illustrate success story (10s)
-- **Segment 6**: Call to action (10s)
-- **Segment 7**: Wrap-up with branding (10s)
+- **Segment 2**: Introduce the concept of asynchronous communication (10s)
+- **Segment 3**: Present the key insight (10s)
+- **Segment 4**: Highlight potential pitfalls (10s)
+- **Segment 5**: Offer a solution (10s)
+- **Segment 6**: Encourage viewers to rethink their communication strategies (10s)
+- **Segment 7**: Conclude and reinforce message (10s)
 
 ## Individual Render Commands
 ### Render each segment to MP4 (one at a time for compute monitoring):
@@ -56,7 +56,7 @@ npm run render:with-audio -- \
 ```
 
 ```bash
-# Segment 2: Present key insight
+# Segment 2: Introduce the concept of asynchronous communication
 npm run render -- \
   "output/animated-video/Segment2Component.tsx" \
   "output/animated-video/segment-2.mp4"
@@ -71,7 +71,7 @@ npm run render:with-audio -- \
 ```
 
 ```bash
-# Segment 3: Introduce the problem
+# Segment 3: Present the key insight
 npm run render -- \
   "output/animated-video/Segment3Component.tsx" \
   "output/animated-video/segment-3.mp4"
@@ -86,7 +86,7 @@ npm run render:with-audio -- \
 ```
 
 ```bash
-# Segment 4: Share solution
+# Segment 4: Highlight potential pitfalls
 npm run render -- \
   "output/animated-video/Segment4Component.tsx" \
   "output/animated-video/segment-4.mp4"
@@ -101,7 +101,7 @@ npm run render:with-audio -- \
 ```
 
 ```bash
-# Segment 5: Illustrate success story
+# Segment 5: Offer a solution
 npm run render -- \
   "output/animated-video/Segment5Component.tsx" \
   "output/animated-video/segment-5.mp4"
@@ -116,7 +116,7 @@ npm run render:with-audio -- \
 ```
 
 ```bash
-# Segment 6: Call to action
+# Segment 6: Encourage viewers to rethink their communication strategies
 npm run render -- \
   "output/animated-video/Segment6Component.tsx" \
   "output/animated-video/segment-6.mp4"
@@ -131,7 +131,7 @@ npm run render:with-audio -- \
 ```
 
 ```bash
-# Segment 7: Wrap-up with branding
+# Segment 7: Conclude and reinforce message
 npm run render -- \
   "output/animated-video/Segment7Component.tsx" \
   "output/animated-video/segment-7.mp4"

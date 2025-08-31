@@ -24,6 +24,10 @@ export const StatBlockPropsSchema = z.object({
   className: z.string().optional(),
   title: z.string().optional(),
   titleColor: z.string().default('#1f2937'),
+  // Readability controls
+  titleSize: z.number().positive().default(42),
+  valueFontSize: z.number().positive().default(64),
+  labelFontSize: z.number().positive().default(24),
 });
 
 export const getStatBlockDefaults = (): z.infer<typeof StatBlockPropsSchema> => ({
@@ -40,6 +44,9 @@ export const getStatBlockDefaults = (): z.infer<typeof StatBlockPropsSchema> => 
   staggerDelay: 5,
   startAt: 0,
   titleColor: '#1f2937',
+  titleSize: 42,
+  valueFontSize: 64,
+  labelFontSize: 24,
 });
 
 export type StatBlockProps = z.infer<typeof StatBlockPropsSchema>;

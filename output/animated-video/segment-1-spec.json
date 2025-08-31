@@ -1,40 +1,11 @@
 {
-  "componentName": "StatBlock",
+  "componentName": "StatHero",
   "props": {
-    "stats": [
-      {
-        "label": "Productivity Change",
-        "value": "80",
-        "format": "percentage"
-      }
-    ],
-    "columns": 1,
-    "width": 980,
-    "height": 600,
-    "backgroundColor": "#FFFFFF",
-    "borderColor": "#e5e7eb",
-    "showBorder": true,
-    "animationType": "counter",
-    "staggerDelay": 5,
-    "startAt": 0,
-    "titleColor": "#111827",
-    "title": "80% of remote managers believe asynchronous communication boosts productivity.",
-    "statistic": "80%",
-    "description": "of remote managers believe asynchronous communication boosts productivity.",
-    "animationDuration": 10,
-    "counterAnimation": true,
-    "layout": "centered",
-    "textColor": "#333333",
-    "fontSize": "48px",
-    "subTextFontSize": "24px",
-    "textAlignment": "center",
-    "padding": {
-      "top": "20px",
-      "bottom": "20px",
-      "left": "15px",
-      "right": "15px"
-    }
+    "format": "vertical",
+    "headline": "Communication Challenges in Remote Teams",
+    "statLabel": "Percentage of Teams",
+    "statValue": 70,
+    "valueFormat": "percentage"
   },
-  "validated": false,
-  "reasoning": "Fallback used due to validation error: [\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"array\",\n    \"received\": \"undefined\",\n    \"path\": [\n      \"stats\"\n    ],\n    \"message\": \"Required\"\n  }\n]"
+  "validated": true
 }

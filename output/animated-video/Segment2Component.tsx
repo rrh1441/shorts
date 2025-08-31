@@ -1,56 +1,27 @@
 import React from 'react';
-import { AnimatedText } from '../.././remotion/ui-components/components/AnimatedText.tsx';
-import { AnimatedText } from '../.././remotion/ui-components/components/AnimatedText.tsx';
+import { CalloutPattern } from '../.././remotion/patterns/CalloutPattern.tsx';
 import { useVideoConfig } from 'remotion';
 
 export const Scene2Component: React.FC = () => {
   const { fps } = useVideoConfig();
   
   const props = {
-  "text": "But studies show that asynchronous communication alone doesn't actually improve productivity.",
-  "fontSize": 48,
-  "fontWeight": "normal",
-  "color": "#000000",
-  "fontFamily": "Helvetica, Arial, sans-serif",
-  "animationType": "fade",
-  "direction": "left",
-  "startAt": 0,
-  "durationInFrames": 60,
-  "characterDelay": 2,
-  "textAlign": "left",
-  "lineHeight": 1.2
+  "format": "vertical",
+  "headline": "Key Point",
+  "title": "Asynchronous Comm.",
+  "body": "Asynchronous communication allows team members to work at their own pace, but is it enough?",
+  "variant": "info"
 };
-  const headline = "But studies show that asynchronous communication alone doesn't actually improve ";
-  const isVertical = true;
-  const headlineSize = isVertical ? 72 : 56;
-  
   return (
     <div style={{
       width: 1080,
       height: 1920,
       backgroundColor: '#ffffff',
       display: 'flex',
-      flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'flex-start',
-      padding: 40,
-      boxSizing: 'border-box',
-      gap: 24,
+      justifyContent: 'center',
     }}>
-      {headline && (
-        <AnimatedText
-          text={headline}
-          animationType="fade"
-          fontSize={headlineSize}
-          fontWeight="bold"
-          textAlign="center"
-          color="#111827"
-          durationInFrames={90}
-        />
-      )}
-      <div style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%' }}>
-        <AnimatedText {...props} />
-      </div>
+      <CalloutPattern {...props} />
     </div>
   );
 };

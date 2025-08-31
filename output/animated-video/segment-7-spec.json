@@ -1,19 +1,9 @@
 {
-  "componentName": "AnimatedText",
+  "componentName": "TitleSubhead",
   "props": {
-    "text": "Subscribe for more insights on mastering remote team dynamics!",
-    "fontSize": 40,
-    "fontWeight": "normal",
-    "color": "#000000",
-    "fontFamily": "Inter, sans-serif",
-    "animationType": "fade",
-    "direction": "left",
-    "startAt": 0,
-    "durationInFrames": 60,
-    "characterDelay": 2,
-    "textAlign": "left",
-    "lineHeight": 1.2
+    "format": "vertical",
+    "title": "Empower Your Remote Team",
+    "subhead": "Embrace a balanced approach to foster collaboration and productivity"
   },
-  "validated": true,
-  "reasoning": "The animated text component is ideal for highlighting the call to action in a visually engaging way, ensuring it draws viewers' attention in a vertical format over the duration specified."
+  "validated": true
 }

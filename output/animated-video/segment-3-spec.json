@@ -1,22 +1,11 @@
 {
-  "componentName": "CalloutBox",
+  "componentName": "CalloutPattern",
   "props": {
-    "width": 600,
-    "height": 200,
-    "backgroundColor": "#ffcc00",
-    "borderWidth": 2,
-    "borderRadius": 15,
-    "padding": 20,
-    "animationType": "fade",
-    "direction": "up",
-    "startAt": 0,
-    "durationInFrames": 45,
-    "titleColor": "#1f2937",
-    "titleSize": 18,
-    "shadow": true,
-    "shadowColor": "rgba(0, 0, 0, 0.1)",
-    "variant": "default"
+    "format": "vertical",
+    "headline": "Key Point",
+    "title": "Callout",
+    "body": "Studies show that asynchronous communication alone doesn't guarantee higher productivity.",
+    "variant": "info"
   },
-  "validated": true,
-  "reasoning": "The content emphasizes highlighted challenges, making CalloutBox the best choice for presenting them effectively with visual impact and clarity. It allows for the animated presentation of multiple points, making it engaging while fitting beautifully into the vertical format."
+  "validated": true
 }
