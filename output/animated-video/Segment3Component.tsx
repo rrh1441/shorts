@@ -1,17 +1,18 @@
 import React from 'react';
 import { CalloutBox } from '../.././remotion/ui-components/components/CalloutBox.tsx';
+import { AnimatedText } from '../.././remotion/ui-components/components/AnimatedText.tsx';
 import { useVideoConfig } from 'remotion';
 
 export const Scene3Component: React.FC = () => {
   const { fps } = useVideoConfig();
   
   const props = {
-  "children": "Sample callout content",
   "width": 600,
   "height": 200,
+  "backgroundColor": "#ffcc00",
   "borderWidth": 2,
-  "borderRadius": "15px",
-  "padding": "20px",
+  "borderRadius": 15,
+  "padding": 20,
   "animationType": "fade",
   "direction": "up",
   "startAt": 0,
@@ -20,21 +21,11 @@ export const Scene3Component: React.FC = () => {
   "titleSize": 18,
   "shadow": true,
   "shadowColor": "rgba(0, 0, 0, 0.1)",
-  "variant": "default",
-  "title": "Limitations of Flexibility",
-  "icon": "⏳",
-  " // hourglass icon representing time and limitations": "But just because it's flexible doesn't mean it's effective.",
-  "backgroundColor": "#ffcccc",
-  "textColor": "#333333",
-  "duration": 10,
-  "animation": "fade-in",
-  "size": "medium",
-  "position": {
-    "top": "40%",
-    "left": "10%",
-    "right": "10%"
-  }
+  "variant": "default"
 };
+  const headline = "Challenges arise: misunderstandings, delays, and team disconnection.";
+  const isVertical = true;
+  const headlineSize = isVertical ? 72 : 56;
   
   return (
     <div style={{
@@ -42,10 +33,27 @@ export const Scene3Component: React.FC = () => {
       height: 1920,
       backgroundColor: '#ffffff',
       display: 'flex',
+      flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'flex-start',
+      padding: 40,
+      boxSizing: 'border-box',
+      gap: 24,
     }}>
-      <CalloutBox {...props} />
+      {headline && (
+        <AnimatedText
+          text={headline}
+          animationType="fade"
+          fontSize={headlineSize}
+          fontWeight="bold"
+          textAlign="center"
+          color="#111827"
+          durationInFrames={90}
+        />
+      )}
+      <div style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+        <CalloutBox {...props} />
+      </div>
     </div>
   );
 };

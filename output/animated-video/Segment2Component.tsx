@@ -1,42 +1,28 @@
 import React from 'react';
-import { CalloutBox } from '../.././remotion/ui-components/components/CalloutBox.tsx';
+import { AnimatedText } from '../.././remotion/ui-components/components/AnimatedText.tsx';
+import { AnimatedText } from '../.././remotion/ui-components/components/AnimatedText.tsx';
 import { useVideoConfig } from 'remotion';
 
 export const Scene2Component: React.FC = () => {
   const { fps } = useVideoConfig();
   
   const props = {
-  "children": "Sample callout content",
-  "width": 600,
-  "height": 200,
-  "borderWidth": 2,
-  "borderRadius": 12,
-  "padding": 20,
-  "animationType": "fadeIn",
-  "direction": "up",
+  "text": "But studies show that asynchronous communication alone doesn't actually improve productivity.",
+  "fontSize": 48,
+  "fontWeight": "normal",
+  "color": "#000000",
+  "fontFamily": "Helvetica, Arial, sans-serif",
+  "animationType": "fade",
+  "direction": "left",
   "startAt": 0,
-  "durationInFrames": 45,
-  "titleColor": "#1f2937",
-  "titleSize": 18,
-  "shadow": true,
-  "shadowColor": "rgba(0, 0, 0, 0.1)",
-  "variant": "default",
-  "backgroundColor": "#f9f9f9",
-  "borderColor": "#ffcc00",
-  "icon": "🔍",
-  "content": {
-    "title": "Misconception Alert!",
-    "text": "Many believe asynchronous communication is the ultimate solution for productivity.",
-    "textAnimation": "slideUp"
-  },
-  "duration": 10,
-  "margin": 10,
-  "textColor": "#333333",
-  "titleFontSize": 24,
-  "textFontSize": 18,
-  "titleFontWeight": "bold",
-  "textAlign": "center"
+  "durationInFrames": 60,
+  "characterDelay": 2,
+  "textAlign": "left",
+  "lineHeight": 1.2
 };
+  const headline = "But studies show that asynchronous communication alone doesn't actually improve ";
+  const isVertical = true;
+  const headlineSize = isVertical ? 72 : 56;
   
   return (
     <div style={{
@@ -44,10 +30,27 @@ export const Scene2Component: React.FC = () => {
       height: 1920,
       backgroundColor: '#ffffff',
       display: 'flex',
+      flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'flex-start',
+      padding: 40,
+      boxSizing: 'border-box',
+      gap: 24,
     }}>
-      <CalloutBox {...props} />
+      {headline && (
+        <AnimatedText
+          text={headline}
+          animationType="fade"
+          fontSize={headlineSize}
+          fontWeight="bold"
+          textAlign="center"
+          color="#111827"
+          durationInFrames={90}
+        />
+      )}
+      <div style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+        <AnimatedText {...props} />
+      </div>
     </div>
   );
 };

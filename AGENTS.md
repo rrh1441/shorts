@@ -27,6 +27,7 @@ A Remotion-powered system where agents orchestrate prebuilt UI components by gen
 - Don’t: invent component names. Use the registry provided by this repo.
 - Don’t: set absolute widths/heights unless asked; prefer semantic sizes where available.
 - Don’t: add randomness (determinism matters for repeatability).
+- Don’t: rely on fallbacks — invalid props must fail with a clear error (fail‑closed).
 
 ---
 
@@ -120,3 +121,31 @@ Current registry (curated for reliability):
 
 Updated 2025‑08‑31
 
+---
+
+## Status Update — 2025‑08‑31
+
+What improved
+- Headline: Each generated scene now renders a bold headline from scene content before the main component.
+- Fallbacks: When AI props fail validation, we extract usable stats/text from the scene instead of showing sample defaults.
+- End‑to‑end: Generation, per‑scene TTS, and rendering work with stable scripts.
+
+What’s still wrong (root causes)
+- Rules not enforced: Format presets, minimum font sizes, and safe margins exist in docs but are not hard‑coded in the render path.
+- Web‑scale defaults: On validation failure, defaults (e.g., 800×400, 24–32px text) are merged in a 1080×1920 frame → tiny, illegible blocks.
+- No frame layout: The wrapper lacks a format‑aware page layout (top margin, content grid), so content floats.
+- Lax error handling: Bad props (e.g., animationType "fadeIn") silently fall back instead of re‑planning or failing closed.
+- No QA pass: There’s no legibility/readability lint that adjusts or rejects a scene before render.
+
+What we will enforce next
+- Format presets: Hard constants per orientation for container sizes, spacing, and component scale; remove raw width/height decisions from AI.
+- Type scale: Minimum readable font sizes per format (headline/body), with enforced line‑length and dwell‑time.
+- Safe margins: Fixed gutters and top spacing; components mount inside a layout shell, not the canvas center.
+- Fail‑closed policy: Invalid enums/props trigger deterministic re‑planning or hard failure instead of weak defaults.
+- QA lint: A pre‑render check that flags/adjusts undersized text and cramped layouts.
+
+Why it regressed
+- We prioritized getting an end‑to‑end path running and left the guardrails as guidance instead of code. That allowed visually poor but technically “valid” renders.
+
+Action
+- Enforce the above in the generator/wrapper, not just the components. Once approved, I’ll implement these constraints and re‑render the full set.

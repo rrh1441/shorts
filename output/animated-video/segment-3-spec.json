@@ -1,12 +1,12 @@
 {
   "componentName": "CalloutBox",
   "props": {
-    "children": "Sample callout content",
     "width": 600,
     "height": 200,
+    "backgroundColor": "#ffcc00",
     "borderWidth": 2,
-    "borderRadius": "15px",
-    "padding": "20px",
+    "borderRadius": 15,
+    "padding": 20,
     "animationType": "fade",
     "direction": "up",
     "startAt": 0,
@@ -15,21 +15,8 @@
     "titleSize": 18,
     "shadow": true,
     "shadowColor": "rgba(0, 0, 0, 0.1)",
-    "variant": "default",
-    "title": "Limitations of Flexibility",
-    "icon": "⏳",
-    " // hourglass icon representing time and limitations": "But just because it's flexible doesn't mean it's effective.",
-    "backgroundColor": "#ffcccc",
-    "textColor": "#333333",
-    "duration": 10,
-    "animation": "fade-in",
-    "size": "medium",
-    "position": {
-      "top": "40%",
-      "left": "10%",
-      "right": "10%"
-    }
+    "variant": "default"
   },
-  "validated": false,
-  "reasoning": "Fallback used due to validation error: [\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"number\",\n    \"received\": \"string\",\n    \"path\": [\n      \"borderRadius\"\n    ],\n    \"message\": \"Expected number, received string\"\n  },\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"number\",\n    \"received\": \"string\",\n    \"path\": [\n      \"padding\"\n    ],\n    \"message\": \"Expected number, received string\"\n  }\n]"
+  "validated": true,
+  "reasoning": "The content emphasizes highlighted challenges, making CalloutBox the best choice for presenting them effectively with visual impact and clarity. It allows for the animated presentation of multiple points, making it engaging while fitting beautifully into the vertical format."
 }

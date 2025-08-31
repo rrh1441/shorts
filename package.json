@@ -9,6 +9,7 @@
     "render:with-audio": "tsx scripts/renderWithAudio.ts",
     "preview": "remotion preview",
     "plan": "tsx scripts/plan.ts",
+    "regen:components": "tsx scripts/regen-components.ts",
     "dev": "npm run generate",
     "typecheck": "tsc --noEmit"
   },

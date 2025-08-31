@@ -30,82 +30,131 @@ output/
 
 ## Generated Segments
 - **Segment 1**: Hook viewer with statistic (10s)
-- **Segment 2**: Introduce the misconception (10s)
-- **Segment 3**: Highlight the limitation (10s)
-- **Segment 4**: Introduce the solution (10s)
-- **Segment 5**: Provide actionable insights (10s)
+- **Segment 2**: Present key insight (10s)
+- **Segment 3**: Introduce the problem (10s)
+- **Segment 4**: Share solution (10s)
+- **Segment 5**: Illustrate success story (10s)
 - **Segment 6**: Call to action (10s)
-- **Segment 7**: Wrap up with a reminder (10s)
+- **Segment 7**: Wrap-up with branding (10s)
 
 ## Individual Render Commands
 ### Render each segment to MP4 (one at a time for compute monitoring):
 
 ```bash
 # Segment 1: Hook viewer with statistic
-tsx scripts/renderSegment.ts \
+npm run render -- \
   "output/animated-video/Segment1Component.tsx" \
-  "output/animated-video/segment-1.mp4" \
+  "output/animated-video/segment-1.mp4"
+```
+
+```bash
+# Segment 1 with audio
+npm run render:with-audio -- \
+  "output/animated-video/Segment1Component.tsx" \
+  "output/animated-video/segment-1-final.mp4" \
   "output/animated-video/segment-1-audio.mp3"
 ```
 
 ```bash
-# Segment 2: Introduce the misconception
-tsx scripts/renderSegment.ts \
+# Segment 2: Present key insight
+npm run render -- \
   "output/animated-video/Segment2Component.tsx" \
-  "output/animated-video/segment-2.mp4" \
+  "output/animated-video/segment-2.mp4"
+```
+
+```bash
+# Segment 2 with audio
+npm run render:with-audio -- \
+  "output/animated-video/Segment2Component.tsx" \
+  "output/animated-video/segment-2-final.mp4" \
   "output/animated-video/segment-2-audio.mp3"
 ```
 
 ```bash
-# Segment 3: Highlight the limitation
-tsx scripts/renderSegment.ts \
+# Segment 3: Introduce the problem
+npm run render -- \
   "output/animated-video/Segment3Component.tsx" \
-  "output/animated-video/segment-3.mp4" \
+  "output/animated-video/segment-3.mp4"
+```
+
+```bash
+# Segment 3 with audio
+npm run render:with-audio -- \
+  "output/animated-video/Segment3Component.tsx" \
+  "output/animated-video/segment-3-final.mp4" \
   "output/animated-video/segment-3-audio.mp3"
 ```
 
 ```bash
-# Segment 4: Introduce the solution
-tsx scripts/renderSegment.ts \
+# Segment 4: Share solution
+npm run render -- \
   "output/animated-video/Segment4Component.tsx" \
-  "output/animated-video/segment-4.mp4" \
+  "output/animated-video/segment-4.mp4"
+```
+
+```bash
+# Segment 4 with audio
+npm run render:with-audio -- \
+  "output/animated-video/Segment4Component.tsx" \
+  "output/animated-video/segment-4-final.mp4" \
   "output/animated-video/segment-4-audio.mp3"
 ```
 
 ```bash
-# Segment 5: Provide actionable insights
-tsx scripts/renderSegment.ts \
+# Segment 5: Illustrate success story
+npm run render -- \
   "output/animated-video/Segment5Component.tsx" \
-  "output/animated-video/segment-5.mp4" \
+  "output/animated-video/segment-5.mp4"
+```
+
+```bash
+# Segment 5 with audio
+npm run render:with-audio -- \
+  "output/animated-video/Segment5Component.tsx" \
+  "output/animated-video/segment-5-final.mp4" \
   "output/animated-video/segment-5-audio.mp3"
 ```
 
 ```bash
 # Segment 6: Call to action
-tsx scripts/renderSegment.ts \
+npm run render -- \
   "output/animated-video/Segment6Component.tsx" \
-  "output/animated-video/segment-6.mp4" \
+  "output/animated-video/segment-6.mp4"
+```
+
+```bash
+# Segment 6 with audio
+npm run render:with-audio -- \
+  "output/animated-video/Segment6Component.tsx" \
+  "output/animated-video/segment-6-final.mp4" \
   "output/animated-video/segment-6-audio.mp3"
 ```
 
 ```bash
-# Segment 7: Wrap up with a reminder
-tsx scripts/renderSegment.ts \
+# Segment 7: Wrap-up with branding
+npm run render -- \
   "output/animated-video/Segment7Component.tsx" \
-  "output/animated-video/segment-7.mp4" \
+  "output/animated-video/segment-7.mp4"
+```
+
+```bash
+# Segment 7 with audio
+npm run render:with-audio -- \
+  "output/animated-video/Segment7Component.tsx" \
+  "output/animated-video/segment-7-final.mp4" \
   "output/animated-video/segment-7-audio.mp3"
 ```
 
 
-## Batch Render All Segments
+## Batch Render All Segments (no audio)
 ```bash
-tsx scripts/renderSegment.ts "output/animated-video/Segment1Component.tsx" "output/animated-video/segment-1.mp4" "output/animated-video/segment-1-audio.mp3" && \
-tsx scripts/renderSegment.ts "output/animated-video/Segment2Component.tsx" "output/animated-video/segment-2.mp4" "output/animated-video/segment-2-audio.mp3" && \
-tsx scripts/renderSegment.ts "output/animated-video/Segment3Component.tsx" "output/animated-video/segment-3.mp4" "output/animated-video/segment-3-audio.mp3" && \
-tsx scripts/renderSegment.ts "output/animated-video/Segment4Component.tsx" "output/animated-video/segment-4.mp4" "output/animated-video/segment-4-audio.mp3" && \
-tsx scripts/renderSegment.ts "output/animated-video/Segment5Component.tsx" "output/animated-video/segment-5.mp4" "output/animated-video/segment-5-audio.mp3" && \
-tsx scripts/renderSegment.ts "output/animated-video/Segment6Component.tsx" "output/animated-video/segment-6.mp4" "output/animated-video/segment-6-audio.mp3" && \
-tsx scripts/renderSegment.ts "output/animated-video/Segment7Component.tsx" "output/animated-video/segment-7.mp4" "output/animated-video/segment-7-audio.mp3"
+npm run render -- "output/animated-video/Segment1Component.tsx" "output/animated-video/segment-1.mp4" && \
+npm run render -- "output/animated-video/Segment2Component.tsx" "output/animated-video/segment-2.mp4" && \
+npm run render -- "output/animated-video/Segment3Component.tsx" "output/animated-video/segment-3.mp4" && \
+npm run render -- "output/animated-video/Segment4Component.tsx" "output/animated-video/segment-4.mp4" && \
+npm run render -- "output/animated-video/Segment5Component.tsx" "output/animated-video/segment-5.mp4" && \
+npm run render -- "output/animated-video/Segment6Component.tsx" "output/animated-video/segment-6.mp4" && \
+npm run render -- "output/animated-video/Segment7Component.tsx" "output/animated-video/segment-7.mp4"
 ```
 
 ## Loom Compilation Workflow

@@ -86,6 +86,13 @@ export class ComponentOrchestrator {
       this.initialized = true;
     }
   }
+
+  /**
+   * Public initializer for tools that only need generateComponentTSX.
+   */
+  async init() {
+    await this.ensureInitialized();
+  }
   
   /**
    * Main orchestration method: Scene + Video specs → Component + Props
@@ -104,7 +111,7 @@ export class ComponentOrchestrator {
     const aiResponse = await this.selectComponentAndGenerateProps(scene, videoSpecs, componentPlan);
     
     // Step 2: Validate props against component schema
-    const validatedSpec = this.validateComponentProps(aiResponse);
+    const validatedSpec = this.validateComponentProps(aiResponse, scene, videoSpecs);
     
     console.log(`✅ Orchestrated ${validatedSpec.componentName} for scene ${scene.sceneNumber}`);
     return validatedSpec;
@@ -169,25 +176,32 @@ Focus on creating engaging, mobile-optimized props that will work well for ${vid
     });
     
     const result = response.choices[0]?.message?.content?.trim();
-    if (!result) throw new Error('No component selection generated');
-    
+    if (!result) {
+      throw new Error(JSON.stringify({
+        code: 'AI_NO_COMPONENT_SELECTION',
+        message: 'AI did not return a component selection.',
+        sceneNumber: scene?.sceneNumber,
+      }));
+    }
+
     try {
       const parsed = JSON.parse(result);
-      
-      // Validate basic structure
       const validated = ComponentSelectionSchema.parse(parsed);
       return validated;
-      
-    } catch (error) {
-      console.warn('AI response parsing failed, using fallback:', error);
-      return this.getFallbackSelection(scene, videoSpecs);
+    } catch (error: any) {
+      throw new Error(JSON.stringify({
+        code: 'AI_COMPONENT_SELECTION_PARSE_ERROR',
+        message: 'AI component selection was not valid JSON or did not match schema.',
+        sceneNumber: scene?.sceneNumber,
+        details: error?.message || String(error)
+      }));
     }
   }
   
   /**
    * Step 2: Validate AI-generated props against component schema
    */
-  private validateComponentProps(aiResponse: any): SceneComponentSpec {
+  private validateComponentProps(aiResponse: any, scene: any, videoSpecs: any): SceneComponentSpec {
     const { componentName, props, reasoning } = aiResponse;
     
     if (!(componentName in ComponentRegistry)) {
@@ -197,29 +211,21 @@ Focus on creating engaging, mobile-optimized props that will work well for ${vid
     const component = ComponentRegistry[componentName as ComponentName];
     
     try {
-      // Validate props against component schema
       const validatedProps = component.schema.parse(props);
-      
       return {
         componentName: componentName as ComponentName,
         props: validatedProps,
         validated: true,
         reasoning,
       };
-      
-    } catch (error) {
-      console.warn(`Props validation failed for ${componentName}:`, error);
-      
-      // Fallback to default props with some AI content preserved
-      const defaults = component.getDefaults();
-      const fallbackProps = this.mergeWithDefaults(props, defaults);
-      
-      return {
-        componentName: componentName as ComponentName,
-        props: fallbackProps,
-        validated: false,
-        reasoning: `Fallback used due to validation error: ${error instanceof Error ? error.message : 'Unknown error'}`,
-      };
+    } catch (error: any) {
+      throw new Error(JSON.stringify({
+        code: 'COMPONENT_PROPS_VALIDATION_FAILED',
+        message: `Props did not conform to ${String(componentName)} schema.`,
+        sceneNumber: scene?.sceneNumber,
+        componentName,
+        details: error?.issues || error?.message || String(error),
+      }));
     }
   }
   
@@ -233,15 +239,20 @@ Focus on creating engaging, mobile-optimized props that will work well for ${vid
     
     // Use relative path from output directory back to project root
     const importPath = `../../${ComponentRegistry[componentName].importPath}`;
+    const animatedTextImport = `../../${ComponentRegistry['AnimatedText'].importPath}`;
     
     return `import React from 'react';
 import { ${componentName} } from '${importPath}';
+import { AnimatedText } from '${animatedTextImport}';
 import { useVideoConfig } from 'remotion';
 
 export const Scene${scene.sceneNumber}Component: React.FC = () => {
   const { fps } = useVideoConfig();
   
   const props = ${propsString};
+  const headline = ${JSON.stringify((scene?.content || scene?.purpose || '').toString().trim().slice(0, 80))};
+  const isVertical = ${JSON.stringify(videoSpecs.format === 'vertical')};
+  const headlineSize = isVertical ? 72 : 56;
   
   return (
     <div style={{
@@ -249,10 +260,27 @@ export const Scene${scene.sceneNumber}Component: React.FC = () => {
       height: ${videoSpecs.dimensions.height},
       backgroundColor: '#ffffff',
       display: 'flex',
+      flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'flex-start',
+      padding: 40,
+      boxSizing: 'border-box',
+      gap: 24,
     }}>
-      <${componentName} {...props} />
+      {headline && (
+        <AnimatedText
+          text={headline}
+          animationType="fade"
+          fontSize={headlineSize}
+          fontWeight="bold"
+          textAlign="center"
+          color="#111827"
+          durationInFrames={90}
+        />
+      )}
+      <div style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+        <${componentName} {...props} />
+      </div>
     </div>
   );
 };
@@ -273,158 +301,7 @@ export default Scene${scene.sceneNumber}Component;`;
     return descriptions[componentName];
   }
   
-  /**
-   * Fallback selection when AI fails - with mobile-optimized props
-   */
-  private getFallbackSelection(scene: any, videoSpecs: any): any {
-    let componentName: ComponentName;
-    let props: any;
-    
-    // Extract key info from scene content
-    const isVertical = videoSpecs.format === 'vertical';
-    const sceneContent = scene.content || '';
-    
-    // Simple rule-based fallback
-    switch (scene.visualType) {
-      case 'statistic':
-        componentName = 'StatBlock';
-        // Extract percentage or number from content with better regex
-        const statMatch = sceneContent.match(/(\d+(?:\.\d+)?%?)/);
-        const statValue = statMatch ? statMatch[1] : '20%';
-        
-        // Extract description context from the content
-        let description = 'Productivity Change';
-        if (sceneContent.toLowerCase().includes('drop')) {
-          description = 'Drop in Productivity';
-        } else if (sceneContent.toLowerCase().includes('increase') || sceneContent.toLowerCase().includes('rise')) {
-          description = 'Productivity Increase';
-        } else if (sceneContent.toLowerCase().includes('productivity')) {
-          description = 'Productivity Impact';
-        }
-        
-        props = {
-          stats: [{
-            label: description,
-            value: statValue.replace('%', ''),
-            format: statValue.includes('%') ? 'percentage' : 'number'
-          }],
-          title: '',  // No title needed for single stat
-          columns: 1,
-          width: isVertical ? 800 : 700,
-          height: isVertical ? 400 : 300,
-          animationType: 'counter',
-          backgroundColor: '#ffffff',
-          borderColor: '#e5e7eb',
-          showBorder: true,
-          titleColor: '#1f2937'
-        };
-        break;
-        
-      case 'text-animation':
-        componentName = 'AnimatedText';
-        props = {
-          text: sceneContent.substring(0, 120) || 'Key Business Insight',
-          animationType: 'fade',
-          fontSize: isVertical ? 72 : 48,
-          fontWeight: 'bold',
-          color: '#1f2937',
-          textAlign: 'center'
-        };
-        break;
-        
-      default:
-        componentName = 'CalloutBox';
-        // Extract a meaningful title from the scene purpose or content
-        let title = 'Key Point';
-        if (scene.purpose?.includes('insight')) {
-          title = 'Key Insight';
-        } else if (scene.purpose?.includes('tip')) {
-          title = 'Pro Tip';
-        } else if (scene.purpose?.includes('action')) {
-          title = 'Take Action';
-        } else if (scene.purpose?.includes('misconception')) {
-          title = 'Common Myth';
-        }
-        
-        props = {
-          children: sceneContent.substring(0, 150) || 'Important insight about productivity',
-          title: title,
-          variant: 'info',
-          width: isVertical ? 800 : 600,
-          height: isVertical ? 200 : 180,
-          padding: 24,
-          borderRadius: 12,
-          titleSize: 20,
-          backgroundColor: '#f8fafc',
-          borderColor: '#e2e8f0',
-          showBorder: true
-        };
-    }
-    
-    return {
-      componentName,
-      props,
-      reasoning: 'Mobile-optimized fallback selection',
-    };
-  }
-  
-  /**
-   * Merge AI props with defaults, preserving valid values and extracting usable content
-   */
-  private mergeWithDefaults(aiProps: any, defaults: any): any {
-    const merged = { ...defaults };
-    
-    // Safely merge non-null, defined values from AI
-    for (const [key, value] of Object.entries(aiProps || {})) {
-      if (value !== null && value !== undefined) {
-        merged[key] = value;
-      }
-    }
-    
-    // Special handling for StatBlock: extract content from various invalid AI prop patterns
-    if (merged.stats && Array.isArray(merged.stats)) {
-      // Pattern 1: "statistics" array (previous pattern)
-      if (aiProps?.statistics && Array.isArray(aiProps.statistics)) {
-        const firstStat = aiProps.statistics[0];
-        if (firstStat?.value && firstStat?.description) {
-          const match = firstStat.value.match(/(\d+(?:\.\d+)?%?)/);
-          if (match) {
-            merged.stats = [{
-              label: firstStat.description || 'Remote Teams',
-              value: match[1].replace('%', ''),
-              format: match[1].includes('%') ? 'percentage' : 'number'
-            }];
-          }
-        }
-      }
-      
-      // Pattern 2: Direct "statistic" and "label" props
-      else if (aiProps?.statistic && aiProps?.label) {
-        const match = aiProps.statistic.match(/(\d+(?:\.\d+)?%?)/);
-        if (match) {
-          merged.stats = [{
-            label: aiProps.label,
-            value: match[1].replace('%', ''),
-            format: match[1].includes('%') ? 'percentage' : 'number'
-          }];
-        }
-      }
-      
-      // Pattern 3: "statisticValue" and "statisticLabel" props (latest pattern)
-      else if (aiProps?.statisticValue && aiProps?.statisticLabel) {
-        const match = aiProps.statisticValue.match(/(\d+(?:\.\d+)?%?)/);
-        if (match) {
-          merged.stats = [{
-            label: aiProps.statisticLabel,
-            value: match[1].replace('%', ''),
-            format: match[1].includes('%') ? 'percentage' : 'number'
-          }];
-        }
-      }
-    }
-    
-    return merged;
-  }
+  // Note: No automatic fallbacks. Invalid AI output must be fixed at the source.
 }
 
 // Export singleton

@@ -20,6 +20,18 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || (process.env as any).openai_api_key,
 });
 
+function safeError(err: any) {
+  try {
+    if (err && typeof err.message === 'string') {
+      const maybeJson = JSON.parse(err.message);
+      if (maybeJson && typeof maybeJson === 'object') return maybeJson;
+    }
+  } catch {}
+  if (typeof err === 'string') return { message: err };
+  if (err && typeof err === 'object') return { message: err.message || String(err), ...err };
+  return { message: 'Unknown error' };
+}
+
 interface VideoScene {
   sceneNumber: number;
   duration: number; // seconds
@@ -210,49 +222,59 @@ Return simple JSON structure:
     const animatedVideoDir = path.join(outputDir, 'animated-video');
     await fs.mkdir(animatedVideoDir, { recursive: true });
     
+    const errorsDir = path.join(animatedVideoDir, 'errors');
+    await fs.mkdir(errorsDir, { recursive: true });
+    const errorSummaries: any[] = [];
+
     for (const scene of narrative.scenes) {
       console.log(`Creating segment ${scene.sceneNumber}...`);
-      
-      // Generate TTS script for this segment
-      const ttsScript = await this.generateSegmentTTSScript(scene);
-      
-      // Plan component for this segment
-      const componentPlan = await this.planSceneComponent(scene, videoSpecs);
-      
-      // Orchestrate component using AI→Props pipeline
-      const componentSpec = await componentOrchestrator.orchestrateComponent(scene, videoSpecs, componentPlan);
-      
-      // Generate TSX code from validated component spec
-      const componentCode = componentOrchestrator.generateComponentTSX(componentSpec, scene, videoSpecs);
-      
-      // Save component file in animated-video directory
-      const componentPath = path.join(animatedVideoDir, `Segment${scene.sceneNumber}Component.tsx`);
-      await fs.writeFile(componentPath, componentCode);
-      
-      // Save component specification (props + metadata) for debugging
-      const specPath = path.join(animatedVideoDir, `segment-${scene.sceneNumber}-spec.json`);
-      await fs.writeFile(specPath, JSON.stringify(componentSpec, null, 2));
-      
-      // Save individual TTS script file
-      const scriptPath = path.join(animatedVideoDir, `segment-${scene.sceneNumber}-script.txt`);
-      await fs.writeFile(scriptPath, ttsScript);
-      
-      segments.push({
-        segmentNumber: scene.sceneNumber,
-        duration: scene.duration,
-        ttsScript,
-        componentPath,
-        scriptPath,
-        componentCode,
-        componentSpec, // Include the AI→Props specification
-        timing: {
-          start: 0, // Each segment starts at 0 (independent)
-          end: scene.duration
-        },
-        purpose: scene.purpose,
-        content: scene.content,
-        videoSpecs
-      });
+      try {
+        // Validate visuals first (no fallbacks)
+        const componentPlan = await this.planSceneComponent(scene, videoSpecs);
+        const componentSpec = await componentOrchestrator.orchestrateComponent(scene, videoSpecs, componentPlan);
+        const componentCode = componentOrchestrator.generateComponentTSX(componentSpec, scene, videoSpecs);
+
+        const componentPath = path.join(animatedVideoDir, `Segment${scene.sceneNumber}Component.tsx`);
+        await fs.writeFile(componentPath, componentCode);
+
+        const specPath = path.join(animatedVideoDir, `segment-${scene.sceneNumber}-spec.json`);
+        await fs.writeFile(specPath, JSON.stringify(componentSpec, null, 2));
+
+        // Only generate TTS after visuals validated
+        const ttsScript = await this.generateSegmentTTSScript(scene);
+        const scriptPath = path.join(animatedVideoDir, `segment-${scene.sceneNumber}-script.txt`);
+        await fs.writeFile(scriptPath, ttsScript);
+
+        segments.push({
+          segmentNumber: scene.sceneNumber,
+          duration: scene.duration,
+          ttsScript,
+          componentPath,
+          scriptPath,
+          componentCode,
+          componentSpec,
+          timing: {
+            start: 0,
+            end: scene.duration,
+          },
+          purpose: scene.purpose,
+          content: scene.content,
+          videoSpecs,
+        });
+      } catch (err: any) {
+        const details = safeError(err);
+        const errPath = path.join(errorsDir, `scene-${scene.sceneNumber}.json`);
+        await fs.writeFile(errPath, JSON.stringify({ scene, error: details }, null, 2));
+        errorSummaries.push({ sceneNumber: scene.sceneNumber, ...details });
+        console.error(`❌ Scene ${scene.sceneNumber} failed: ${details.message}`);
+        break; // Fail fast
+      }
+    }
+
+    if (errorSummaries.length > 0) {
+      const summaryPath = path.join(animatedVideoDir, 'errors', 'summary.json');
+      await fs.writeFile(summaryPath, JSON.stringify({ errors: errorSummaries }, null, 2));
+      throw new Error(`Pipeline aborted due to validation errors. See ${summaryPath}`);
     }
     
     return segments;
