@@ -45,6 +45,8 @@ export const StatBlock: React.FC<StatBlockProps> = ({
   titleSize = 42,
   valueFontSize = 64,
   labelFontSize = 24,
+  tileBackgroundColor = 'transparent',
+  tileBorderRadius = 8,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -156,8 +158,8 @@ export const StatBlock: React.FC<StatBlockProps> = ({
                 alignItems: 'center',
                 justifyContent: 'center',
                 padding: '16px',
-                backgroundColor: 'rgba(0, 0, 0, 0.02)',
-                borderRadius: '8px',
+                backgroundColor: tileBackgroundColor,
+                borderRadius: `${tileBorderRadius}px`,
                 transform,
                 opacity,
                 transition: 'all 0.3s ease',

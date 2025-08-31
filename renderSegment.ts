@@ -12,10 +12,17 @@ import { webpackOverride } from './remotion-webpack-override';
 import path from 'node:path';
 import fs from 'node:fs/promises';
 
+type RenderOptions = {
+  frames?: number;
+  fps?: number;
+  width?: number;
+  height?: number;
+};
+
 async function renderSegment(
   componentPath: string,
   outputPath: string,
-  audioPath?: string
+  options?: RenderOptions
 ): Promise<void> {
   
   console.log(`🎬 Rendering segment: ${path.basename(componentPath)}`);
@@ -25,8 +32,14 @@ async function renderSegment(
   await fs.mkdir(tempDir, { recursive: true });
   
   const componentName = path.basename(componentPath, '.tsx');
+  const compositionId = componentName.replace(/[^a-zA-Z0-9\-\u4e00-\u9fa5]/g, '-');
   const tempEntryPath = path.join(tempDir, `${componentName}-entry.tsx`);
   
+  const fps = options?.fps ?? 30;
+  const width = options?.width ?? 1080;
+  const height = options?.height ?? 1920;
+  const frames = options?.frames ?? 300; // default 10s
+
   // Create dynamic entry point that registers just this segment
   const entryContent = `
 import React from 'react';
@@ -41,12 +54,12 @@ const SegmentComposition: React.FC = () => {
 export const RemotionRoot: React.FC = () => {
   return (
     <Composition
-      id="${componentName}"
+      id="${compositionId}"
       component={SegmentComposition}
-      durationInFrames={300} // 10 seconds at 30fps, adjust as needed
-      fps={30}
-      width={1080}
-      height={1920}
+      durationInFrames={${frames}}
+      fps={${fps}}
+      width={${width}}
+      height={${height}}
       defaultProps={{}}
     />
   );
@@ -68,7 +81,7 @@ registerRoot(RemotionRoot);
     // Get composition info
     const comps = await selectComposition({
       serveUrl: bundleLocation,
-      id: componentName,
+      id: compositionId,
     });
 
     // Render to MP4
@@ -79,8 +92,6 @@ registerRoot(RemotionRoot);
       codec: 'h264',
       outputLocation: outputPath,
       inputProps: {},
-      // Add audio if provided
-      ...(audioPath && { audioCodec: 'aac' }),
     });
 
     console.log(`✅ Rendered: ${outputPath}`);

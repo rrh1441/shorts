@@ -1,17 +1,16 @@
 import React from 'react';
-import { StatHero } from '../.././remotion/patterns/StatHero.tsx';
+import { TitleSubhead } from '../.././remotion/patterns/TitleSubhead.tsx';
 import { useVideoConfig } from 'remotion';
 
 export const Scene1Component: React.FC = () => {
   const { fps } = useVideoConfig();
   
   const props = {
-  "format": "vertical",
-  "headline": "Communication Challenges in Remote Teams",
-  "statLabel": "Percentage of Teams",
-  "statValue": 70,
-  "valueFormat": "percentage"
-};
+    format: 'vertical' as const,
+    title: 'Speed Is the Only Moat',
+    subhead: 'Moats are draining. Winners outpace, out‑innovate, and out‑scale.',
+  };
+
   return (
     <div style={{
       width: 1080,
@@ -21,7 +20,7 @@ export const Scene1Component: React.FC = () => {
       alignItems: 'center',
       justifyContent: 'center',
     }}>
-      <StatHero {...props} />
+      <TitleSubhead {...props} />
     </div>
   );
 };

@@ -28,6 +28,9 @@ export const StatBlockPropsSchema = z.object({
   titleSize: z.number().positive().default(42),
   valueFontSize: z.number().positive().default(64),
   labelFontSize: z.number().positive().default(24),
+  // Visual controls for inner tiles
+  tileBackgroundColor: z.string().default('transparent'),
+  tileBorderRadius: z.number().nonnegative().default(8),
 });
 
 export const getStatBlockDefaults = (): z.infer<typeof StatBlockPropsSchema> => ({
@@ -47,6 +50,8 @@ export const getStatBlockDefaults = (): z.infer<typeof StatBlockPropsSchema> => 
   titleSize: 42,
   valueFontSize: 64,
   labelFontSize: 24,
+  tileBackgroundColor: 'transparent',
+  tileBorderRadius: 8,
 });
 
 export type StatBlockProps = z.infer<typeof StatBlockPropsSchema>;

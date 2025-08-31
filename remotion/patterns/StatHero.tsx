@@ -1,16 +1,13 @@
 import React from 'react';
 import { AnimatedText } from '../ui-components/components/AnimatedText';
-import { StatBlock } from '../ui-components/components/StatBlock';
 import type { StatHeroProps } from './StatHero.schema';
 import { tokensFor } from '../design/Tokens';
 
-export const StatHero: React.FC<StatHeroProps> = ({ format, headline, statLabel, statValue, valueFormat }) => {
+export const StatHero: React.FC<StatHeroProps> = ({ format, headline, statLabel, statValue }) => {
   const t = tokensFor(format);
+  const valueText = String(statValue);
 
-  const numericValue = typeof statValue === 'string' ? Number(String(statValue).replace(/%/g, '')) : statValue;
-  const isPercent = typeof statValue === 'string' && String(statValue).includes('%');
-  const finalFormat = valueFormat || (isPercent ? 'percentage' : 'number');
-
+  const maxTextWidth = Math.min(920, t.canvas.width - t.layout.side * 2);
   return (
     <div style={{
       width: t.canvas.width,
@@ -18,7 +15,7 @@ export const StatHero: React.FC<StatHeroProps> = ({ format, headline, statLabel,
       background: '#ffffff',
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center',
+      alignItems: 'flex-start',
       justifyContent: 'flex-start',
       paddingTop: t.layout.top,
       paddingLeft: t.layout.side,
@@ -27,30 +24,29 @@ export const StatHero: React.FC<StatHeroProps> = ({ format, headline, statLabel,
       boxSizing: 'border-box',
       gap: t.layout.gap,
     }}>
-      <AnimatedText
-        text={headline}
-        animationType="fade"
-        fontSize={t.headline.size}
-        fontWeight="bold"
-        textAlign="center"
-        color="#111827"
-        durationInFrames={90}
-      />
-      <div style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%' }}>
-        <StatBlock
-          stats={[{ label: statLabel, value: numericValue as any, format: finalFormat as any }]}
-          columns={1}
-          width={t.stat.width}
-          height={t.stat.height}
-          animationType="counter"
-          valueFontSize={t.stat.valueSize}
-          labelFontSize={t.stat.labelSize}
-          titleSize={t.stat.titleSize}
+      <div style={{ width: maxTextWidth }}>
+        <AnimatedText
+          text={headline}
+          animationType="fade"
+          fontSize={t.headline.size}
+          fontWeight="bold"
+          textAlign="left"
+          color="#111827"
+          durationInFrames={90}
         />
+        <div style={{ width: 160, height: 6, background: '#111827', marginTop: 12, borderRadius: 9999 }} />
+      </div>
+
+      <div style={{ display: 'flex', alignItems: 'baseline', gap: 16, marginTop: 10 }}>
+        <div style={{ fontSize: t.stat.valueSize, fontWeight: 800, color: '#111827', lineHeight: 1 }}>
+          {valueText}
+        </div>
+        <div style={{ fontSize: t.stat.labelSize, fontWeight: 600, letterSpacing: 1, color: '#374151', textTransform: 'uppercase' }}>
+          {statLabel}
+        </div>
       </div>
     </div>
   );
 };
 
 export default StatHero;
-

@@ -7,6 +7,7 @@
     "generate": "tsx animated-video/index.ts",
     "render": "tsx renderSegment.ts",
     "render:with-audio": "tsx scripts/renderWithAudio.ts",
+    "tts": "tsx scripts/tts.ts",
     "preview": "remotion preview",
     "plan": "tsx scripts/plan.ts",
     "regen:components": "tsx scripts/regen-components.ts",

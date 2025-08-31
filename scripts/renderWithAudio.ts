@@ -10,12 +10,35 @@ import fs from 'node:fs/promises';
 import { spawn } from 'node:child_process';
 import { renderSegment as renderSegmentFn } from '../renderSegment';
 
+async function ffprobeDuration(input: string): Promise<number> {
+  return new Promise((resolve, reject) => {
+    const args = ['-v', 'error', '-show_entries', 'format=duration', '-of', 'default=nw=1:nk=1', input];
+    const proc = spawn('ffprobe', args);
+    let out = '';
+    let err = '';
+    proc.stdout.on('data', (d) => (out += d.toString()));
+    proc.stderr.on('data', (d) => (err += d.toString()));
+    proc.on('exit', (code) => {
+      if (code === 0) {
+        const secs = parseFloat(out.trim());
+        if (isNaN(secs)) return reject(new Error('ffprobe returned NaN'));
+        resolve(secs);
+      } else {
+        reject(new Error(`ffprobe failed: ${err}`));
+      }
+    });
+  });
+}
+
 async function ffmpegMux(videoIn: string, audioIn: string, output: string): Promise<void> {
   return new Promise((resolve, reject) => {
     const args = [
       '-y',
       '-i', videoIn,
       '-i', audioIn,
+      // Map explicit streams to avoid copying the silent AAC track
+      '-map', '0:v:0',
+      '-map', '1:a:0',
       '-c:v', 'copy',
       '-c:a', 'aac',
       '-shortest',
@@ -44,8 +67,13 @@ async function main() {
   const tempVideo = path.join(tempDir, `${path.basename(outputPath, path.extname(outputPath))}-silent.mp4`);
 
   try {
-    console.log('Rendering silent video...');
-    await renderSegmentFn(componentPath, tempVideo);
+    // Determine audio duration and align composition frames to audio
+    const audioSecs = await ffprobeDuration(audioPath);
+    const fps = 30;
+    const padEnd = 6; // ~0.2s padding
+    const frames = Math.ceil(audioSecs * fps) + padEnd;
+    console.log(`Rendering silent video (frames=${frames})...`);
+    await renderSegmentFn(componentPath, tempVideo, { frames, fps, width: 1080, height: 1920 });
     console.log('Muxing audio with ffmpeg...');
     await ffmpegMux(tempVideo, audioPath, outputPath);
     console.log(`Done: ${outputPath}`);
@@ -55,4 +83,3 @@ async function main() {
 }
 
 main();
-

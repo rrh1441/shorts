@@ -6,6 +6,7 @@ import { tokensFor } from '../design/Tokens';
 
 export const CalloutPattern: React.FC<CalloutPatternProps> = ({ format, headline, title, body, variant }) => {
   const t = tokensFor(format);
+  const maxTextWidth = Math.min(920, t.canvas.width - t.layout.side * 2);
   return (
     <div style={{
       width: t.canvas.width,
@@ -13,7 +14,7 @@ export const CalloutPattern: React.FC<CalloutPatternProps> = ({ format, headline
       background: '#ffffff',
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center',
+      alignItems: 'flex-start',
       justifyContent: 'flex-start',
       paddingTop: t.layout.top,
       paddingLeft: t.layout.side,
@@ -23,34 +24,42 @@ export const CalloutPattern: React.FC<CalloutPatternProps> = ({ format, headline
       gap: t.layout.gap,
     }}>
       {headline && (
-        <AnimatedText
-          text={headline}
-          animationType="fade"
-          fontSize={t.headline.size}
-          fontWeight="bold"
-          textAlign="center"
-          color="#111827"
-          durationInFrames={90}
-        />
+        <div style={{ width: maxTextWidth }}>
+          <AnimatedText
+            text={headline}
+            animationType="fade"
+            fontSize={t.headline.size}
+            fontWeight="bold"
+            textAlign="left"
+            color="#111827"
+            durationInFrames={90}
+          />
+          <div style={{ width: 160, height: 6, background: '#111827', marginTop: 12, borderRadius: 9999 }} />
+        </div>
       )}
-      <div style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%' }}>
-        <CalloutBox
-          title={title}
-          children={body}
-          variant={variant}
-          width={t.callout.width}
-          height={t.callout.height}
-          padding={32}
-          borderRadius={16}
-          titleSize={t.callout.titleSize}
-          animationType="slide"
-          direction="up"
-          showBorder
-        />
+      <div style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'flex-start', width: '100%' }}>
+        <div style={{ display: 'flex', alignItems: 'stretch', gap: 20 }}>
+          <div style={{ width: 8, borderRadius: 9999, background: '#111827' }} />
+          <CalloutBox
+            title={title}
+            children={body}
+            variant={'default'}
+            width={Math.min(t.callout.width, maxTextWidth)}
+            height={t.callout.height}
+            padding={32}
+            borderRadius={12}
+            titleSize={t.callout.titleSize}
+            animationType="fade"
+            direction="up"
+            borderWidth={0}
+            borderColor={'#111827'}
+            shadow={false}
+            backgroundColor={'#ffffff'}
+          />
+        </div>
       </div>
     </div>
   );
 };
 
 export default CalloutPattern;
-
