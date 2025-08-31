@@ -1,27 +1,18 @@
 import React from 'react';
-import { TitleSubhead } from '../.././remotion/patterns/TitleSubhead.tsx';
-import { useVideoConfig } from 'remotion';
+import { CalloutPattern } from '../../remotion/patterns/CalloutPattern.tsx';
 
-export const Scene7Component: React.FC = () => {
-  const { fps } = useVideoConfig();
-  
+const Component: React.FC = () => {
   const props = {
   "format": "vertical",
-  "title": "Empower Your Remote Team",
-  "subhead": "Embrace a balanced approach to foster collaboration and productivity"
+  "title": "Microsoft: velocity advantage",
+  "body": "Microsoft example",
+  "variant": "default"
 };
   return (
-    <div style={{
-      width: 1080,
-      height: 1920,
-      backgroundColor: '#ffffff',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    }}>
-      <TitleSubhead {...props} />
+    <div style={{ width: 1080, height: 1920, background: props.format==='vertical' ? '#ffffff' : '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <CalloutPattern {...props} />
     </div>
   );
-};
+}
 
-export default Scene7Component;
+export default Component;

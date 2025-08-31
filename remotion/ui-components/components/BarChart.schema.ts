@@ -17,6 +17,9 @@ export const BarChartPropsSchema = z.object({
   staggerDelay: z.number().nonnegative().default(3),
   startAt: z.number().nonnegative().default(0),
   className: z.string().optional(),
+  labelFontSize: z.number().positive().default(24),
+  valueFontSize: z.number().positive().default(28),
+  axisFontSize: z.number().positive().default(20),
 });
 
 export type BarChartProps = z.infer<typeof BarChartPropsSchema>;
@@ -34,5 +37,7 @@ export const getBarChartDefaults = (): BarChartProps => ({
   animationType: 'grow',
   staggerDelay: 3,
   startAt: 0,
+  labelFontSize: 24,
+  valueFontSize: 28,
+  axisFontSize: 20,
 });
-

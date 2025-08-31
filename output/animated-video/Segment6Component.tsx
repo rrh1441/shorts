@@ -1,29 +1,18 @@
 import React from 'react';
-import { CalloutPattern } from '../.././remotion/patterns/CalloutPattern.tsx';
-import { useVideoConfig } from 'remotion';
+import { CalloutPattern } from '../../remotion/patterns/CalloutPattern.tsx';
 
-export const Scene6Component: React.FC = () => {
-  const { fps } = useVideoConfig();
-  
+const Component: React.FC = () => {
   const props = {
   "format": "vertical",
-  "headline": "Key Point",
-  "title": "Rethink Communication",
-  "body": "Are your communication strategies helping or hindering your remote team's productivity?",
-  "variant": "info"
+  "title": "Lululemon: velocity advantage",
+  "body": "Lululemon example",
+  "variant": "default"
 };
   return (
-    <div style={{
-      width: 1080,
-      height: 1920,
-      backgroundColor: '#ffffff',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    }}>
+    <div style={{ width: 1080, height: 1920, background: props.format==='vertical' ? '#ffffff' : '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <CalloutPattern {...props} />
     </div>
   );
-};
+}
 
-export default Scene6Component;
+export default Component;

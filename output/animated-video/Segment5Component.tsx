@@ -1,29 +1,18 @@
 import React from 'react';
-import { CalloutPattern } from '../.././remotion/patterns/CalloutPattern.tsx';
-import { useVideoConfig } from 'remotion';
+import { CalloutPattern } from '../../remotion/patterns/CalloutPattern.tsx';
 
-export const Scene5Component: React.FC = () => {
-  const { fps } = useVideoConfig();
-  
+const Component: React.FC = () => {
   const props = {
   "format": "vertical",
-  "headline": "Key Point",
-  "title": "Callout",
-  "body": "Effective teams combine sync and async methods to enhance clarity and collaboration.",
-  "variant": "info"
+  "title": "Amazon: velocity advantage",
+  "body": "Amazon example",
+  "variant": "default"
 };
   return (
-    <div style={{
-      width: 1080,
-      height: 1920,
-      backgroundColor: '#ffffff',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    }}>
+    <div style={{ width: 1080, height: 1920, background: props.format==='vertical' ? '#ffffff' : '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <CalloutPattern {...props} />
     </div>
   );
-};
+}
 
-export default Scene5Component;
+export default Component;

@@ -10,6 +10,8 @@
     "tts": "tsx scripts/tts.ts",
     "preview": "remotion preview",
     "plan": "tsx scripts/plan.ts",
+    "gen:md": "tsx scripts/gen-from-md.ts",
+    "render:full": "tsx scripts/renderFull.ts",
     "regen:components": "tsx scripts/regen-components.ts",
     "dev": "npm run generate",
     "typecheck": "tsc --noEmit"

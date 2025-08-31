@@ -1,29 +1,27 @@
 import React from 'react';
-import { CalloutPattern } from '../.././remotion/patterns/CalloutPattern.tsx';
-import { useVideoConfig } from 'remotion';
+import { ChartReveal } from '../../remotion/patterns/ChartReveal.tsx';
 
-export const Scene2Component: React.FC = () => {
-  const { fps } = useVideoConfig();
-  
+const Component: React.FC = () => {
   const props = {
   "format": "vertical",
-  "headline": "Key Point",
-  "title": "Asynchronous Comm.",
-  "body": "Asynchronous communication allows team members to work at their own pace, but is it enough?",
-  "variant": "info"
+  "headline": "OpenAI vs DeepSeek: challenge window",
+  "data": [
+    {
+      "label": "OpenAI",
+      "value": 10
+    },
+    {
+      "label": "DeepSeek",
+      "value": 9
+    }
+  ],
+  "showValues": true
 };
   return (
-    <div style={{
-      width: 1080,
-      height: 1920,
-      backgroundColor: '#ffffff',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    }}>
-      <CalloutPattern {...props} />
+    <div style={{ width: 1080, height: 1920, background: props.format==='vertical' ? '#ffffff' : '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <ChartReveal {...props} />
     </div>
   );
-};
+}
 
-export default Scene2Component;
+export default Component;

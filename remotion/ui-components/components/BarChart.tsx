@@ -18,6 +18,9 @@ export interface BarChartProps {
   staggerDelay?: number;
   startAt?: number;
   className?: string;
+  labelFontSize?: number;
+  valueFontSize?: number;
+  axisFontSize?: number;
 }
 
 export const BarChart: React.FC<BarChartProps> = ({
@@ -31,6 +34,9 @@ export const BarChart: React.FC<BarChartProps> = ({
   staggerDelay = 3,
   startAt = 0,
   className,
+  labelFontSize = 24,
+  valueFontSize = 28,
+  axisFontSize = 20,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -68,7 +74,7 @@ export const BarChart: React.FC<BarChartProps> = ({
             y={y + 4}
             textAnchor="end"
             fill="#6b7280"
-            fontSize="12"
+            fontSize={axisFontSize}
             opacity={interpolate(frame, [startAt + 10, startAt + 20], [0, 1], {
               extrapolateLeft: 'clamp',
               extrapolateRight: 'clamp',
@@ -154,7 +160,7 @@ export const BarChart: React.FC<BarChartProps> = ({
                   y={animatedY - 10}
                   textAnchor="middle"
                   fill="#374151"
-                  fontSize="14"
+                  fontSize={valueFontSize}
                   fontWeight="bold"
                   opacity={interpolate(
                     frame,
@@ -176,7 +182,7 @@ export const BarChart: React.FC<BarChartProps> = ({
                 y={height - padding + 20}
                 textAnchor="middle"
                 fill="#374151"
-                fontSize="12"
+                fontSize={labelFontSize}
                 opacity={interpolate(
                   frame,
                   [startAt + index * staggerDelay, startAt + index * staggerDelay + 10],

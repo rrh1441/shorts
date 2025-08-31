@@ -1,29 +1,18 @@
 import React from 'react';
-import { CalloutPattern } from '../.././remotion/patterns/CalloutPattern.tsx';
-import { useVideoConfig } from 'remotion';
+import { CalloutPattern } from '../../remotion/patterns/CalloutPattern.tsx';
 
-export const Scene4Component: React.FC = () => {
-  const { fps } = useVideoConfig();
-  
+const Component: React.FC = () => {
   const props = {
   "format": "vertical",
-  "headline": "Key Point",
-  "title": "Callout",
-  "body": "Over-reliance on messages can lead to ambiguity and miscommunication.",
-  "variant": "info"
+  "title": "DeepSeek example",
+  "body": "DeepSeek example",
+  "variant": "default"
 };
   return (
-    <div style={{
-      width: 1080,
-      height: 1920,
-      backgroundColor: '#ffffff',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    }}>
+    <div style={{ width: 1080, height: 1920, background: props.format==='vertical' ? '#ffffff' : '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <CalloutPattern {...props} />
     </div>
   );
-};
+}
 
-export default Scene4Component;
+export default Component;
