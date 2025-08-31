@@ -25,7 +25,10 @@ npm run generate universal-insights.json ./output vertical
 
 ```bash
 # After generation, render each segment
-npm run render ./output/animated-video/Segment1Component.tsx ./output/segment-1.mp4 ./output/animated-video/segment-1-audio.mp3
+npm run render ./output/animated-video/Segment1Component.tsx ./output/animated-video/segment-1.mp4
+
+# Or render and mux external audio
+npm run render:with-audio ./output/animated-video/Segment1Component.tsx ./output/animated-video/segment-1-final.mp4 ./output/animated-video/segment-1-audio.mp3
 ```
 
 ## Pipeline Output
@@ -65,4 +68,10 @@ npm run generate analysis.json ./instagram-output square
 
 # Generate horizontal YouTube video
 npm run generate analysis.json ./youtube-output horizontal
+
+# Preview demo compositions in Remotion Studio
+npm run preview
+
+# Plan/lint the generated segments
+npm run plan ./output/animated-video/video-segments.json
 ```

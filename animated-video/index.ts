@@ -11,8 +11,8 @@ import { OpenAI } from 'openai';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import dotenv from 'dotenv';
-import { UniversalInsights } from '../shared/insights.js';
-import { componentOrchestrator, SceneComponentSpec } from '../component-orchestrator.js';
+import { UniversalInsights } from '../shared/insights.ts';
+import { componentOrchestrator, SceneComponentSpec } from '../component-orchestrator.ts';
 
 dotenv.config();
 
@@ -387,16 +387,23 @@ ${segments.map(s => `- **Segment ${s.segmentNumber}**: ${s.purpose} (${s.duratio
 
 ${segments.map(s => `\`\`\`bash
 # Segment ${s.segmentNumber}: ${s.purpose}
-tsx scripts/renderSegment.ts \\
+npm run render -- \\
   "${s.componentPath}" \\
-  "${path.join(path.dirname(s.componentPath), `segment-${s.segmentNumber}.mp4`)}" \\
+  "${path.join(path.dirname(s.componentPath), `segment-${s.segmentNumber}.mp4`)}"
+\`\`\`
+
+\`\`\`bash
+# Segment ${s.segmentNumber} with audio
+npm run render:with-audio -- \\
+  "${s.componentPath}" \\
+  "${path.join(path.dirname(s.componentPath), `segment-${s.segmentNumber}-final.mp4`)}" \\
   "${s.audioPath}"
 \`\`\`
 `).join('\n')}
 
-## Batch Render All Segments
+## Batch Render All Segments (no audio)
 \`\`\`bash
-${segments.map(s => `tsx scripts/renderSegment.ts "${s.componentPath}" "${path.join(path.dirname(s.componentPath), `segment-${s.segmentNumber}.mp4`)}" "${s.audioPath}"`).join(' && \\\n')}
+${segments.map(s => `npm run render -- "${s.componentPath}" "${path.join(path.dirname(s.componentPath), `segment-${s.segmentNumber}.mp4`)}"`).join(' && \\\n')}
 \`\`\`
 
 ## Loom Compilation Workflow

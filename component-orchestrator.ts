@@ -14,15 +14,15 @@ let CalloutBoxPropsSchema: any, getCalloutBoxDefaults: any;
 // Dynamic schema loading
 async function loadSchemas() {
   try {
-    const statBlockModule = await import('./remotion/ui-components/components/StatBlock.schema.js');
+    const statBlockModule = await import('./remotion/ui-components/components/StatBlock.schema.ts');
     StatBlockPropsSchema = statBlockModule.StatBlockPropsSchema;
     getStatBlockDefaults = statBlockModule.getStatBlockDefaults;
     
-    const animatedTextModule = await import('./remotion/ui-components/components/AnimatedText.schema.js');
+    const animatedTextModule = await import('./remotion/ui-components/components/AnimatedText.schema.ts');
     AnimatedTextPropsSchema = animatedTextModule.AnimatedTextPropsSchema;
     getAnimatedTextDefaults = animatedTextModule.getAnimatedTextDefaults;
     
-    const calloutBoxModule = await import('./remotion/ui-components/components/CalloutBox.schema.js');
+    const calloutBoxModule = await import('./remotion/ui-components/components/CalloutBox.schema.ts');
     CalloutBoxPropsSchema = calloutBoxModule.CalloutBoxPropsSchema;
     getCalloutBoxDefaults = calloutBoxModule.getCalloutBoxDefaults;
     

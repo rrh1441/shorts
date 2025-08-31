@@ -3,7 +3,7 @@
 /**
  * Generic Segment Renderer
  * Renders any SegmentXComponent.tsx to MP4 without composition registration
- * Usage: tsx scripts/renderSegment.ts <segment-component-path> <output-mp4-path> [audio-path]
+ * Usage: tsx renderSegment.ts <segment-component-path> <output-mp4-path>
  */
 
 import { bundle } from '@remotion/bundler';
@@ -98,8 +98,8 @@ if (typeof process !== 'undefined' && import.meta.url === `file://${process.argv
   const audioPath = process.argv[4];
   
   if (!componentPath || !outputPath) {
-    console.error('Usage: tsx scripts/renderSegment.ts <component-path> <output-path> [audio-path]');
-    console.error('Example: tsx scripts/renderSegment.ts ./segments/Segment1Component.tsx ./output/segment-1.mp4 ./audio/segment-1.mp3');
+    console.error('Usage: tsx renderSegment.ts <component-path> <output-path>');
+    console.error('Example: tsx renderSegment.ts ./segments/Segment1Component.tsx ./output/segment-1.mp4');
     process.exit(1);
   }
   

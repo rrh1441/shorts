@@ -6,6 +6,9 @@
   "scripts": {
     "generate": "tsx animated-video/index.ts",
     "render": "tsx renderSegment.ts",
+    "render:with-audio": "tsx scripts/renderWithAudio.ts",
+    "preview": "remotion preview",
+    "plan": "tsx scripts/plan.ts",
     "dev": "npm run generate",
     "typecheck": "tsc --noEmit"
   },
@@ -13,7 +16,7 @@
     "@remotion/bundler": "^4.0.340",
     "@remotion/cli": "^4.0.340",
     "@remotion/renderer": "^4.0.340",
-    "@tabler/icons-react": "^2.45.0",
+    "@contentfork/remotion-ui": "*",
     "@types/react": "^19.1.12",
     "@types/react-dom": "^19.1.9",
     "dotenv": "^16.5.0",
