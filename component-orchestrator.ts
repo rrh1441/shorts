@@ -121,7 +121,7 @@ export class ComponentOrchestrator {
     
     const { OpenAI } = await import('openai');
     const openai = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY,
+      apiKey: process.env.OPENAI_API_KEY || (process.env as any).openai_api_key,
     });
     
     const componentOptions = Object.keys(ComponentRegistry).map(name => ({

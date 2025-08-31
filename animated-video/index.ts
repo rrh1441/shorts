@@ -17,7 +17,7 @@ import { componentOrchestrator, SceneComponentSpec } from '../component-orchestr
 dotenv.config();
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY || (process.env as any).openai_api_key,
 });
 
 interface VideoScene {
