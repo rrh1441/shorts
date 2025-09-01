@@ -54,6 +54,7 @@ export const CalloutBox: React.FC<CalloutBoxProps> = ({
   title,
   titleColor = '#1f2937',
   titleSize = 18,
+  bodyFontSize = 48,
   shadow = true,
   shadowColor = 'rgba(0, 0, 0, 0.1)',
   variant = 'default',
@@ -199,7 +200,7 @@ export const CalloutBox: React.FC<CalloutBoxProps> = ({
         style={{
           flex: 1,
           opacity: contentOpacity,
-          fontSize: '16px',
+          fontSize: bodyFontSize,
           lineHeight: 1.5,
           color: '#374151',
         }}

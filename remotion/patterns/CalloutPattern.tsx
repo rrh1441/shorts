@@ -38,8 +38,8 @@ export const CalloutPattern: React.FC<CalloutPatternProps> = ({ format, headline
         </div>
       )}
       <div style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'flex-start', width: '100%' }}>
-        <div style={{ display: 'flex', alignItems: 'stretch', gap: 20 }}>
-          <div style={{ width: 8, borderRadius: 9999, background: '#111827' }} />
+        <div style={{ display: 'flex', alignItems: 'stretch', gap: 20, width: Math.min(maxTextWidth + 8 + 20, t.canvas.width - t.layout.side * 2) }}>
+          <div style={{ width: 8, borderRadius: 9999, background: '#111827', flex: '0 0 auto' }} />
           <CalloutBox
             title={title}
             children={body}
@@ -55,6 +55,7 @@ export const CalloutPattern: React.FC<CalloutPatternProps> = ({ format, headline
             borderColor={'#111827'}
             shadow={false}
             backgroundColor={'#ffffff'}
+            bodyFontSize={t.subhead.size}
           />
         </div>
       </div>

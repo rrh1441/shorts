@@ -83,16 +83,39 @@ registerRoot(RemotionRoot);
 
   await fs.writeFile(entryPath, entry);
 
+  const silentOut = path.join(animatedDir, 'full-silent.mp4');
+  const finalOut = path.join(animatedDir, 'full.mp4');
+
   try {
     const bundleLocation = await bundle({ entryPoint: entryPath, webpackOverride });
     const comp = await selectComposition({ serveUrl: bundleLocation, id: 'FullVideo' });
-    const output = path.join(animatedDir, 'full.mp4');
-    await renderMedia({ composition: comp, serveUrl: bundleLocation, codec: 'h264', outputLocation: output, inputProps: {} });
-    console.log(`Rendered full video: ${output}`);
+    await renderMedia({ composition: comp, serveUrl: bundleLocation, codec: 'h264', outputLocation: silentOut, inputProps: {} });
+
+    // Concat per-segment audio into one track matching the video timeline
+    const listPath = path.join(tempDir, 'audio.txt');
+    let listContent = '';
+    for (const t of timings) {
+      const a = path.resolve(animatedDir, `segment-${t.scene}-audio.mp3`);
+      try { await fs.access(a); listContent += `file '${a.replace(/'/g, "'\\''")}'\n`; } catch {}
+    }
+    const concatAudio = path.join(tempDir, 'audio-concat.mp3');
+    await fs.writeFile(listPath, listContent);
+    await new Promise<void>((resolve, reject) => {
+      const args = ['-y', '-f', 'concat', '-safe', '0', '-i', listPath, '-c', 'copy', concatAudio];
+      const p = spawn('ffmpeg', args, { stdio: 'inherit' });
+      p.on('exit', (code) => (code === 0 ? resolve() : reject(new Error('ffmpeg concat failed'))));
+    });
+
+    // Mux audio onto the silent video
+    await new Promise<void>((resolve, reject) => {
+      const args = ['-y', '-i', silentOut, '-i', concatAudio, '-map', '0:v:0', '-map', '1:a:0', '-c:v', 'copy', '-c:a', 'aac', '-shortest', finalOut];
+      const p = spawn('ffmpeg', args, { stdio: 'inherit' });
+      p.on('exit', (code) => (code === 0 ? resolve() : reject(new Error('ffmpeg mux failed'))));
+    });
+    console.log(`Rendered full video: ${finalOut}`);
   } finally {
     await fs.rm(tempDir, { recursive: true, force: true });
   }
 }
 
 main().catch((e) => { console.error(e); process.exit(1); });
-
