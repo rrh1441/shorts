@@ -26,7 +26,7 @@ async function main() {
   let segIndex = 1;
   let prevBeat: StoryBeat | undefined = undefined;
   for (const beat of beats) {
-    const decision = mapBeatToPattern(beat, format);
+    const decision = await mapBeatToPattern(beat, format);
     // Generate VO/script and screen text; update props for the selected pattern
     let vo = await generateVO(beat, prevBeat);
     // Enforce bridge for scenes > 1 if not present

@@ -29,7 +29,7 @@ export function qaPreflight(
 
     // Narrative bridging for scenes > 1
     if (scene > 1 && !/^\s*(So|For example|Next|Meanwhile|In short|Then)\b/i.test(vo.vo_script)) {
-      issues.push({ scene, severity: 'warn', code: 'vo_no_bridge', message: 'Consider adding a short bridge for coherence.' });
+      issues.push({ scene, severity: 'error', code: 'vo_no_bridge', message: 'Missing bridge on S2+ beat.' });
     }
 
     // Pattern-specific
@@ -70,4 +70,3 @@ export function qaPreflight(
   const ok = !issues.some((i) => i.severity === 'error');
   return { ok, issues };
 }
-

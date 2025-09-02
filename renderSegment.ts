@@ -46,10 +46,13 @@ import React from 'react';
 import { registerRoot } from 'remotion';
 import { Composition } from 'remotion';
 import ${componentName} from '${path.resolve(componentPath)}';
+import { ThemeProvider } from '@contentfork/remotion-runtime';
 
-const SegmentComposition: React.FC = () => {
-  return <${componentName} />;
-};
+const SegmentComposition: React.FC = () => (
+  <ThemeProvider>
+    <${componentName} />
+  </ThemeProvider>
+);
 
 export const RemotionRoot: React.FC = () => {
   return (

@@ -1,5 +1,6 @@
 import React from 'react';
 import { AnimatedText } from '../ui-components/components/AnimatedText';
+import { TitleCard } from '@contentfork/remotion-runtime/components';
 import type { TitleSubheadProps } from './TitleSubhead.schema';
 import { tokensFor } from '../design/Tokens';
 
@@ -23,31 +24,8 @@ export const TitleSubhead: React.FC<TitleSubheadProps> = ({ format, title, subhe
       gap: t.layout.gap,
     }}>
       <div style={{ width: maxTextWidth }}>
-        <AnimatedText
-          text={title}
-          animationType="fade"
-          fontSize={t.headline.size}
-          fontWeight="bold"
-          textAlign="left"
-          color="#111827"
-          durationInFrames={90}
-        />
-        <div style={{ width: 160, height: 6, background: '#111827', marginTop: 12, borderRadius: 9999 }} />
+        <TitleCard title={title} subtitle={subhead} align="left" />
       </div>
-      {subhead && (
-        <div style={{ width: maxTextWidth }}>
-          <AnimatedText
-            text={subhead}
-            animationType="slide"
-            direction="up"
-            fontSize={t.subhead.size}
-            fontWeight={600}
-            textAlign="left"
-            color="#374151"
-            durationInFrames={90}
-          />
-        </div>
-      )}
     </div>
   );
 };
