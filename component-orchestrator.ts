@@ -119,6 +119,18 @@ export class ComponentOrchestrator {
   async init() {
     await this.ensureInitialized();
   }
+
+  /**
+   * Deterministic recommendation based on scene.visualType without any AI calls.
+   * Used for planning/storyboarding so choices are reviewable before render.
+   */
+  recommendComponent(scene: any): ComponentName {
+    const vt = String(scene?.visualType || '').toLowerCase();
+    if (vt === 'statistic') return 'StatHero' as ComponentName;
+    if (vt === 'chart') return 'ChartReveal' as ComponentName;
+    if (vt === 'text-animation' || vt === 'title' || vt === 'headline') return 'TitleSubhead' as ComponentName;
+    return 'CalloutPattern' as ComponentName;
+  }
   
   /**
    * Main orchestration method: Scene + Video specs → Component + Props

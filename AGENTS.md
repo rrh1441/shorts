@@ -10,7 +10,7 @@ A Remotion-powered system where agents orchestrate prebuilt UI components by gen
 
 1. Extract insights → Build a single source of truth (UniversalInsights).
 2. Draft narrative → 5–7 scenes, each 6–15s with a clear purpose.
-3. Plan a scene → Pick a visual strategy (statistic, text, callout).
+3. Storyboard plan → For each scene: story beat, VO draft, recommended component (no rendering).
 4. Select component → From the curated library (StatBlock, AnimatedText, CalloutBox to start).
 5. Generate props → Return JSON matching each component’s Zod schema.
 6. Validate + fallback → Schemas enforce correctness; invalid props merge with defaults.
@@ -44,6 +44,10 @@ A Remotion-powered system where agents orchestrate prebuilt UI components by gen
   - `npm run render:with-audio <SegmentXComponent.tsx> <output.mp4> <audio.mp3>`
 - plan: Lint a spec or the generated segments and write a basic report.
   - `npm run plan [path/to/spec.json]`
+- storyboard: Generate a reviewable storyboard (beats, VO text, component recommendation) without rendering.
+  - `npm run storyboard <universal-insights.json> [output-dir] [format]`
+- realize:storyboard: Convert an approved storyboard into Segment components and VO scripts.
+  - `npm run realize:storyboard <path/to/storyboard.json> [output-dir] [format]`
 
 ---
 
@@ -54,6 +58,8 @@ Output directory (example):
 ```
 output/
   animated-video/
+    storyboard.json
+    STORYBOARD.md
     Segment1Component.tsx
     segment-1-script.txt
     segment-1-audio.mp3
@@ -93,8 +99,12 @@ Current registry (curated for reliability):
 ## Recommended Flow (Works Today)
 
 1. Prepare UniversalInsights JSON (or use `shared/insights.ts` to extract it).
-2. `npm run generate insights.json ./output vertical`
-3. Inspect `output/animated-video` for generated TSX + TTS.
+2. Plan the storyboard for review (no render):
+   - `npm run storyboard insights.json ./output vertical`
+   - Review and edit `output/animated-video/storyboard.json` or `STORYBOARD.md` as needed.
+3. Realize the storyboard into components + scripts:
+   - `npm run realize:storyboard ./output/animated-video/storyboard.json ./output vertical`
+   - (Or run the legacy one-shot) `npm run generate insights.json ./output vertical`
 4. Render each segment:
    - `npm run render ./output/animated-video/Segment1Component.tsx ./output/animated-video/segment-1.mp4`
    - `npm run render:with-audio ./output/animated-video/Segment1Component.tsx ./output/animated-video/segment-1-final.mp4 ./output/animated-video/segment-1-audio.mp3`

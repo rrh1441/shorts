@@ -104,6 +104,98 @@ export class AnimatedVideoPipeline {
     console.log(`✅ Generated ${narrative.scenes.length} video segments for Loom compilation`);
     return [...segmentAssets.map(s => s.componentPath), ...audioAssets, ...compilationAssets];
   }
+
+  /**
+   * Storyboard-only planning step: produce a reviewable plan without rendering.
+   * Includes scene beats, voiceover drafts, and recommended component per scene.
+   */
+  async createStoryboard(
+    universalInsights: UniversalInsights,
+    outputDir: string,
+    videoFormat: 'vertical' | 'square' | 'horizontal' = 'vertical'
+  ): Promise<string> {
+    console.log('📝 Storyboard planning starting...');
+
+    const videoInsights = this.adaptInsightsForVideo(universalInsights);
+    const narrative = await this.generateVideoNarrative(videoInsights, videoFormat);
+
+    const videoSpecs = {
+      format: videoFormat,
+      dimensions: videoFormat === 'vertical' ? { width: 1080, height: 1920 } :
+                  videoFormat === 'square' ? { width: 1080, height: 1080 } :
+                  { width: 1920, height: 1080 },
+      fps: 30
+    } as const;
+
+    // Ensure orchestrator is initialized for deterministic recommendations
+    await componentOrchestrator.init();
+
+    const storyboardScenes = [] as Array<{
+      sceneNumber: number;
+      duration: number;
+      purpose?: string;
+      visualType?: string;
+      beat: string;
+      voiceover: string;
+      recommendedComponent: string;
+      componentPlan: any;
+    }>;
+
+    const animatedVideoDir = path.join(outputDir, 'animated-video');
+    await fs.mkdir(animatedVideoDir, { recursive: true });
+
+    for (const scene of narrative.scenes) {
+      const componentPlan = await this.planSceneComponent(scene, videoSpecs);
+      const recommendedComponent = componentOrchestrator.recommendComponent(scene);
+      const voiceover = await this.generateSegmentTTSScript(scene);
+      storyboardScenes.push({
+        sceneNumber: scene.sceneNumber,
+        duration: scene.duration,
+        purpose: scene.purpose,
+        visualType: scene.visualType,
+        beat: scene.content,
+        voiceover,
+        recommendedComponent,
+        componentPlan,
+      });
+    }
+
+    const storyboard = {
+      title: narrative.title,
+      narrative: narrative.narrative,
+      totalDuration: narrative.totalDuration,
+      videoSpecs,
+      scenes: storyboardScenes,
+      notes: {
+        review: 'Edit beats, VO text, or component choice, then run realization to render.',
+        guardrails: 'No rendering performed; frame constraints enforced at realization time.'
+      }
+    };
+
+    const outJsonPath = path.join(animatedVideoDir, 'storyboard.json');
+    await fs.writeFile(outJsonPath, JSON.stringify(storyboard, null, 2));
+
+    // Write Markdown summary for quick human review
+    const md = this.buildStoryboardMarkdown(storyboard);
+    const outMdPath = path.join(animatedVideoDir, 'STORYBOARD.md');
+    await fs.writeFile(outMdPath, md);
+
+    console.log(`💾 Storyboard saved: ${outJsonPath}`);
+    console.log(`🗒  Summary: ${outMdPath}`);
+    return outJsonPath;
+  }
+
+  private buildStoryboardMarkdown(storyboard: any): string {
+    const header = `# Storyboard — ${storyboard.title}\n`;
+    const specs = `\n- Format: ${storyboard.videoSpecs.format} (${storyboard.videoSpecs.dimensions.width}×${storyboard.videoSpecs.dimensions.height} @ ${storyboard.videoSpecs.fps}fps)\n- Total Duration: ${storyboard.totalDuration}s\n- Scenes: ${storyboard.scenes.length}\n`;
+    const scenesMd = storyboard.scenes.map((s: any) => {
+      const vo = String(s.voiceover || '').trim();
+      const beat = String(s.beat || '').trim();
+      return `\n## Scene ${s.sceneNumber} — ${s.purpose || 'Scene'} (${s.duration}s)\n- Visual Type: ${s.visualType || 'n/a'}\n- Recommended Component: ${s.recommendedComponent}\n- Beat: ${beat}\n\nVoiceover:\n\n> ${vo.replace(/\n/g, '\n> ')}\n`;
+    }).join('\n');
+    const notes = `\n---\nNotes: ${storyboard.notes?.review || ''}\n`;
+    return `${header}${specs}\n## Scenes\n${scenesMd}${notes}`;
+  }
   
   /**
    * Step 1: Transform universal insights for video narrative

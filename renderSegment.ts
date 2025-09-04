@@ -109,15 +109,18 @@ registerRoot(RemotionRoot);
 if (typeof process !== 'undefined' && import.meta.url === `file://${process.argv[1]}`) {
   const componentPath = process.argv[2];
   const outputPath = process.argv[3];
-  const audioPath = process.argv[4];
+  const durationSecArg = process.argv[4];
   
   if (!componentPath || !outputPath) {
-    console.error('Usage: tsx renderSegment.ts <component-path> <output-path>');
-    console.error('Example: tsx renderSegment.ts ./segments/Segment1Component.tsx ./output/segment-1.mp4');
+    console.error('Usage: tsx renderSegment.ts <component-path> <output-path> [durationSec]');
+    console.error('Example: tsx renderSegment.ts ./segments/Segment1Component.tsx ./output/segment-1.mp4 12');
     process.exit(1);
   }
   
-  renderSegment(componentPath, outputPath, audioPath)
+  const fps = 30;
+  const durationSec = durationSecArg ? Number(durationSecArg) : undefined;
+  const frames = durationSec ? Math.max(1, Math.round(durationSec * fps)) : undefined;
+  renderSegment(componentPath, outputPath, frames ? { frames, fps } : undefined)
     .then(() => console.log('🎉 Segment rendering complete!'))
     .catch(console.error);
 }
