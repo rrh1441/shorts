@@ -10,6 +10,8 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { componentOrchestrator } from '../component-orchestrator.ts';
+import dotenv from 'dotenv';
+dotenv.config();
 
 async function main() {
   const storyboardPath = process.argv[2];
@@ -24,12 +26,16 @@ async function main() {
   const raw = await fs.readFile(path.resolve(storyboardPath), 'utf-8');
   const storyboard = JSON.parse(raw);
 
-  const videoSpecs = storyboard.videoSpecs ?? {
-    format: fallbackFormat,
-    dimensions: fallbackFormat === 'vertical' ? { width: 1080, height: 1920 } :
-                fallbackFormat === 'square' ? { width: 1080, height: 1080 } :
-                { width: 1920, height: 1080 },
-    fps: 30,
+  const baseFormat = storyboard.videoSpecs?.format || fallbackFormat;
+  const baseDims = storyboard.videoSpecs?.dimensions || (baseFormat === 'vertical'
+    ? { width: 1080, height: 1920 }
+    : baseFormat === 'square'
+      ? { width: 1080, height: 1080 }
+      : { width: 1920, height: 1080 });
+  const videoSpecs = {
+    format: baseFormat,
+    dimensions: baseDims,
+    fps: storyboard.videoSpecs?.fps || 30,
   };
 
   await componentOrchestrator.init();
@@ -60,6 +66,8 @@ async function main() {
         purpose: b.purpose || s.purpose,
         visualType: (b.visualType || s.visualType || 'text-animation') as string,
         content: String(b.beat || b.text || s.beat || s.content || ''),
+        recommendedComponent: b.recommendedComponent,
+        voiceover: String(b.voiceover || s.voiceover || ''),
       };
 
       const plan = b.componentPlan || s.componentPlan;

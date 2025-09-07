@@ -1,18 +1,26 @@
 import React from 'react';
-import { CalloutPattern } from '../../remotion/patterns/CalloutPattern.tsx';
+import { QuotePull } from '../.././remotion/patterns/QuotePull.tsx';
+import { useVideoConfig } from 'remotion';
 
-const Component: React.FC = () => {
+export const Scene4Component: React.FC = () => {
+  const { fps } = useVideoConfig();
+  
   const props = {
-  "format": "vertical",
-  "title": "DeepSeek example",
-  "body": "DeepSeek example",
-  "variant": "default"
+  "format": "horizontal",
+  "quote": "Control energy and action; commoditize intelligence."
 };
   return (
-    <div style={{ width: 1080, height: 1920, background: props.format==='vertical' ? '#ffffff' : '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <CalloutPattern {...props} />
+    <div style={{
+      width: 1920,
+      height: 1080,
+      backgroundColor: '#ffffff',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }}>
+      <QuotePull {...props} />
     </div>
   );
-}
+};
 
-export default Component;
+export default Scene4Component;

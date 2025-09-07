@@ -1,18 +1,28 @@
 import React from 'react';
-import { CalloutPattern } from '../../remotion/patterns/CalloutPattern.tsx';
+import { CalloutPattern } from '../.././remotion/patterns/CalloutPattern.tsx';
+import { useVideoConfig } from 'remotion';
 
-const Component: React.FC = () => {
+export const Scene3Component: React.FC = () => {
+  const { fps } = useVideoConfig();
+  
   const props = {
-  "format": "vertical",
-  "title": "OpenAI example",
-  "body": "OpenAI example",
+  "format": "horizontal",
+  "title": "Commoditize the Complement",
+  "body": "In economic terms, energy, intelligence, and action are strong complements. America is betting that winning intelligence wins the future. China's bet is different: by making intelligence abundant thr…",
   "variant": "default"
 };
   return (
-    <div style={{ width: 1080, height: 1920, background: props.format==='vertical' ? '#ffffff' : '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <div style={{
+      width: 1920,
+      height: 1080,
+      backgroundColor: '#ffffff',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }}>
       <CalloutPattern {...props} />
     </div>
   );
-}
+};
 
-export default Component;
+export default Scene3Component;

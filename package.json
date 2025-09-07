@@ -19,6 +19,7 @@
     "realize:storyboard": "tsx scripts/realize-storyboard.ts",
     "timings:apply": "tsx scripts/apply-timings.ts",
     "timings:export": "tsx scripts/export-timings.ts",
+    "gen:component": "tsx scripts/gen-component.ts",
     "dev": "npm run generate",
     "typecheck": "tsc --noEmit"
   },

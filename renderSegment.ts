@@ -19,6 +19,32 @@ type RenderOptions = {
   height?: number;
 };
 
+async function detectDimsFromStoryboard(componentPath: string): Promise<{ width: number; height: number; fps: number }> {
+  try {
+    const dir = path.dirname(componentPath);
+    const candidates = [
+      path.join(dir, 'storyboard.json'),
+      path.join(process.cwd(), 'output/animated-video/storyboard.json'),
+      path.join(process.cwd(), 'output/animated-video/storyboard.first5.json'),
+    ];
+    for (const c of candidates) {
+      try {
+        const raw = await fs.readFile(c, 'utf-8');
+        const j = JSON.parse(raw);
+        const fmt = j.videoSpecs?.format || 'vertical';
+        const fps = 30;
+        if (j.videoSpecs?.dimensions?.width && j.videoSpecs?.dimensions?.height) {
+          return { width: j.videoSpecs.dimensions.width, height: j.videoSpecs.dimensions.height, fps };
+        }
+        if (fmt === 'horizontal') return { width: 1920, height: 1080, fps };
+        if (fmt === 'square') return { width: 1080, height: 1080, fps };
+        return { width: 1080, height: 1920, fps };
+      } catch {}
+    }
+  } catch {}
+  return { width: 1080, height: 1920, fps: 30 };
+}
+
 async function renderSegment(
   componentPath: string,
   outputPath: string,
@@ -46,7 +72,9 @@ import React from 'react';
 import { registerRoot } from 'remotion';
 import { Composition } from 'remotion';
 import ${componentName} from '${path.resolve(componentPath)}';
-import { ThemeProvider } from '@contentfork/remotion-runtime';
+
+// Fallback ThemeProvider to avoid external runtime dependency in tests
+const ThemeProvider: React.FC<{children: React.ReactNode}> = ({ children }) => <>{children}</>;
 
 const SegmentComposition: React.FC = () => (
   <ThemeProvider>
@@ -117,10 +145,10 @@ if (typeof process !== 'undefined' && import.meta.url === `file://${process.argv
     process.exit(1);
   }
   
-  const fps = 30;
   const durationSec = durationSecArg ? Number(durationSecArg) : undefined;
-  const frames = durationSec ? Math.max(1, Math.round(durationSec * fps)) : undefined;
-  renderSegment(componentPath, outputPath, frames ? { frames, fps } : undefined)
+  const dims = await detectDimsFromStoryboard(componentPath);
+  const frames = durationSec ? Math.max(1, Math.round(durationSec * dims.fps)) : undefined;
+  renderSegment(componentPath, outputPath, frames ? { frames, fps: dims.fps, width: dims.width, height: dims.height } : { fps: dims.fps, width: dims.width, height: dims.height })
     .then(() => console.log('🎉 Segment rendering complete!'))
     .catch(console.error);
 }

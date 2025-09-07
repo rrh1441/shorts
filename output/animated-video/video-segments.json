@@ -1,296 +1,53 @@
 {
   "narrative": {
-    "title": "The Asynchronous Productivity Myth",
-    "totalDuration": 60,
-    "narrative": "Exploring how asynchronous communication, while valuable, is not a panacea for productivity challenges faced by remote teams.",
+    "title": "The Electric Slide: How the World Got Rebuilt",
     "scenes": [
       {
         "sceneNumber": 1,
-        "duration": 10,
-        "purpose": "Hook viewer with statistic",
-        "visualType": "statistic",
-        "content": "Did you know that 70% of remote teams say communication is their biggest challenge?"
-      },
-      {
-        "sceneNumber": 2,
-        "duration": 10,
-        "purpose": "Introduce the concept of asynchronous communication",
-        "visualType": "animated infographic",
-        "content": "Asynchronous communication allows team members to work at their own pace, but is it enough?"
-      },
-      {
-        "sceneNumber": 3,
-        "duration": 10,
-        "purpose": "Present the key insight",
-        "visualType": "split screen comparison",
-        "content": "Studies show that asynchronous communication alone doesn't guarantee higher productivity."
-      },
-      {
-        "sceneNumber": 4,
-        "duration": 10,
-        "purpose": "Highlight potential pitfalls",
-        "visualType": "animated icons",
-        "content": "Over-reliance on messages can lead to ambiguity and miscommunication."
-      },
-      {
-        "sceneNumber": 5,
-        "duration": 10,
-        "purpose": "Offer a solution",
-        "visualType": "problem-solution animation",
-        "content": "Effective teams combine sync and async methods to enhance clarity and collaboration."
-      },
-      {
-        "sceneNumber": 6,
-        "duration": 10,
-        "purpose": "Encourage viewers to rethink their communication strategies",
-        "visualType": "call to action",
-        "content": "Are your communication strategies helping or hindering your remote team's productivity?"
-      },
-      {
-        "sceneNumber": 7,
-        "duration": 10,
-        "purpose": "Conclude and reinforce message",
-        "visualType": "text overlay with logo",
-        "content": "Embrace a balanced approach to empower your remote team!"
+        "purpose": "To introduce the core strategic conflict between the US focus on AI and China's focus on the physical means of production, the Electric Stack."
       }
     ]
   },
   "segments": [
     {
       "segmentNumber": 1,
-      "duration": 10,
-      "ttsScript": "\"Hey there! Did you know that a staggering 70% of remote teams say communication is their *biggest* challenge? That's a huge number! Let's dive in!\"",
+      "duration": 17,
+      "purpose": "To introduce the core strategic conflict between the US focus on AI and China's focus on the physical means of production, the Electric Stack.",
+      "content": "Two Bets on the Future",
       "componentPath": "output/animated-video/Segment1Component.tsx",
-      "scriptPath": "output/animated-video/segment-1-script.txt",
-      "componentCode": "import React from 'react';\nimport { StatHero } from '../.././remotion/patterns/StatHero.tsx';\nimport { useVideoConfig } from 'remotion';\n\nexport const Scene1Component: React.FC = () => {\n  const { fps } = useVideoConfig();\n  \n  const props = {\n  \"format\": \"vertical\",\n  \"headline\": \"Communication Challenges in Remote Teams\",\n  \"statLabel\": \"Percentage of Teams\",\n  \"statValue\": 70,\n  \"valueFormat\": \"percentage\"\n};\n  return (\n    <div style={{\n      width: 1080,\n      height: 1920,\n      backgroundColor: '#ffffff',\n      display: 'flex',\n      alignItems: 'center',\n      justifyContent: 'center',\n    }}>\n      <StatHero {...props} />\n    </div>\n  );\n};\n\nexport default Scene1Component;",
-      "componentSpec": {
-        "componentName": "StatHero",
-        "props": {
-          "format": "vertical",
-          "headline": "Communication Challenges in Remote Teams",
-          "statLabel": "Percentage of Teams",
-          "statValue": 70,
-          "valueFormat": "percentage"
-        },
-        "validated": true
-      },
-      "timing": {
-        "start": 0,
-        "end": 10
-      },
-      "purpose": "Hook viewer with statistic",
-      "content": "Did you know that 70% of remote teams say communication is their biggest challenge?",
-      "videoSpecs": {
-        "format": "vertical",
-        "dimensions": {
-          "width": 1080,
-          "height": 1920
-        },
-        "fps": 30
-      },
-      "audioPath": "output/animated-video/segment-1-audio.mp3"
+      "scriptPath": "output/animated-video/segment-1-script.txt"
     },
     {
       "segmentNumber": 2,
-      "duration": 10,
-      "ttsScript": "\"Let’s talk about asynchronous communication. It lets team members work at their own pace. But is it really enough for effective collaboration?\"",
+      "duration": 15,
+      "purpose": "To introduce the core strategic conflict between the US focus on AI and China's focus on the physical means of production, the Electric Stack.",
+      "content": "Three Pillars of Products: Energy - potential, Intelligence - decide, Action - do",
       "componentPath": "output/animated-video/Segment2Component.tsx",
-      "scriptPath": "output/animated-video/segment-2-script.txt",
-      "componentCode": "import React from 'react';\nimport { CalloutPattern } from '../.././remotion/patterns/CalloutPattern.tsx';\nimport { useVideoConfig } from 'remotion';\n\nexport const Scene2Component: React.FC = () => {\n  const { fps } = useVideoConfig();\n  \n  const props = {\n  \"format\": \"vertical\",\n  \"headline\": \"Key Point\",\n  \"title\": \"Asynchronous Comm.\",\n  \"body\": \"Asynchronous communication allows team members to work at their own pace, but is it enough?\",\n  \"variant\": \"info\"\n};\n  return (\n    <div style={{\n      width: 1080,\n      height: 1920,\n      backgroundColor: '#ffffff',\n      display: 'flex',\n      alignItems: 'center',\n      justifyContent: 'center',\n    }}>\n      <CalloutPattern {...props} />\n    </div>\n  );\n};\n\nexport default Scene2Component;",
-      "componentSpec": {
-        "componentName": "CalloutPattern",
-        "props": {
-          "format": "vertical",
-          "headline": "Key Point",
-          "title": "Asynchronous Comm.",
-          "body": "Asynchronous communication allows team members to work at their own pace, but is it enough?",
-          "variant": "info"
-        },
-        "validated": true
-      },
-      "timing": {
-        "start": 0,
-        "end": 10
-      },
-      "purpose": "Introduce the concept of asynchronous communication",
-      "content": "Asynchronous communication allows team members to work at their own pace, but is it enough?",
-      "videoSpecs": {
-        "format": "vertical",
-        "dimensions": {
-          "width": 1080,
-          "height": 1920
-        },
-        "fps": 30
-      },
-      "audioPath": "output/animated-video/segment-2-audio.mp3"
+      "scriptPath": "output/animated-video/segment-2-script.txt"
     },
     {
       "segmentNumber": 3,
-      "duration": 10,
-      "ttsScript": "\"Here’s a key insight: simply using asynchronous communication doesn’t automatically boost productivity. It’s about how and when we communicate that truly matters.\"",
+      "duration": 17,
+      "purpose": "To introduce the core strategic conflict between the US focus on AI and China's focus on the physical means of production, the Electric Stack.",
+      "content": "Commoditize the Complement. Make intelligence abundant to strengthen energy/action moats.",
       "componentPath": "output/animated-video/Segment3Component.tsx",
-      "scriptPath": "output/animated-video/segment-3-script.txt",
-      "componentCode": "import React from 'react';\nimport { CalloutPattern } from '../.././remotion/patterns/CalloutPattern.tsx';\nimport { useVideoConfig } from 'remotion';\n\nexport const Scene3Component: React.FC = () => {\n  const { fps } = useVideoConfig();\n  \n  const props = {\n  \"format\": \"vertical\",\n  \"headline\": \"Key Point\",\n  \"title\": \"Callout\",\n  \"body\": \"Studies show that asynchronous communication alone doesn't guarantee higher productivity.\",\n  \"variant\": \"info\"\n};\n  return (\n    <div style={{\n      width: 1080,\n      height: 1920,\n      backgroundColor: '#ffffff',\n      display: 'flex',\n      alignItems: 'center',\n      justifyContent: 'center',\n    }}>\n      <CalloutPattern {...props} />\n    </div>\n  );\n};\n\nexport default Scene3Component;",
-      "componentSpec": {
-        "componentName": "CalloutPattern",
-        "props": {
-          "format": "vertical",
-          "headline": "Key Point",
-          "title": "Callout",
-          "body": "Studies show that asynchronous communication alone doesn't guarantee higher productivity.",
-          "variant": "info"
-        },
-        "validated": true
-      },
-      "timing": {
-        "start": 0,
-        "end": 10
-      },
-      "purpose": "Present the key insight",
-      "content": "Studies show that asynchronous communication alone doesn't guarantee higher productivity.",
-      "videoSpecs": {
-        "format": "vertical",
-        "dimensions": {
-          "width": 1080,
-          "height": 1920
-        },
-        "fps": 30
-      },
-      "audioPath": "output/animated-video/segment-3-audio.mp3"
+      "scriptPath": "output/animated-video/segment-3-script.txt"
     },
     {
       "segmentNumber": 4,
-      "duration": 10,
-      "ttsScript": "\"Be careful! Over-reliance on messages can really lead to confusion. Ambiguity creeps in, and before you know it, miscommunication happens. Stay clear and concise!\"",
+      "duration": 16,
+      "purpose": "To introduce the core strategic conflict between the US focus on AI and China's focus on the physical means of production, the Electric Stack.",
+      "content": "Control energy and action; commoditize intelligence.",
       "componentPath": "output/animated-video/Segment4Component.tsx",
-      "scriptPath": "output/animated-video/segment-4-script.txt",
-      "componentCode": "import React from 'react';\nimport { CalloutPattern } from '../.././remotion/patterns/CalloutPattern.tsx';\nimport { useVideoConfig } from 'remotion';\n\nexport const Scene4Component: React.FC = () => {\n  const { fps } = useVideoConfig();\n  \n  const props = {\n  \"format\": \"vertical\",\n  \"headline\": \"Key Point\",\n  \"title\": \"Callout\",\n  \"body\": \"Over-reliance on messages can lead to ambiguity and miscommunication.\",\n  \"variant\": \"info\"\n};\n  return (\n    <div style={{\n      width: 1080,\n      height: 1920,\n      backgroundColor: '#ffffff',\n      display: 'flex',\n      alignItems: 'center',\n      justifyContent: 'center',\n    }}>\n      <CalloutPattern {...props} />\n    </div>\n  );\n};\n\nexport default Scene4Component;",
-      "componentSpec": {
-        "componentName": "CalloutPattern",
-        "props": {
-          "format": "vertical",
-          "headline": "Key Point",
-          "title": "Callout",
-          "body": "Over-reliance on messages can lead to ambiguity and miscommunication.",
-          "variant": "info"
-        },
-        "validated": true
-      },
-      "timing": {
-        "start": 0,
-        "end": 10
-      },
-      "purpose": "Highlight potential pitfalls",
-      "content": "Over-reliance on messages can lead to ambiguity and miscommunication.",
-      "videoSpecs": {
-        "format": "vertical",
-        "dimensions": {
-          "width": 1080,
-          "height": 1920
-        },
-        "fps": 30
-      },
-      "audioPath": "output/animated-video/segment-4-audio.mp3"
+      "scriptPath": "output/animated-video/segment-4-script.txt"
     },
     {
       "segmentNumber": 5,
-      "duration": 10,
-      "ttsScript": "To boost clarity and collaboration, effective teams blend synchronous and asynchronous methods. This approach ensures everyone stays connected while allowing flexibility. Try it out!",
+      "duration": 17,
+      "purpose": "To introduce the core strategic conflict between the US focus on AI and China's focus on the physical means of production, the Electric Stack.",
+      "content": "China’s energy lead. 2.5x electricity vs US generation",
       "componentPath": "output/animated-video/Segment5Component.tsx",
-      "scriptPath": "output/animated-video/segment-5-script.txt",
-      "componentCode": "import React from 'react';\nimport { CalloutPattern } from '../.././remotion/patterns/CalloutPattern.tsx';\nimport { useVideoConfig } from 'remotion';\n\nexport const Scene5Component: React.FC = () => {\n  const { fps } = useVideoConfig();\n  \n  const props = {\n  \"format\": \"vertical\",\n  \"headline\": \"Key Point\",\n  \"title\": \"Callout\",\n  \"body\": \"Effective teams combine sync and async methods to enhance clarity and collaboration.\",\n  \"variant\": \"info\"\n};\n  return (\n    <div style={{\n      width: 1080,\n      height: 1920,\n      backgroundColor: '#ffffff',\n      display: 'flex',\n      alignItems: 'center',\n      justifyContent: 'center',\n    }}>\n      <CalloutPattern {...props} />\n    </div>\n  );\n};\n\nexport default Scene5Component;",
-      "componentSpec": {
-        "componentName": "CalloutPattern",
-        "props": {
-          "format": "vertical",
-          "headline": "Key Point",
-          "title": "Callout",
-          "body": "Effective teams combine sync and async methods to enhance clarity and collaboration.",
-          "variant": "info"
-        },
-        "validated": true
-      },
-      "timing": {
-        "start": 0,
-        "end": 10
-      },
-      "purpose": "Offer a solution",
-      "content": "Effective teams combine sync and async methods to enhance clarity and collaboration.",
-      "videoSpecs": {
-        "format": "vertical",
-        "dimensions": {
-          "width": 1080,
-          "height": 1920
-        },
-        "fps": 30
-      },
-      "audioPath": "output/animated-video/segment-5-audio.mp3"
-    },
-    {
-      "segmentNumber": 6,
-      "duration": 10,
-      "ttsScript": "\"Are your communication strategies *helping* or *hindering* your remote team's productivity? It’s time to rethink how you connect and collaborate. Let’s elevate your team’s effectiveness!\"",
-      "componentPath": "output/animated-video/Segment6Component.tsx",
-      "scriptPath": "output/animated-video/segment-6-script.txt",
-      "componentCode": "import React from 'react';\nimport { CalloutPattern } from '../.././remotion/patterns/CalloutPattern.tsx';\nimport { useVideoConfig } from 'remotion';\n\nexport const Scene6Component: React.FC = () => {\n  const { fps } = useVideoConfig();\n  \n  const props = {\n  \"format\": \"vertical\",\n  \"headline\": \"Key Point\",\n  \"title\": \"Rethink Communication\",\n  \"body\": \"Are your communication strategies helping or hindering your remote team's productivity?\",\n  \"variant\": \"info\"\n};\n  return (\n    <div style={{\n      width: 1080,\n      height: 1920,\n      backgroundColor: '#ffffff',\n      display: 'flex',\n      alignItems: 'center',\n      justifyContent: 'center',\n    }}>\n      <CalloutPattern {...props} />\n    </div>\n  );\n};\n\nexport default Scene6Component;",
-      "componentSpec": {
-        "componentName": "CalloutPattern",
-        "props": {
-          "format": "vertical",
-          "headline": "Key Point",
-          "title": "Rethink Communication",
-          "body": "Are your communication strategies helping or hindering your remote team's productivity?",
-          "variant": "info"
-        },
-        "validated": true
-      },
-      "timing": {
-        "start": 0,
-        "end": 10
-      },
-      "purpose": "Encourage viewers to rethink their communication strategies",
-      "content": "Are your communication strategies helping or hindering your remote team's productivity?",
-      "videoSpecs": {
-        "format": "vertical",
-        "dimensions": {
-          "width": 1080,
-          "height": 1920
-        },
-        "fps": 30
-      },
-      "audioPath": "output/animated-video/segment-6-audio.mp3"
-    },
-    {
-      "segmentNumber": 7,
-      "duration": 10,
-      "ttsScript": "\"Remember, embracing a balanced approach is key! It’s how we empower our remote team to thrive. Let’s make collaboration and well-being a priority together!\"",
-      "componentPath": "output/animated-video/Segment7Component.tsx",
-      "scriptPath": "output/animated-video/segment-7-script.txt",
-      "componentCode": "import React from 'react';\nimport { TitleSubhead } from '../.././remotion/patterns/TitleSubhead.tsx';\nimport { useVideoConfig } from 'remotion';\n\nexport const Scene7Component: React.FC = () => {\n  const { fps } = useVideoConfig();\n  \n  const props = {\n  \"format\": \"vertical\",\n  \"title\": \"Empower Your Remote Team\",\n  \"subhead\": \"Embrace a balanced approach to foster collaboration and productivity\"\n};\n  return (\n    <div style={{\n      width: 1080,\n      height: 1920,\n      backgroundColor: '#ffffff',\n      display: 'flex',\n      alignItems: 'center',\n      justifyContent: 'center',\n    }}>\n      <TitleSubhead {...props} />\n    </div>\n  );\n};\n\nexport default Scene7Component;",
-      "componentSpec": {
-        "componentName": "TitleSubhead",
-        "props": {
-          "format": "vertical",
-          "title": "Empower Your Remote Team",
-          "subhead": "Embrace a balanced approach to foster collaboration and productivity"
-        },
-        "validated": true
-      },
-      "timing": {
-        "start": 0,
-        "end": 10
-      },
-      "purpose": "Conclude and reinforce message",
-      "content": "Embrace a balanced approach to empower your remote team!",
-      "videoSpecs": {
-        "format": "vertical",
-        "dimensions": {
-          "width": 1080,
-          "height": 1920
-        },
-        "fps": 30
-      },
-      "audioPath": "output/animated-video/segment-7-audio.mp3"
+      "scriptPath": "output/animated-video/segment-5-script.txt"
     }
   ]
 }

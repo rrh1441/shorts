@@ -9,6 +9,7 @@ export const webpackOverride: WebpackOverrideFn = (currentConfiguration) => {
       alias: {
         ...currentConfiguration.resolve?.alias,
         'remotion/ui-components': path.resolve(process.cwd(), 'remotion/ui-components/index.ts'),
+        '@contentfork/remotion-runtime/components': path.resolve(process.cwd(), 'stubs/remotion-runtime-components.tsx'),
       },
     },
     module: {

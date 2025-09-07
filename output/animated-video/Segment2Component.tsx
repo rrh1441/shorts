@@ -1,27 +1,40 @@
 import React from 'react';
-import { ChartReveal } from '../../remotion/patterns/ChartReveal.tsx';
+import { StatRow } from '../.././remotion/patterns/StatRow.tsx';
+import { useVideoConfig } from 'remotion';
 
-const Component: React.FC = () => {
+export const Scene2Component: React.FC = () => {
+  const { fps } = useVideoConfig();
+  
   const props = {
-  "format": "vertical",
-  "headline": "OpenAI vs DeepSeek: challenge window",
-  "data": [
+  "format": "horizontal",
+  "headline": "Three Pillars of Products: Energy - potential, Intelligence - decide, Action - do",
+  "stats": [
     {
-      "label": "OpenAI",
-      "value": 10
+      "label": "Pillar 1",
+      "value": "Energy - potent…"
     },
     {
-      "label": "DeepSeek",
-      "value": 9
+      "label": "Pillar 2",
+      "value": "Intelligence - …"
+    },
+    {
+      "label": "Pillar 3",
+      "value": "Action - do"
     }
-  ],
-  "showValues": true
+  ]
 };
   return (
-    <div style={{ width: 1080, height: 1920, background: props.format==='vertical' ? '#ffffff' : '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <ChartReveal {...props} />
+    <div style={{
+      width: 1920,
+      height: 1080,
+      backgroundColor: '#ffffff',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }}>
+      <StatRow {...props} />
     </div>
   );
-}
+};
 
-export default Component;
+export default Scene2Component;

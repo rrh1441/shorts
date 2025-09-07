@@ -15,6 +15,9 @@ let StatHeroPropsSchema: any, getStatHeroDefaults: any;
 let TitleSubheadPropsSchema: any, getTitleSubheadDefaults: any;
 let CalloutPatternPropsSchema: any, getCalloutPatternDefaults: any;
 let ChartRevealPropsSchema: any, getChartRevealDefaults: any;
+let QuotePullPropsSchema: any, getQuotePullDefaults: any;
+let StatRowPropsSchema: any, getStatRowDefaults: any;
+let TimelinePropsSchema: any, getTimelineDefaults: any;
 
 // Dynamic schema loading
 async function loadSchemas() {
@@ -46,6 +49,18 @@ async function loadSchemas() {
     const chartRevealModule = await import('./remotion/patterns/ChartReveal.schema.ts');
     ChartRevealPropsSchema = chartRevealModule.ChartRevealPropsSchema;
     getChartRevealDefaults = chartRevealModule.getChartRevealDefaults;
+
+    const quotePullModule = await import('./remotion/patterns/QuotePull.schema.ts');
+    QuotePullPropsSchema = quotePullModule.QuotePullPropsSchema;
+    getQuotePullDefaults = quotePullModule.getQuotePullDefaults;
+
+    const statRowModule = await import('./remotion/patterns/StatRow.schema.ts');
+    StatRowPropsSchema = statRowModule.StatRowPropsSchema;
+    getStatRowDefaults = statRowModule.getStatRowDefaults;
+
+    const timelineModule = await import('./remotion/patterns/Timeline.schema.ts');
+    TimelinePropsSchema = timelineModule.TimelinePropsSchema;
+    getTimelineDefaults = timelineModule.getTimelineDefaults;
     
     return true;
   } catch (error) {
@@ -80,6 +95,21 @@ function initializeRegistry() {
       getDefaults: getChartRevealDefaults,
       importPath: './remotion/patterns/ChartReveal.tsx',
     },
+    QuotePull: {
+      schema: QuotePullPropsSchema,
+      getDefaults: getQuotePullDefaults,
+      importPath: './remotion/patterns/QuotePull.tsx',
+    },
+    StatRow: {
+      schema: StatRowPropsSchema,
+      getDefaults: getStatRowDefaults,
+      importPath: './remotion/patterns/StatRow.tsx',
+    },
+    Timeline: {
+      schema: TimelinePropsSchema,
+      getDefaults: getTimelineDefaults,
+      importPath: './remotion/patterns/Timeline.tsx',
+    },
   };
 }
 
@@ -87,7 +117,7 @@ type ComponentName = keyof typeof ComponentRegistry;
 
 // AI Response structure for component selection + props
 const ComponentSelectionSchema = z.object({
-  componentName: z.enum(['StatHero', 'TitleSubhead', 'CalloutPattern', 'ChartReveal']),
+  componentName: z.enum(['StatHero', 'TitleSubhead', 'CalloutPattern', 'ChartReveal', 'QuotePull', 'StatRow', 'Timeline']),
   props: z.any(), // Will be validated against component-specific schema
   reasoning: z.string().optional(), // Why this component was chosen
 });
@@ -146,13 +176,105 @@ export class ComponentOrchestrator {
     await this.ensureInitialized();
     // Step 1: Select component (deterministic mapping, AI backstop only if ambiguous)
     const selectedComponent = await this.selectComponent(scene, videoSpecs, componentPlan);
-    // Step 2: Generate props constrained to the component schema
-    const aiResponse = await this.generatePropsForSelectedComponent(selectedComponent, scene, videoSpecs);
+    // Step 2: Generate props (deterministic mapper by default in NO-AI mode)
+    const preferMapper = String(process.env.ORCHESTRATOR_USE_MAPPER || process.env.NO_AI || '').toLowerCase();
+    let candidate: any;
+    if (preferMapper && ['1','true','yes','mapper'].includes(preferMapper)) {
+      const mapped = await this.generatePropsDeterministic(selectedComponent, scene, videoSpecs);
+      candidate = { componentName: selectedComponent, props: mapped, reasoning: 'deterministic-mapper' };
+    } else {
+      const aiResponse = await this.generatePropsForSelectedComponent(selectedComponent, scene, videoSpecs);
+      candidate = aiResponse;
+    }
     // Step 3: Validate props against component schema
-    const validatedSpec = this.validateComponentProps(aiResponse, scene, videoSpecs);
+    const validatedSpec = this.validateComponentProps(candidate, scene, videoSpecs);
     
     console.log(`✅ Orchestrated ${validatedSpec.componentName} for scene ${scene.sceneNumber}`);
     return validatedSpec;
+  }
+
+  /**
+   * Deterministic props from scene content, no AI.
+   */
+  private async generatePropsDeterministic(
+    componentName: ComponentName,
+    scene: any,
+    videoSpecs: any
+  ): Promise<any> {
+    await this.ensureInitialized();
+    const fmt = (videoSpecs?.format || 'vertical') as 'vertical' | 'square' | 'horizontal';
+    const text: string = String(scene?.content || '').trim();
+    const vo: string = String(scene?.voiceover || '').trim();
+    const oneSentence = (s: string) => {
+      const m = s.match(/^[^.!?\n]{1,200}[.!?]?/);
+      return (m ? m[0] : s).trim();
+    };
+    const clamp = (s: string, n: number) => (s.length > n ? s.slice(0, n - 1) + '…' : s);
+
+    const build = (props: any, schema: any) => schema.parse({ format: fmt, ...props });
+
+    if (componentName === 'TitleSubhead') {
+      const title = clamp(text || vo || 'Title', 120);
+      const subhead = vo ? clamp(oneSentence(vo), 160) : undefined;
+      return build({ title, subhead }, ComponentRegistry.TitleSubhead.schema);
+    }
+
+    if (componentName === 'QuotePull') {
+      const quote = clamp(text || vo || 'Quote', 200);
+      return build({ quote }, ComponentRegistry.QuotePull.schema);
+    }
+
+    if (componentName === 'StatHero') {
+      const num = (text.match(/(\d+[\d.,]*\s?%|\d+(?:\.\d+)?\s?x|\d+(?:\.\d+)?\s?(?:times|weeks?|days?|years?))/i) || [])[0]
+        || (vo.match(/(\d+[\d.,]*\s?%|\d+(?:\.\d+)?\s?x|\d+(?:\.\d+)?\s?(?:times|weeks?|days?|years?))/i) || [])[0]
+        || '—';
+      const cleaned = num.replace(/\s+times/i, '×').replace(/\s+/g, '');
+      const remainder = text.replace(num, '').trim();
+      const label = clamp(remainder || 'Metric', 40);
+      const headline = clamp(oneSentence(vo || text || 'Key Result'), 120);
+      return build({ headline, statLabel: label || 'Metric', statValue: cleaned }, ComponentRegistry.StatHero.schema);
+    }
+
+    if (componentName === 'StatRow') {
+      const afterColon = text.split(':').slice(1).join(':').trim();
+      const raw = afterColon || text;
+      const parts = raw
+        .split(/,|\band\b|\u2014|\n/gi)
+        .map((s: string) => s.replace(/^[\s\-–•]+/, '').trim())
+        .filter(Boolean)
+        .slice(0, 4);
+      const values = parts.length >= 2 ? parts : ['Energy', 'Intelligence', 'Action'];
+      const stats = values.map((v: string, i: number) => ({ label: `Pillar ${i + 1}`, value: clamp(v, 16) }));
+      const headline = clamp(oneSentence(text), 120);
+      return build({ headline, stats }, ComponentRegistry.StatRow.schema);
+    }
+
+    if (componentName === 'ChartReveal') {
+      const pairs: Array<{ label: string; value: number }> = [];
+      const rex = /([A-Za-z][A-Za-z0-9\-\s]{0,12})\s+(\d+(?:\.\d+)?)/g;
+      let m: RegExpExecArray | null;
+      while ((m = rex.exec(text)) && pairs.length < 6) {
+        pairs.push({ label: m[1].trim(), value: Number(m[2]) });
+      }
+      const data = pairs.length >= 2 ? pairs : [
+        { label: 'A', value: 10 },
+        { label: 'B', value: 14 },
+        { label: 'C', value: 18 },
+      ];
+      const headline = clamp(oneSentence(text), 120) || 'Key Trend';
+      return build({ headline, data, showValues: true }, ComponentRegistry.ChartReveal.schema);
+    }
+
+    if (componentName === 'CalloutPattern') {
+      const title = clamp(text.split(/[.!?]/)[0] || text, 60);
+      const body = clamp(vo || text, 200);
+      return build({ headline: undefined, title, body, variant: 'default' }, ComponentRegistry.CalloutPattern.schema);
+    }
+
+    // Fallback to TitleSubhead
+    const title = clamp(text || vo || 'Title', 120);
+    const subhead = vo ? clamp(oneSentence(vo), 160) : undefined;
+    return build({ title, subhead }, ComponentRegistry.TitleSubhead.schema);
   }
   
   /**
@@ -163,10 +285,16 @@ export class ComponentOrchestrator {
     videoSpecs: any,
     componentPlan?: any
   ): Promise<ComponentName> {
+    // Honor storyboard recommendation if provided and valid
+    const rec = scene?.recommendedComponent as string | undefined;
+    if (rec && rec in ComponentRegistry) return rec as ComponentName;
     const vt = String(scene?.visualType || '').toLowerCase();
     if (vt === 'statistic') return 'StatHero';
     if (vt === 'chart') return 'ChartReveal';
     if (vt === 'text-animation' || vt === 'title' || vt === 'headline') return 'TitleSubhead';
+    if (vt === 'quote') return 'QuotePull';
+    if (vt === 'list' || vt === 'comparison') return 'StatRow';
+    if (vt === 'timeline' || /timeline|sequence|process/i.test(String(scene?.purpose||''))) return 'Timeline';
     // If ambiguous, ask AI for a choice among known components
     const { OpenAI } = await import('openai');
     const openai = new OpenAI({
@@ -197,6 +325,12 @@ export class ComponentOrchestrator {
     if (!schema) throw new Error(JSON.stringify({ code: 'SCHEMA_MISSING', message: `No schema for ${String(componentName)}` }));
     const jsonSchema = zodToJsonSchema(schema, `${String(componentName)}Props`);
     const defaults = component.getDefaults ? component.getDefaults() : {};
+
+    // Fail-closed/No-AI mode for testing or offline runs
+    const useDefaults = String(process.env.ORCHESTRATOR_USE_DEFAULTS || process.env.NO_AI || '').toLowerCase();
+    if (useDefaults && ['1','true','yes','defaults'].includes(useDefaults)) {
+      return { componentName, props: defaults, reasoning: 'defaults' };
+    }
 
     const { OpenAI } = await import('openai');
     const openai = new OpenAI({
@@ -284,6 +418,8 @@ export default Scene${scene.sceneNumber}Component;`;
     const format = videoSpecs?.format || 'vertical';
     const clone = { ...(props || {}) };
     const set = (k: string, v: any) => { clone[k] = v; };
+    // Always enforce pattern format to match the composition
+    set('format', format);
     // Preset container sizes
     const sizes = {
       vertical: { width: 980, statHeight: 600, calloutHeight: 340, valueSize: 80, labelSize: 28, titleSize: 48 },
@@ -316,6 +452,7 @@ export default Scene${scene.sceneNumber}Component;`;
     }
 
     if (componentName === 'AnimatedText') {
+      set('format', undefined);
       set('textAlign', 'center');
       const minSize = format === 'vertical' ? 72 : format === 'square' ? 60 : 48;
       set('fontSize', Math.max(minSize, Number(clone.fontSize || 0)) || minSize);
@@ -326,6 +463,18 @@ export default Scene${scene.sceneNumber}Component;`;
         set('direction', 'up');
       }
       set('durationInFrames', Math.max(90, Number(clone.durationInFrames || 0)) || 120);
+    }
+
+    // Pattern-specific minor guards (optional)
+    if (componentName === 'ChartReveal') {
+      // Ensure minimal dataset
+      if (!Array.isArray(clone.data) || clone.data.length < 2) {
+        set('data', [
+          { label: 'A', value: 10 },
+          { label: 'B', value: 14 },
+          { label: 'C', value: 18 },
+        ]);
+      }
     }
 
     return clone;
