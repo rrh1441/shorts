@@ -1,9 +1,0 @@
-{
-  "componentName": "TitleSubhead",
-  "props": {
-    "format": "vertical",
-    "title": "Empower Your Remote Team",
-    "subhead": "Embrace a balanced approach to foster collaboration and productivity"
-  },
-  "validated": true
-}

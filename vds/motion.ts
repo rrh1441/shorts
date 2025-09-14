@@ -281,4 +281,4 @@ function applyEasing(
   }
 }
 
-export { MOTION_PRESETS, FRAME_TIMING, CAMERA_DRIFT };
+// Exports already declared above with individual export statements
