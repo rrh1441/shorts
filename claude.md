@@ -1,4 +1,37 @@
-Below is a **comprehensive PRD** you can hand to your agent to (1) review the existing Remotion-based tool and (2) update it to a **story‑first, VO‑led** system with **60–90s micro‑explainers** and **30s stand‑alone clips**, while preserving your ability to mass‑generate videos from whitepapers and transcripts.
+# VO-Led Video Generator - Implementation Status
+
+## Current Status: Phase 1 Foundation Complete (Partial)
+
+⚠️ **Note**: Phase 1 generates JSON scene specifications but does not yet render actual MP4 videos.
+
+### ✅ Completed (Phase 1)
+- **VO-First Pipeline**: `ingest → synthesize → script → plan` commands working
+- **Word Budget Enforcement**: 30s/60s/75s/90s format constraints
+- **Video Design System**: Tokens, primitives, motion grammar implemented
+- **Scene DSL**: New VideoDoc schema with stable IDs
+- **Enhanced Linting**: Narrative, pacing, design, evidence validation
+- **TTS Integration**: Sentence-level timing extraction with caching
+
+### 🚧 In Progress (Next Steps)
+- **VideoDoc-to-Remotion mapper**: Convert scene JSON to renderable JSX
+- **Render integration**: Update render commands for VO-led pipeline
+- **VDS primitive rendering**: Wire up visual elements to actual output
+- **End-to-end testing**: Complete `ingest → render → MP4` flow
+- **Video verification**: Ensure generated MP4s play correctly
+
+### 📋 Test Results (JSON Generation Only)
+```bash
+npm run ingest test-content.md     # ✅ Creates ingest.json + provenance.json
+npm run synthesize                 # ✅ Creates brief.json (ProblemTurnProof arc)
+npm run script                     # ✅ Creates vo.json (123 words, 6 scenes)
+npm run plan:new                   # ✅ Creates videoDoc.json + lint-report.json
+```
+
+**Output**: 70s video specification with proper narrative structure, timing cues, and quality validation.
+
+---
+
+Below is the **comprehensive PRD** for the complete system transformation:
 
 ---
 
