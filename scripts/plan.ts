@@ -9,6 +9,7 @@
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { VisualPlanSchema } from '../shared/visual-plan';
 
 type Scene = {
   sceneNumber: number;
@@ -47,6 +48,35 @@ function lintScenes(scenes: Scene[]) {
   return { issues, warnings };
 }
 
+function lintVisualPlan(plan: any) {
+  const issues: string[] = [];
+  const warnings: string[] = [];
+  try {
+    const parsed = VisualPlanSchema.parse(plan);
+    // Guardrails (non-prescriptive): density, text budget, duration
+    parsed.beats.forEach((b, i) => {
+      const idx = i + 1;
+      if (b.durationSec < 3) warnings.push(`Beat ${idx}: duration ${b.durationSec}s is short (<3s).`);
+      if (b.durationSec > 20) warnings.push(`Beat ${idx}: duration ${b.durationSec}s is long (>20s).`);
+      // Text budget
+      const labels = b.anchors?.labels?.length || 0;
+      const title = b.anchors?.title?.length || 0;
+      const sub = b.anchors?.sub?.length || 0;
+      const metric = b.anchors?.metric ? 1 : 0;
+      const chart = b.anchors?.chartData ? 1 : 0;
+      const focalCount = (metric ? 1 : 0) + (chart ? 1 : 0) + (labels > 0 ? 1 : 0) + (title ? 1 : 0);
+      if (focalCount > 3) issues.push(`Beat ${idx}: too many focal anchors (${focalCount} > 3).`);
+      if (labels > 4) warnings.push(`Beat ${idx}: labels > 4 may be dense.`);
+      if (title > 60) warnings.push(`Beat ${idx}: title is long (>60 chars).`);
+      if (sub > 90) warnings.push(`Beat ${idx}: sub is long (>90 chars).`);
+    });
+    return { issues, warnings, ok: issues.length === 0 };
+  } catch (e: any) {
+    issues.push(`VisualPlan invalid: ${e?.message || String(e)}`);
+    return { issues, warnings, ok: false };
+  }
+}
+
 async function writeReport(report: any) {
   const outDir = path.join(process.cwd(), 'output');
   await fs.mkdir(outDir, { recursive: true });
@@ -60,7 +90,18 @@ async function main() {
   try {
     const data = await loadJson(specPath);
     const scenes: Scene[] = data.scenes ?? data.narrative?.scenes ?? [];
-    const { issues, warnings } = lintScenes(scenes);
+    let issues: string[] = [];
+    let warnings: string[] = [];
+    if (Array.isArray(scenes) && scenes.length) {
+      const r = lintScenes(scenes);
+      issues = issues.concat(r.issues);
+      warnings = warnings.concat(r.warnings);
+    }
+    if (data.visualPlan) {
+      const r2 = lintVisualPlan(data.visualPlan);
+      issues = issues.concat(r2.issues);
+      warnings = warnings.concat(r2.warnings);
+    }
 
     const totalDuration = scenes.reduce((acc, s) => acc + (s.duration || 0), 0);
     const report = {
@@ -68,6 +109,7 @@ async function main() {
       summary: {
         scenes: scenes.length,
         totalDurationSeconds: totalDuration,
+        hasVisualPlan: Boolean(data.visualPlan),
       },
       issues,
       warnings,
@@ -85,4 +127,3 @@ async function main() {
 }
 
 main();
-

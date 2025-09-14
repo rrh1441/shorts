@@ -20,8 +20,14 @@
     "timings:apply": "tsx scripts/apply-timings.ts",
     "timings:export": "tsx scripts/export-timings.ts",
     "gen:component": "tsx scripts/gen-component.ts",
+    "wrap:external": "tsx scripts/wrap-external.ts",
     "dev": "npm run generate",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "ingest": "tsx scripts/ingest.ts",
+    "synthesize": "tsx scripts/synthesize.ts",
+    "script": "tsx scripts/script.ts",
+    "plan:new": "tsx scripts/plan-new.ts",
+    "vo:pipeline": "npm run ingest && npm run synthesize && npm run script && npm run plan:new"
   },
   "dependencies": {
     "@contentfork/remotion-runtime": "^0.3.1-beta.1",
