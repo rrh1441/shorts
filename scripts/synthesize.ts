@@ -12,10 +12,10 @@ import { NarrativeBriefGenerator, Arc, NarrativeBrief } from '../shared/narrativ
 
 async function main() {
   const inputPath = process.argv[2] || './output/ingest.json';
-  const outputDir = path.dirname(inputPath);
+  const outputDir = process.argv[3] ? process.argv[3] : path.dirname(inputPath);
   
-  // Parse arguments
-  const args = process.argv.slice(3);
+  // Parse arguments (skip outputDir if provided)
+  const args = process.argv.slice(outputDir !== path.dirname(inputPath) ? 4 : 3);
   const arcArg = args.find(arg => arg.startsWith('--arc='))?.split('=')[1] as Arc;
   const durationArg = args.find(arg => arg.startsWith('--duration='))?.split('=')[1];
   

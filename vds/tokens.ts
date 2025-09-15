@@ -192,7 +192,7 @@ export const TIMING = {
 } as const;
 
 // Utility functions for token access
-export function getSafeArea(aspect: keyof typeof SAFE_AREAS, dimension: 'width' | 'height') {
+export function getSafeArea(aspect: keyof typeof SAFE_AREAS) {
   const dims = DIMENSIONS[aspect];
   const safe = SAFE_AREAS[aspect];
   

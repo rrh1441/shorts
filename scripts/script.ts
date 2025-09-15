@@ -12,10 +12,10 @@ import { VOScriptGenerator, FormatBudget, WORD_BUDGETS } from '../shared/vo-scri
 
 async function main() {
   const inputPath = process.argv[2] || './output/brief.json';
-  const outputDir = path.dirname(inputPath);
+  const outputDir = process.argv[3] ? process.argv[3] : path.dirname(inputPath);
   
-  // Parse arguments
-  const args = process.argv.slice(3);
+  // Parse arguments (skip outputDir if provided)
+  const args = process.argv.slice(outputDir !== path.dirname(inputPath) ? 4 : 3);
   const budgetArg = args.find(arg => arg.startsWith('--budget='))?.split('=')[1];
   
   // Determine format budget
@@ -58,11 +58,21 @@ async function main() {
     
     // Validate script
     const validation = generator.validateScript(voScript, format);
-    if (!validation.valid) {
+    // Enforce word budget as a hard gate
+    const within = voScript.withinBudget;
+    if (!validation.valid || !within) {
       console.error('❌ Script validation failed:');
       validation.issues.forEach(issue => console.error(`   - ${issue}`));
+      if (!within) {
+        const b = WORD_BUDGETS[format];
+        const delta = voScript.totalWords - (voScript.totalWords > b.max ? b.max : b.min);
+        console.error(`   - Word budget violation: ${voScript.totalWords} words (target ${b.min}-${b.max}). ${voScript.totalWords > b.max ? 'Remove' : 'Add'} ~${Math.abs(delta)} words.`);
+      }
       console.log('💡 Suggestions:');
       validation.suggestions.forEach(suggestion => console.log(`   - ${suggestion}`));
+      if (!within) {
+        console.log(`   - Adjust VO to meet ${format} budget and retry.`);
+      }
       process.exit(1);
     }
     

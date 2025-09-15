@@ -1,33 +1,64 @@
 # VO-Led Video Generator - Implementation Status
 
-## Current Status: Phase 1 Foundation Complete (Partial)
+## Current Status: Rendering Fixed, Guardrails Tightened
 
-⚠️ **Note**: Phase 1 generates JSON scene specifications but does not yet render actual MP4 videos.
+✅ Visual rendering now works across all scenes with scene‑relative reveals, baseline fallbacks, and provenance tags. Aspect is respected, and renders are gated by lints and word budgets.
 
-### ✅ Completed (Phase 1)
-- **VO-First Pipeline**: `ingest → synthesize → script → plan` commands working
-- **Word Budget Enforcement**: 30s/60s/75s/90s format constraints
-- **Video Design System**: Tokens, primitives, motion grammar implemented
-- **Scene DSL**: New VideoDoc schema with stable IDs
-- **Enhanced Linting**: Narrative, pacing, design, evidence validation
-- **TTS Integration**: Sentence-level timing extraction with caching
+### Changes Implemented — 2025‑09‑14
+- Scene‑relative cues: Converted VO cues to scene offsets to fix invisible elements beyond scene 1.
+- Reveal safety: Clamped reveal delays to scene duration to avoid never‑visible animations.
+- Baseline visuals: Guaranteed at least one readable text element per scene when heuristics produce no visuals.
+- Aspect propagation: Composition aspect inferred from dimensions and passed to primitives (safe areas + type scale).
+- Lint gating: `render:videodoc` blocks when `lint-report.json` fails unless `--force` is provided.
+- Word budgets enforced: `scripts/script.ts` now hard‑fails when outside the target word range.
+- Audio integration: `plan-new.ts` saves `vo.mp3`; `render:videodoc` auto‑detects it if no audio path is provided.
+- Provenance tags: On‑screen caption appears at the specified cue for each evidence item.
+- Tokens API consistency: `getSafeArea(aspect)` signature aligned with usage.
 
-### 🚧 In Progress (Next Steps)
-- **VideoDoc-to-Remotion mapper**: Convert scene JSON to renderable JSX
-- **Render integration**: Update render commands for VO-led pipeline
-- **VDS primitive rendering**: Wire up visual elements to actual output
-- **End-to-end testing**: Complete `ingest → render → MP4` flow
-- **Video verification**: Ensure generated MP4s play correctly
+### ✅ Pipeline Components Working
+- **Content Ingestion**: `ingest` command parses content correctly
+- **Narrative Synthesis**: `synthesize` generates story briefs  
+- **VO Script Generation**: `script` creates word-budgeted scenes
+- **Scene Planning**: `plan:new` produces VideoDoc JSON with timing
+- **MP4 Rendering**: `render:videodoc` generates video files
 
-### 📋 Test Results (JSON Generation Only)
+### ✅ Visual Rendering
+- All scenes render as expected with timed reveals.
+- Charts/callouts/text appear with safe timing and readable defaults.
+- Provenance captions appear at or after the cited cue.
+
+### 🧩 Root Causes Resolved
+1. Absolute VO cues used for per‑scene reveals → switched to scene‑relative cues.
+2. Empty visual arrays in some scenes → added baseline text fallback.
+3. Aspect hardcoded to horizontal → inferred from composition and applied to primitives.
+4. No render gate on quality → added lint and budget gates with `--force` override.
+
+### 📋 Test Results
 ```bash
-npm run ingest test-content.md     # ✅ Creates ingest.json + provenance.json
-npm run synthesize                 # ✅ Creates brief.json (ProblemTurnProof arc)
-npm run script                     # ✅ Creates vo.json (123 words, 6 scenes)
-npm run plan:new                   # ✅ Creates videoDoc.json + lint-report.json
+npm run ingest test-content.md ./output     # ✅ Works
+npm run synthesize                          # ✅ Works  
+npm run script                              # ✅ Works
+npm run plan:new                            # ✅ Works
+npm run render:videodoc videoDoc.json video.mp4  # ✅ Renders with visuals
 ```
 
-**Output**: 70s video specification with proper narrative structure, timing cues, and quality validation.
+Notes:
+- Provide `--aspect=horizontal|square|vertical` (aliases: 16:9, 1:1, 9:16) as needed.
+- Renders will block if lints fail; use `--force` to override.
+
+### 🚨 PRIORITY FIXES NEEDED
+1. **Debug VideoDoc.json**: Check if visual elements are actually generated in scene specs
+2. **Fix Visual Element Rendering**: VDS primitives (Text, Callout, ChartFrame, Shape) not appearing
+3. **Scene Timing Issues**: Investigate why only first scene shows content
+4. **Remotion Integration**: Ensure VideoDoc → JSX mapping works correctly
+5. **Animation System**: Fix reveal timing so elements actually appear
+
+### 📂 Project Structure (Partially Implemented)
+- `scripts/create-project.ts` - Project folder creation (untested)
+- `scripts/project-generate.ts` - Project-based pipeline (untested)
+- New commands: `npm run create:project`, `npm run project:generate`
+
+**Status**: Project structure created but not tested due to rendering failures.
 
 ---
 

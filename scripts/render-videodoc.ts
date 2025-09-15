@@ -20,10 +20,16 @@ async function main() {
   
   // Parse arguments
   const args = process.argv.slice(5);
-  const aspectArg = args.find(arg => arg.startsWith('--aspect='))?.split('=')[1] as 'horizontal' | 'square' | 'vertical';
+  const aspectRaw = args.find(arg => arg.startsWith('--aspect='))?.split('=')[1] || '';
   const qualityArg = args.find(arg => arg.startsWith('--quality='))?.split('=')[1];
+  const force = args.includes('--force');
   
-  const aspect = aspectArg || 'horizontal';
+  const aspectMap: Record<string, 'horizontal' | 'square' | 'vertical'> = {
+    'horizontal': 'horizontal', '16:9': 'horizontal', 'landscape': 'horizontal',
+    'square': 'square', '1:1': 'square',
+    'vertical': 'vertical', '9:16': 'vertical', 'portrait': 'vertical'
+  };
+  const aspect = (aspectMap[aspectRaw] || 'horizontal') as 'horizontal' | 'square' | 'vertical';
   const quality = parseInt(qualityArg || '1'); // 1 = high quality
   
   try {
@@ -35,8 +41,27 @@ async function main() {
     
     // Load VideoDoc
     const videoDoc: VideoDoc = JSON.parse(await fs.readFile(videoDocPath, 'utf-8'));
+
+    // Lint gating: block render if lint-report exists and failed, unless --force
+    try {
+      const lintPath = path.join(path.dirname(videoDocPath), 'lint-report.json');
+      const lintExists = await fs
+        .access(lintPath)
+        .then(() => true)
+        .catch(() => false);
+      if (lintExists) {
+        const lintReport = JSON.parse(await fs.readFile(lintPath, 'utf-8'));
+        if (!lintReport.passed && !force) {
+          console.error('❌ Lint gates failed. Fix issues or re-run with --force to override.');
+          console.error(lintReport.summary || 'See lint-report.json for details.');
+          process.exit(1);
+        }
+      }
+    } catch (e) {
+      // Non-blocking
+    }
     
-    // Verify audio file exists if provided
+    // Verify audio file exists if provided, else auto-detect saved narration (vo.mp3)
     let audioSrc: string | undefined;
     if (audioPath) {
       try {
@@ -45,6 +70,16 @@ async function main() {
         console.log(`✅ Audio file found: ${audioSrc}`);
       } catch {
         console.warn(`⚠️  Audio file not found: ${audioPath}, rendering without audio`);
+      }
+    } else {
+      const candidate = path.join(path.dirname(videoDocPath), 'vo.mp3');
+      const exists = await fs
+        .access(candidate)
+        .then(() => true)
+        .catch(() => false);
+      if (exists) {
+        audioSrc = path.resolve(candidate);
+        console.log(`🎧 Using detected narration audio: ${audioSrc}`);
       }
     }
     

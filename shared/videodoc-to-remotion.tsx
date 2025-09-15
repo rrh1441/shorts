@@ -66,10 +66,10 @@ interface SceneComponentProps {
  */
 const SceneComponent: React.FC<SceneComponentProps> = ({ scene, story }) => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const { fps, width, height } = useVideoConfig();
   
-  // Convert aspect ratio to dimensions
-  const aspect = 'horizontal'; // TODO: Get from story or config
+  // Infer aspect from composition dimensions
+  const aspect: 'horizontal' | 'vertical' | 'square' = width === height ? 'square' : width > height ? 'horizontal' : 'vertical';
   const totalFrames = Math.round(((scene.durationMs || 0) / 1000) * fps);
   
   return (
@@ -90,9 +90,25 @@ const SceneComponent: React.FC<SceneComponentProps> = ({ scene, story }) => {
             frame={frame}
             totalFrames={totalFrames}
             visualIndex={index}
+            aspect={aspect}
           />
         ))}
       </Stack>
+      {/* Provenance tags overlay */}
+      {scene.evidence?.map((ev, i) => {
+        const cueFrame = getCueDelayFrames(scene, ev.atCue, fps);
+        const label = story.provenance?.find(p => p.id === ev.provId)?.label || ev.provId;
+        return (
+          <div
+            key={`prov-${scene.id}-${i}`}
+            style={{ position: 'absolute', bottom: 24, right: 24 }}
+          >
+            <Text role="caption" align="right" motion="standard" delay={cueFrame} frame={frame} totalFrames={totalFrames}>
+              {label}
+            </Text>
+          </div>
+        );
+      })}
     </Surface>
   );
 };
@@ -103,6 +119,7 @@ interface VisualElementProps {
   frame: number;
   totalFrames: number;
   visualIndex: number;
+  aspect: 'horizontal' | 'vertical' | 'square';
 }
 
 /**
@@ -117,7 +134,8 @@ const VisualElement: React.FC<VisualElementProps> = ({
 }) => {
   // Calculate reveal timing based on VO cues
   const revealDelay = getRevealDelay(scene, visualIndex);
-  const effectiveFrame = Math.max(0, frame - revealDelay);
+  const clampedDelay = Math.max(0, Math.min(revealDelay, Math.max(0, totalFrames - 1)));
+  const effectiveFrame = Math.max(0, frame - clampedDelay);
   
   switch (element.kind) {
     case 'TEXT':
@@ -125,10 +143,11 @@ const VisualElement: React.FC<VisualElementProps> = ({
         <Text
           role={element.role}
           motion="standard"
-          delay={revealDelay}
+          delay={clampedDelay}
           frame={frame}
           totalFrames={totalFrames}
           align="center"
+          aspect={aspect}
         >
           {element.text}
         </Text>
@@ -139,7 +158,7 @@ const VisualElement: React.FC<VisualElementProps> = ({
         <Callout
           variant="accent"
           motion="emphasis"
-          delay={revealDelay}
+          delay={clampedDelay}
           frame={frame}
           totalFrames={totalFrames}
         >
@@ -155,7 +174,7 @@ const VisualElement: React.FC<VisualElementProps> = ({
           focalPoint={element.focalPoint}
           mask={element.mask}
           motion="standard"
-          delay={revealDelay}
+          delay={clampedDelay}
           frame={frame}
           totalFrames={totalFrames}
           style={{ maxWidth: '60%', maxHeight: '40%' }}
@@ -169,7 +188,7 @@ const VisualElement: React.FC<VisualElementProps> = ({
           data={element.data}
           emphasize={element.emphasize}
           motion="emphasis"
-          delay={revealDelay}
+          delay={clampedDelay}
           frame={frame}
           totalFrames={totalFrames}
         />
@@ -183,7 +202,7 @@ const VisualElement: React.FC<VisualElementProps> = ({
           opacity={element.opacity}
           seed={element.seed}
           motion="gentle"
-          delay={revealDelay}
+          delay={clampedDelay}
           frame={frame}
           totalFrames={totalFrames}
         />
@@ -208,6 +227,14 @@ function getRevealDelay(scene: Scene, visualIndex: number): number {
   
   // Convert to frames (assuming 30fps)
   return Math.round((cueTimeMs / 1000) * 30);
+}
+
+/** Get cue delay in frames for a given cue index */
+function getCueDelayFrames(scene: Scene, cueIndex: number, fps: number): number {
+  const cues = scene.voiceover.cues;
+  if (!cues || cues.length === 0) return 0;
+  const idx = Math.max(0, Math.min(cueIndex, cues.length - 1));
+  return Math.round((cues[idx] / 1000) * fps);
 }
 
 /**

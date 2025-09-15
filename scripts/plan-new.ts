@@ -361,6 +361,14 @@ async function main() {
       console.log('🔊 Generating TTS timing...');
       const ttsExtractor = new TTSTimingExtractor(process.env.OPENAI_API_KEY);
       ttsTimings = await ttsExtractor.generateWithTiming(voScript);
+      // Persist TTS audio for downstream render
+      try {
+        const audioOut = path.join(outputDir, 'vo.mp3');
+        await fs.writeFile(audioOut, ttsTimings.audioBuffer);
+        console.log(`   🎧 Saved narration audio: ${audioOut}`);
+      } catch (err) {
+        console.warn('⚠️  Failed to save narration audio:', (err as Error).message);
+      }
     } else {
       console.warn('⚠️  No OpenAI key, using estimated timing');
       ttsTimings = {

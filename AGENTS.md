@@ -6,6 +6,52 @@ A Remotion-powered system where agents orchestrate prebuilt UI components by gen
 
 ---
 
+## Agent Handoff — Options & Next Steps (2025‑09‑15)
+
+Two viable directions for the next implementation sprint. Pick A or B.
+
+- Option A — Visual polish first
+  - Layout shell: format‑aware safe margins, top spacing, grid container.
+  - Type scale enforcement: minimum readable sizes per aspect; line‑length guard.
+  - Theme packs: add MinimalEditorial and GradientGlass with a simple switch.
+  - Acceptance: all scenes render within safe area; text sizes ≥ minimum per aspect; theme switch changes look without content changes.
+
+- Option B — Ops/features first
+  - JSON Patch: RFC 6902 patching of VideoDoc with CLI and reversal.
+  - Clip extraction: implement ClipScore + T1–T5 templates from transcripts.
+  - Determinism: hash‑stable outputs; cache hits for unchanged inputs.
+  - Acceptance: patches apply/rollback idempotently; top‑N clips generated with VO and scenes; cached TTS reused.
+
+Decision needed
+- Choose Option A or B to start. For A: confirm brand colors/fonts if any. For B: confirm transcript schema and patch review workflow.
+
+What’s already fixed (ready today)
+- Scene‑relative VO cues and reveal clamping to avoid invisible elements.
+- Baseline visuals per scene (never an empty frame).
+- Aspect propagation to primitives (horizontal/square/vertical safe areas + type scale).
+- Word budget hard gate in `script`; lint gate in `render:videodoc` (override with `--force`).
+- Provenance captions at cited cues; narration audio auto‑detected (`vo.mp3`).
+
+VO‑Led Pipeline (current default)
+- Ingest → Brief → VO Script (budgeted) → TTS/Timing → VideoDoc → Lint → Render
+- Commands:
+  - `npm run ingest <input> [./output]`
+  - `npm run synthesize`
+  - `npm run script` (fails when outside budget)
+  - `npm run plan:new` (saves `vo.mp3`, writes `videoDoc.json` + `lint-report.json`)
+  - `npm run render:videodoc ./output/videoDoc.json ./output/video.mp4 --aspect=horizontal|square|vertical [--force]`
+
+Legacy Component‑Orchestrator Path (kept for specific uses)
+- Use when you need to target `remotion/patterns` and schema’d components with AI‑generated props. Prefer the VO‑led pipeline for end‑to‑end explainers.
+
+Next steps checklist (fill based on chosen option)
+- A/1: Implement format‑aware layout shell across scenes
+- A/2: Enforce min type scale per aspect in primitives
+- A/3: Add theme packs and a selection flag
+- B/1: Implement RFC 6902 patching + CLI
+- B/2: Add ClipScore + T1–T5 clip templates and CLI
+- B/3: Wire caching to TTS/assets and surface cache stats
+
 ## How Agents Operate
 
 1. Extract insights → Build a single source of truth (UniversalInsights).
@@ -129,33 +175,19 @@ Current registry (curated for reliability):
 
 ---
 
-Updated 2025‑08‑31
+Updated 2025‑09‑15
 
 ---
 
-## Status Update — 2025‑08‑31
+## Status Update — 2025‑09‑15
 
 What improved
-- Headline: Each generated scene now renders a bold headline from scene content before the main component.
-- Fallbacks: When AI props fail validation, we extract usable stats/text from the scene instead of showing sample defaults.
-- End‑to‑end: Generation, per‑scene TTS, and rendering work with stable scripts.
+- Scene reveals align to scene‑relative cues; no invisible scenes.
+- Baseline visuals added; every scene shows at least one readable element.
+- Aspect applied end‑to‑end (tokens/safe areas/typography).
+- Word budgets and lint gates enforced; render supports `--force`.
+- Provenance captions render at cited cues; narration auto‑detected.
 
-What’s still wrong (root causes)
-- Rules not enforced: Format presets, minimum font sizes, and safe margins exist in docs but are not hard‑coded in the render path.
-- Web‑scale defaults: On validation failure, defaults (e.g., 800×400, 24–32px text) are merged in a 1080×1920 frame → tiny, illegible blocks.
-- No frame layout: The wrapper lacks a format‑aware page layout (top margin, content grid), so content floats.
-- Lax error handling: Bad props (e.g., animationType "fadeIn") silently fall back instead of re‑planning or failing closed.
-- No QA pass: There’s no legibility/readability lint that adjusts or rejects a scene before render.
-
-What we will enforce next
-- Format presets: Hard constants per orientation for container sizes, spacing, and component scale; remove raw width/height decisions from AI.
-- Type scale: Minimum readable font sizes per format (headline/body), with enforced line‑length and dwell‑time.
-- Safe margins: Fixed gutters and top spacing; components mount inside a layout shell, not the canvas center.
-- Fail‑closed policy: Invalid enums/props trigger deterministic re‑planning or hard failure instead of weak defaults.
-- QA lint: A pre‑render check that flags/adjusts undersized text and cramped layouts.
-
-Why it regressed
-- We prioritized getting an end‑to‑end path running and left the guardrails as guidance instead of code. That allowed visually poor but technically “valid” renders.
-
-Action
-- Enforce the above in the generator/wrapper, not just the components. Once approved, I’ll implement these constraints and re‑render the full set.
+Still to do (choose A or B above)
+- Layout shell, type scale enforcement, and theme packs (A).
+- JSON Patch workflow, clip extraction, and caching polish (B).

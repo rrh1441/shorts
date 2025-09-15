@@ -29,7 +29,9 @@
     "plan:new": "tsx scripts/plan-new.ts",
     "render:videodoc": "tsx scripts/render-videodoc.ts",
     "vo:pipeline": "npm run ingest && npm run synthesize && npm run script && npm run plan:new",
-    "vo:render": "npm run vo:pipeline && npm run render:videodoc"
+    "vo:render": "npm run vo:pipeline && npm run render:videodoc",
+    "create:project": "tsx scripts/create-project.ts",
+    "project:generate": "tsx scripts/project-generate.ts"
   },
   "dependencies": {
     "@contentfork/remotion-runtime": "^0.3.1-beta.1",

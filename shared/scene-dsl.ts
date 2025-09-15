@@ -130,7 +130,8 @@ export class VideoDocGenerator {
         role: this.inferSceneRole(voScene.id, i),
         voiceover: {
           text: voScene.text,
-          cues: timing.sentences.map((s: any) => s.start)
+          // Scene-relative cues: convert absolute ms to offsets within this scene
+          cues: timing.sentences.map((s: any) => Math.max(0, s.start - (timing.start || 0)))
         },
         visuals: await this.generateVisuals(voScene, timing),
         evidence: this.extractEvidence(voScene.evidenceTokens),
@@ -196,6 +197,15 @@ export class VideoDocGenerator {
           kind: 'CALLOUT',
           text: step
         });
+      });
+    }
+    
+    // Fallback: ensure at least one readable text element per scene
+    if (elements.length === 0) {
+      elements.push({
+        kind: 'TEXT',
+        role: 'body',
+        text: this.extractTitle(voScene.text)
       });
     }
     
